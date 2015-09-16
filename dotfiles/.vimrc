@@ -32,4 +32,3 @@ map L :tabnext
 map <space> 
 
 colors elflord
-

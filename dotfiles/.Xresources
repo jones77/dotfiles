@@ -2,6 +2,8 @@ xterm*faceName: DejaVu Sans Mono Book
 xterm*faceSize: 14
 xterm*loginshell: true
 xterm*savelines: 65536
+xterm*toolBar: off
+xterm*geometry: 80x50
 
 ! double-click to select URLs
 xterm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
