@@ -26,8 +26,8 @@ set guifont=Dina:h8
 
 " Tabs => :T => new tab, H => left, L => right
 command! -nargs=? T :tabnew 
-map H :tabprev
-map L :tabnext
+map H :tabprev<return>
+map L :tabnext<return>
 
 map <space> 
 
