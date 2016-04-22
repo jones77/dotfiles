@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# intended to be sourced from your favourite login shell
+#   . ~/.profile.ext
+
+echo running .profile.ext
+
+# standard
+export EDITOR=vim
+PATH=~/bin:$PATH
+
+# fun
+fortune.sh fortune
+
+# aliases
+alias cp="cp -i"
+alias mv="mv -i"
+alias rm="rm -i"
+alias f="fortune.sh"
