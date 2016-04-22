@@ -1,2 +1,3 @@
-# j77_scripts
-Some Shitty Scripts
+# dotfiles
+
+Your mileage may vary.
