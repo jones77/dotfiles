@@ -17,7 +17,7 @@ string_limit=5  # Number of unique characters
 # strip leading space
 # strip trailing space
 # reduce multiple spaces to a single space
-# and then do the same for 3-or more repeated words
+# and then do the same for 3-or more repeated letters
 # 
 # delete blank lines
 cat ${local_file} | sed \
