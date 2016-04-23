@@ -17,3 +17,5 @@ alias cp="cp -i"
 alias mv="mv -i"
 alias rm="rm -i"
 alias f="fortune.sh"
+
+date
