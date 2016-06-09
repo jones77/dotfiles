@@ -4,6 +4,7 @@ xterm*loginshell: true
 xterm*savelines: 65536
 xterm*toolBar: off
 xterm*geometry: 80x50
+xterm*termName: xterm-256color
 
 ! double-click to select URLs
 xterm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
@@ -15,8 +16,7 @@ xterm*scrollBar: false
 ! stop output to terminal from jumping down to bottom of scroll again
 xterm*scrollTtyOutput: false
 ! select pastes to the motherfucking clipboard
-xterm*selectToClipboard: true
-
+! xterm*selectToClipboard: true
 
 ! From https://unix4lyfe.org/xterm/
 ! DOS-box colours
@@ -38,6 +38,7 @@ xterm*color12: rgb:54/54/fc
 xterm*color13: rgb:fc/54/fc
 xterm*color14: rgb:54/fc/fc
 xterm*color15: rgb:fc/fc/fc
+xterm*color52: rgb:5f/00/00
 ! Use the bold attribute to make the text bright, like it did in DOS, by
 ! disabling boldMode
 xterm*boldMode: false
