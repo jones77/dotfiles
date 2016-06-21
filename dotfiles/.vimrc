@@ -11,18 +11,19 @@ Plugin 'VundleVim/Vundle.vim'
 ""
 Plugin 'chrisbra/Recover.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'exu/pgsql.vim'
+Plugin 'gregsexton/gitv'
 Plugin 'hynek/vim-python-pep8-indent'
 Plugin 'klen/python-mode'
 Plugin 'mkitt/tabline.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-obsession'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-scripts/burnttoast256'
-
-Plugin 'gregsexton/gitv'
 ""
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -47,6 +48,7 @@ set t_Co=256
 colorscheme burnttoast256
 
 let g:NERDTreeDirArrows=0
+let g:NERDTreeShowHidden=1
 let g:airline_powerline_fonts = 1
 
 let g:ctrlp_map = '<c-p>'
@@ -61,6 +63,10 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+" Let pymode do the work
+" let g:syntastic_mode_map = { 'passive_filetypes': ['python'] }
+
+let g:sql_type_default = 'pgsql'
 
 set encoding=utf-8
 
@@ -99,13 +105,15 @@ map L :tabnext<return>
 map <space> 
 
 augroup LoadOnce
-    " Progressively slower reloading time of .vimrc
+    " Prevent progressively slower reloading time of .vimrc
     " http://stackoverflow.com/q/15353988
     autocmd!
     autocmd bufwritepost .vimrc source $MYVIMRC
 
     autocmd FileType c,cpp,python,ruby,java
         \ autocmd BufWritePre <buffer> :%s/\s\+$//e
+    autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+    autocmd Filetype gitcommit setlocal spell textwidth=72
 augroup END
 
 set relativenumber
