@@ -13,6 +13,7 @@ Plugin 'chrisbra/Recover.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'exu/pgsql.vim'
 Plugin 'gregsexton/gitv'
+Plugin 'heavenshell/vim-pydocstring'
 Plugin 'hynek/vim-python-pep8-indent'
 Plugin 'klen/python-mode'
 Plugin 'mkitt/tabline.vim'
@@ -49,6 +50,7 @@ colorscheme burnttoast256
 
 let g:NERDTreeDirArrows=0
 let g:NERDTreeShowHidden=1
+
 let g:airline_powerline_fonts = 1
 
 let g:ctrlp_map = '<c-p>'
@@ -67,6 +69,8 @@ let g:syntastic_check_on_wq = 0
 " let g:syntastic_mode_map = { 'passive_filetypes': ['python'] }
 
 let g:sql_type_default = 'pgsql'
+
+nmap <silent> <Leader>l <Plug>(pydocstring)
 
 set encoding=utf-8
 
@@ -110,7 +114,7 @@ augroup LoadOnce
     autocmd!
     autocmd bufwritepost .vimrc source $MYVIMRC
 
-    autocmd FileType c,cpp,python,ruby,java
+    autocmd FileType c,cpp,python,ruby,java,sql
         \ autocmd BufWritePre <buffer> :%s/\s\+$//e
     autocmd BufNewFile,BufReadPost *.md set filetype=markdown
     autocmd Filetype gitcommit setlocal spell textwidth=72
