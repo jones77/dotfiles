@@ -25,6 +25,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-obsession'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-scripts/burnttoast256'
+Plugin 'mileszs/ack.vim'
 ""
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -67,6 +68,8 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 " Let pymode do the work
 " let g:syntastic_mode_map = { 'passive_filetypes': ['python'] }
+
+let g:pymode_doc = 0
 
 let g:sql_type_default = 'pgsql'
 
