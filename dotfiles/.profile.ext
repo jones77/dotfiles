@@ -10,7 +10,7 @@ export EDITOR=vim
 PATH=~/bin:$PATH
 
 # fun
-fortune.sh fortune
+# fortune.sh fortune
 
 # aliases
 alias cp="cp -i"
