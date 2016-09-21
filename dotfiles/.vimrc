@@ -70,6 +70,7 @@ let g:syntastic_check_on_wq = 0
 " let g:syntastic_mode_map = { 'passive_filetypes': ['python'] }
 
 let g:pymode_doc = 0
+let g:pymode_rope_complete_on_dot = 0
 
 let g:sql_type_default = 'pgsql'
 
