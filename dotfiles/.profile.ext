@@ -17,3 +17,17 @@ alias cp="cp -i"
 alias mv="mv -i"
 alias rm="rm -i"
 alias f="fortune.sh"
+
+# let's blindly assume we'll have a 256 color terminal
+export TERM='xterm-256color'
+set -o vi
+
+# vi aliases intended for use with https://github.com/tpope/vim-obsession
+function _vi() {
+    (( $# == 0 )) && [[ -f Session.vim ]] && vim -S Session.vim || vim "$@";
+}
+
+if [[ -f "/$( which vim )" ]]
+then
+    alias vi='_vi'
+fi
