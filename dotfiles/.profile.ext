@@ -31,3 +31,5 @@ if [[ -f "/$( which vim )" ]]
 then
     alias vi='_vi'
 fi
+
+export PS1="\]\[\033[0;1;36m\]$\[\033[0m\] "
