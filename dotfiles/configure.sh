@@ -2,21 +2,24 @@
 
 set -e  # stop on first error
 
-if [[ ! -d "~/.vim/bundle/Vundle.vim" ]]
+if [[ ! -d ~/.vim/bundle/Vundle.vim ]]
 then
     git clone https://github.com/VundleVim/Vundle.vim.git \
         ~/.vim/bundle/Vundle.vim
 fi
 
-ls -1ad .* | tail -n+3 | while read dotfile
+for dotfile in .profile.ext .tmux.conf .vimrc .Xresources
 do
     fromfile="`pwd`/$dotfile"
     tofile="$HOME/$dotfile"
 
-    if [[ ! -e "$tofile" ]]
+    if [[ -e "$tofile" ]]
     then
-        # only need to link it once
-        ln -s "$fromfile" "$tofile"
+        mkdir -p moved
+        file_basename=`basename "$tofile"`
+        timestamp=`date +%Y%m%d%H%M%S`
+        mv -f "$tofile" "moved/$file_basename.$timestamp"
     fi
+    ln -s "$fromfile" "$tofile"
     ls -l "$tofile"
 done
