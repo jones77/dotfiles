@@ -32,4 +32,8 @@ then
     alias vi='_vi'
 fi
 
-export PS1="\]\[\033[0;1;36m\]$\[\033[0m\] "  # blue $teel
+my_fg_yellow='\[\033[01;36m\]'
+my_ps_clear='\[\033[0m\]'
+export PS1="${my_fg_yellow}$ ${my_ps_clear}"  # blue steel
+unset my_fg_yellow
+unset my_ps_clear
