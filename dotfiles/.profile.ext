@@ -32,8 +32,15 @@ then
     alias vi='_vi'
 fi
 
-my_fg_yellow='\[\033[01;36m\]'
+# cyan '$ ' or '# ' depending if we're root or not
+my_blue_steel='\[\033[01;36m\]'
 my_ps_clear='\[\033[0m\]'
-export PS1="${my_fg_yellow}$ ${my_ps_clear}"  # blue steel
-unset my_fg_yellow
+my_prompt='# '
+if (( $UID ))
+then
+    my_prompt='$ '
+fi
+export PS1="${my_blue_steel}${my_prompt}${my_ps_clear}"  # blue steel
+unset my_blue_steel
 unset my_ps_clear
+unset my_prompt
