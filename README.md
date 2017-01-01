@@ -6,4 +6,4 @@ Your mileage may vary.
 
     git remote add upstream URL
     git fetch upstream
-    git branch --track upstream upstream/master
+    git checkout -b --track upstream upstream/master
