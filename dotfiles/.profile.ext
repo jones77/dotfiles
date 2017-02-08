@@ -7,6 +7,7 @@ echo running .profile.ext
 
 # standard
 export EDITOR=vim
+export PAGER=less
 PATH=~/bin:$PATH
 
 # fun
