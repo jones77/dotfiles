@@ -8,24 +8,30 @@ then
         ~/.vim/bundle/Vundle.vim
 fi
 
-for dotfile in .profile.ext .tmux.conf .vimrc .Xresources
+for dotfile in ./dotfiles/*
 do
-    fromfile="$(pwd)/$dotfile"
-    tofile="$HOME/$dotfile"
+    from="$(pwd)/${dotfile}"
+    d=$(basename "$from")
+    to="${HOME}/.${d}"
 
-    if [[ -L "$tofile" ]]
+    if [[ -L "$to" ]]
     then
         echo "Removing symbolic link:"
-        echo "  " $(ls -l "$tofile")
-        rm "$tofile"
-    elif [[ -e "$tofile" ]]
+        echo "  " $(ls -l "$to")
+
+        rm "$to"
+    elif [[ -e "$to" ]]
     then
-        mkdir -p moved
-        file_basename=$(basename "$tofile")
+	backups="${HOME}/backups"
+        mv -f "Backing up $to => ${backups}/$file_basename.$timestamp"
+
+        [[ -d ${backups} ]] || mkdir -p ${backups}
+        mv -f "$to" "${backups}/$file_basename.$timestamp"
+        file_basename=$(basename "$to")
         timestamp=$(date +%Y%m%d%H%M%S)
-        mv -f "$tofile" "moved/$file_basename.$timestamp"
     fi
-    ln -s "$fromfile" "$tofile"
-    echo "Created symbolic link:"
-    echo "  " $(ls -l "$tofile")
+    echo "Creating symbolic link:"
+
+    ln -s "$from" "$to"
+    echo "  " $(ls -l "$to")
 done
