@@ -8,30 +8,44 @@ then
         ~/.vim/bundle/Vundle.vim
 fi
 
-for dotfile in ./dotfiles/*
+for dir in "bin" "dotfiles"
 do
-    from="$(pwd)/${dotfile}"
-    d=$(basename "$from")
-    to="${HOME}/.${d}"
-
-    if [[ -L "$to" ]]
+    if [[ "$dir" == "dotfiles" ]]
     then
-        echo "Removing symbolic link:"
-        echo "  " $(ls -l "$to")
-
-        rm "$to"
-    elif [[ -e "$to" ]]
-    then
-	backups="${HOME}/backups"
-        mv -f "Backing up $to => ${backups}/$file_basename.$timestamp"
-
-        [[ -d ${backups} ]] || mkdir -p ${backups}
-        mv -f "$to" "${backups}/$file_basename.$timestamp"
-        file_basename=$(basename "$to")
-        timestamp=$(date +%Y%m%d%H%M%S)
+        to_dir="$HOME"
+    else
+        to_dir="$HOME/$dir"
     fi
-    echo "Creating symbolic link:"
 
-    ln -s "$from" "$to"
-    echo "  " $(ls -l "$to")
+    for file in $(ls -A ${dir})
+    do
+	if [[ "$file" =~ '.swp'$ ]]
+        then
+            echo "Skipping $file"
+            continue
+        fi
+
+        from="$(pwd)/$dir/$file"
+        to="$to_dir/$file"
+
+        if [[ -L "$to" ]]
+        then
+            echo "Removing symbolic link:"
+            echo "  " $(ls -l "$to")
+
+            rm "$to"
+        elif [[ -e "$to" ]]
+        then
+            backups="${HOME}/backups"
+            timestamp=$(date +%Y%m%d%H%M%S)
+            echo "Backing up $to => ${backups}/$file.$timestamp"
+
+            [[ -d "$backups" ]] || mkdir -p "$backups"
+            mv -f "$to" "$backups/$file.$timestamp"
+        fi
+        echo "Creating symbolic link:"
+
+        ln -s "$from" "$to"
+        echo "  " $(ls -l "$to")
+    done
 done

@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
-
-# intended to be sourced from your favourite login shell
-#   . ~/.profile.ext
-
+# source this file from your favourite login shell
 echo running .profile.ext
+
+. ~/.aliases  # import strip
 
 # standard
 export EDITOR=vim
@@ -20,6 +19,7 @@ alias rm="rm -i"
 alias f="fortune.sh"
 
 # let's blindly assume we'll have a 256 color terminal
+# TODO: Do this properly.
 export TERM='xterm-256color'
 set -o vi
 
@@ -46,10 +46,11 @@ unset my_blue_steel
 unset my_ps_clear
 unset my_prompt
 
-# linuxbrew
-export PATH="$HOME/.linuxbrew/bin:$PATH"
-export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
-export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
+export GOPATH="$HOME/jo"
+export PATH="$PATH:/home/jjones/jo/bin"
 
-export GOPATH="$HOME/gocode"
-export PATH="$PATH:/home/jjones/gocode/bin"
+# Per os profiles.
+os=$(azify $(uname -o))
+os_profile="$HOME/.profile.${os}"
+[[ -f ~/"$os_profile" ]] && . "$os_profile"
+

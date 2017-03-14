@@ -1,6 +1,7 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+"" VundleBegin
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -9,14 +10,17 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 ""
+
 Plugin 'chrisbra/Recover.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'exu/pgsql.vim'
 Plugin 'fatih/vim-go'
+Plugin 'flazz/vim-colorschemes'
 Plugin 'gregsexton/gitv'
 Plugin 'heavenshell/vim-pydocstring'
 Plugin 'hynek/vim-python-pep8-indent'
 Plugin 'klen/python-mode'
+Plugin 'mileszs/ack.vim'
 Plugin 'mkitt/tabline.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
@@ -26,25 +30,20 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-obsession'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-scripts/burnttoast256'
-Plugin 'mileszs/ack.vim'
+Plugin 'guns/xterm-color-table.vim'
+
 ""
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+call vundle#end()         " required
+filetype plugin indent on " required
 " To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just
-" :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to
-"                     auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-"
+"   filetype plugin on
+" :PluginUpdate, :PluginList, :PluginInstall - `!` also update
+" :PluginSearch foo - searches for foo, `!` refresh local cache
+" :PluginClean - `!` auto-approve
+"   see :h vundle for more details or wiki for FAQ
+"" EndVundle
+
 set background=dark
 set term=putty-256color
 set t_Co=256
