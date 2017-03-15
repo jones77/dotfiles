@@ -46,8 +46,8 @@ unset my_blue_steel
 unset my_ps_clear
 unset my_prompt
 
-export GOPATH="$HOME/jo"
-export PATH="$PATH:/home/jjones/jo/bin"
+export GOPATH="$HOME/gocode"
+export PATH="$PATH:/home/jjones/gocode/bin"
 
 # Per os profiles.
 os=$(azify $(uname -o))
