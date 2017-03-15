@@ -11,7 +11,7 @@ total="$1" && shift
 percent_used=$(percent.sh $used $total)
 
 # HUMANS
-# eg 361M / 7.6G used, 6.5G free
+# eg 361M 7.6G 6.5G
 set $(free -h -t -w | head -2 | tail -1 \
     | awk '{ print $3 " " $NF " " $2 }'
 )
