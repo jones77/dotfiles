@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # source this file from your favourite login shell
-echo running .profile.ext
+echo running .profile.general
 
 . ~/.aliases  # import strip
 
@@ -52,5 +52,4 @@ export PATH="$PATH:/home/jjones/jo/bin"
 # Per os profiles.
 os=$(azify $(uname -o))
 os_profile="$HOME/.profile.${os}"
-[[ -f ~/"$os_profile" ]] && . "$os_profile"
-
+[[ -f "$os_profile" ]] && . "$os_profile"
