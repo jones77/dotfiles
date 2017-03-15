@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 # echo memory and uptime numbers, useful in .tmux.conf status-right
 
+set -e
+
 # BYTES
 # eg 4625653760 3578519552 8369909760
-set $( free -b -t -w | head -2 | tail -1 \
+set $( free -b -t | head -2 | tail -1 \
     | awk '{ print $3 " " $NF " " $2 }' )
 used="$1" && shift
 free="$1" && shift
@@ -12,7 +14,7 @@ percent_used=$(percent.sh $used $total)
 
 # HUMANS
 # eg 361M 7.6G 6.5G
-set $(free -h -t -w | head -2 | tail -1 \
+set $(free -h -t | head -2 | tail -1 \
     | awk '{ print $3 " " $NF " " $2 }'
 )
 used_h="$1" && shift
