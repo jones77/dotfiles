@@ -3,6 +3,6 @@
 
 . `type -p jjlib.sh` && usage_exit "$#" 2 "`basename $0` part total" "$@"
 
-num=$( echo "scale=2; $1 / $2" | bc | sed 's/^[0.]//' )
+num=$(echo "scale=2; ($1 / $2) * 100" | bc | sed 's/[.].*//')
 
 [[ -n "$num" ]] && echo "$num%" || echo "0%"
