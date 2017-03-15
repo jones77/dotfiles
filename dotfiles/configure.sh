@@ -5,19 +5,14 @@ set -e  # stop on first error
 if [[ ! -d ~/.vim/bundle/Vundle.vim ]]
 then
     git clone https://github.com/VundleVim/Vundle.vim.git \
-        ~/.vim/bundle/Vundle.vim
+              ~/.vim/bundle/Vundle.vim
 fi
 
 for dir in "bin" "dotfiles"
 do
-    if [[ "$dir" == "dotfiles" ]]
-    then
-        to_dir="$HOME"
-    else
-        to_dir="$HOME/$dir"
-    fi
+    [[ "$dir" == "dotfiles" ]] && to_dir="$HOME" || to_dir="$HOME/$dir"
 
-    for file in $(ls -A ${dir})
+    for file in $(ls -A "$dir")
     do
 	if [[ "$file" =~ '.swp'$ ]]
         then
@@ -30,22 +25,17 @@ do
 
         if [[ -L "$to" ]]
         then
-            echo "Removing symbolic link:"
-            echo "  " $(ls -l "$to")
-
-            rm "$to"
+            rm "$to"  # Remove symbolic links.
         elif [[ -e "$to" ]]
         then
-            backups="${HOME}/backups"
+            backups="$HOME/backups"
             timestamp=$(date +%Y%m%d%H%M%S)
-            echo "Backing up $to => ${backups}/$file.$timestamp"
+            echo "Backing up $to => $backups/$file.$timestamp"
 
             [[ -d "$backups" ]] || mkdir -p "$backups"
             mv -f "$to" "$backups/$file.$timestamp"
         fi
-        echo "Creating symbolic link:"
-
         ln -s "$from" "$to"
-        echo "  " $(ls -l "$to")
+        echo $(ls -l "$to")
     done
 done
