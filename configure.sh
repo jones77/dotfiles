@@ -10,7 +10,18 @@ fi
 
 for dir in "bin" "dotfiles"
 do
-    [[ "$dir" == "dotfiles" ]] && to_dir="$HOME" || to_dir="$HOME/$dir"
+    if [[ "$dir" == "dotfiles" ]]
+    then
+        to_dir="$HOME"
+    else
+        to_dir="$HOME/$dir"
+
+        if [[ ! -e "$to_dir" ]]
+        then
+            echo "Creating $to_dir"
+            mkdir -p "$to_dir"
+        fi
+    fi
 
     for file in $(ls -A "$dir")
     do
