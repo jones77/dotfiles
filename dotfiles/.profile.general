@@ -2,7 +2,7 @@
 # source this file from your favourite login shell
 echo running .profile.general
 
-. ~/.aliases  # import strip
+source ~/bin/jjlib.sh  # azify
 
 # standard
 export EDITOR=vim

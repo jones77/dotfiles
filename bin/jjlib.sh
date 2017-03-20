@@ -11,3 +11,7 @@ function usage_exit() {
     fi
 }
 
+function azify() {
+    # http://stackoverflow.com/a/23816607/469045
+    echo "$@" | tr -dc '[:alnum:]' | tr '[:upper:]' '[:lower:]'
+}
