@@ -1,7 +1,17 @@
 #!/usr/bin/env bash
-
-set -e  # stop on first error
-
+# Creates symbolic links from $HOME or $HOME/<dir> to ./dotfiles or ./<dir>.
+#
+set -e
+# Go back to where we were on error.
+original_dir=$(pwd)
+function cd_back {
+    cd "$original_dir"
+}
+trap cd_back ERR
+# Go to ./configure.sh's directory.
+script_dir=$(dirname "${BASH_SOURCE[0]}")
+cd $script_dir
+# Install Vundle if necessary.
 if [[ ! -d ~/.vim/bundle/Vundle.vim ]]
 then
     git clone https://github.com/VundleVim/Vundle.vim.git \
@@ -27,6 +37,7 @@ do
     do
 	if [[ "$file" =~ '.swp'$ ]]
         then
+            # FIXME: Use .gitignore to ignore files.
             echo "Skipping $file"
             continue
         fi

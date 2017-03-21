@@ -15,3 +15,6 @@ function azify() {
     # http://stackoverflow.com/a/23816607/469045
     echo "$@" | tr -dc '[:alnum:]' | tr '[:upper:]' '[:lower:]'
 }
+
+# aliases
+alias ls="ls --color --group-directories-first"

@@ -26,3 +26,7 @@ total_h="$1" && shift
 # )
 
 echo "$percent_used $total_h" $(uptime | sed -e 's/,//g' -e 's/.*: //')
+
+# TODO: Add $(lsb_release -i | cut -f2) somewhere.
+# http://unix.stackexchange.com/questions/122508/set-tmux-status-line-color-based-on-hostname
+# https://github.com/alerque/que-tmux/blob/master/.tmux.conf
