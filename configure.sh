@@ -61,3 +61,5 @@ do
         echo $(ls -l "$to")
     done
 done
+
+source ~/bin/jjlib.sh  # In case any function/aliases changed.
