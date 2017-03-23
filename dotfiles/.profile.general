@@ -1,40 +1,18 @@
 #!/usr/bin/env bash
 # source this file from your favourite login shell
 echo running .profile.general
-
-source ~/bin/jjlib.sh  # azify
+source ~/.aliases  # azify
 
 # standard
 export EDITOR=vim
 export PAGER=less
-PATH=~/bin:$PATH
-
-# fun
-# fortune.sh fortune
-
-# aliases
-alias cp="cp -i"
-alias mv="mv -i"
-alias rm="rm -i"
-alias f="fortune.sh"
 
 # let's blindly assume we'll have a 256 color terminal
 # TODO: Do this properly.
 export TERM='xterm-256color'
 set -o vi
 
-# vi aliases intended for use with https://github.com/tpope/vim-obsession
-function _vi() {
-    (( $# == 0 )) && [[ -f Session.vim ]] && vim -S Session.vim || vim "$@";
-}
-
-if [[ -f "/$( which vim )" ]]
-then
-    alias v='_vi'
-fi
-
-# cyan '$ ' or '# ' depending if we're root or not
-my_blue_steel='\[\033[01;36m\]'
+my_blue_steel='\[\033[01;36m\]'  # cyan
 my_ps_clear='\[\033[0m\]'
 my_prompt='# '
 if (( $UID ))
@@ -46,8 +24,9 @@ unset my_blue_steel
 unset my_ps_clear
 unset my_prompt
 
+pre_add_path  "$HOME/bin"
+post_add_path "$HOME/gocode/bin"
 export GOPATH="$HOME/gocode"
-export PATH="$PATH:/home/jjones/gocode/bin"
 
 # Run the per os profiles and the extra profile if they exist.
 os=$(azify $(uname -o))
@@ -55,3 +34,4 @@ profile_os="$HOME/.profile.${os}"
 [[ -f "$profile_os" ]]    && . "$profile_os"
 profile_extra="$HOME/.profile.extra"
 [[ -f "$profile_extra" ]] && . "$profile_extra"
+

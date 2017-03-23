@@ -62,4 +62,4 @@ do
     done
 done
 
-source ~/bin/jjlib.sh  # In case any function/aliases changed.
+source ~/.profile.general  # So fresh and so clean.
