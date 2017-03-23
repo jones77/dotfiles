@@ -2,28 +2,43 @@
 # 
 # configure.sh args
 #     quick and dirty developer install
-# configure.sh
-#     fortune
 #
 set -e
+declare -r basename=$(basename $0)
 
-if (( $# ))
-then
-    sudo apt-get install sudo  # TODO: Is this Debian 8 only?
-    sudo apt-get install ruby
+# Minimum apt packages we want.
+APT="
+ruby
+sudo
+"
+
+for a in $APT
+do
+    echo "----aa---- $a" 
+    apt show "$a" || (
+        echo "$basename: apt: Installing $a"
+    )
+done
+
+# Linuxbrew itself.
+hash brew || (
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
+)
 
-    brew install fortune
+# Linuxbrew packages.
+BREW="
+fortune
+git
+go
+tmux
+vim
+"
 
-    brew install git
-    brew install tmux
-    brew install golang
-
-else
-    if [ -d "$HOME/bin" ]
-    then
-        ln -s fortune.sh ~/bin/fortune.sh
-        ln -s gasbgone.sh ~/bin/gasbgone.sh
-    fi
-fi
-# TODO: Enhance this script.
+for b in $BREW
+do
+    echo "----bb---- $b"
+    hash $b || (
+        echo "$basename: brew: Installing $b"
+        brew install "$b"
+    )
+done

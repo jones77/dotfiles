@@ -49,7 +49,9 @@ unset my_prompt
 export GOPATH="$HOME/gocode"
 export PATH="$PATH:/home/jjones/gocode/bin"
 
-# Per os profiles.
+# Run the per os profiles and the extra profile if they exist.
 os=$(azify $(uname -o))
-os_profile="$HOME/.profile.${os}"
-[[ -f "$os_profile" ]] && . "$os_profile"
+profile_os="$HOME/.profile.${os}"
+[[ -f "$profile_os" ]]    && . "$profile_os"
+profile_extra="$HOME/.profile.extra"
+[[ -f "$profile_extra" ]] && . "$profile_extra"
