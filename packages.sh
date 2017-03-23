@@ -9,6 +9,7 @@ declare -r basename=$(basename $0)
 # Minimum apt packages we want.
 APT="
 ruby
+strace
 sudo
 "
 
