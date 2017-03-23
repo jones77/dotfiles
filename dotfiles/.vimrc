@@ -28,6 +28,7 @@ Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-obsession'
+Plugin 'tpope/vim-capslock'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-scripts/burnttoast256'
 Plugin 'guns/xterm-color-table.vim'
@@ -53,6 +54,9 @@ let g:NERDTreeDirArrows=0
 let g:NERDTreeShowHidden=1
 
 let g:airline_powerline_fonts = 1
+" Show capslock status in the statusline
+let g:airline#extensions#capslock#enabled = 1
+
 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
@@ -96,16 +100,13 @@ set wrap                " wrap lines
 set scrolloff=4
 
 " both?
-set title titleold=%%F%=%l/%L-%P titlelen=70
+" set title titleold=%%F%=%l/%L-%P titlelen=70
 
 " unix specific
 set t_vb= "who needs a visual bell anyway?
 set t_te= "stops vim clearing the screen
 
-" windows specific
-"set guifont=Dina:h8
-
-" Tabs => :T => new tab, H => left, L => right
+" :T => new tab, H => left, L => right
 command! -nargs=? T :tabnew 
 map H :tabprev<return>
 map L :tabnext<return>
@@ -126,15 +127,12 @@ augroup END
 
 set relativenumber
 set number
-
 set ttyfast
-
 set clipboard^=unnamed
 
 set mouse=a
 map <ScrollWheelUp> <C-U>
 map <ScrollWheelDown> <C-D>
-
 " Not sure why these need to be at the end to be respected.
 hi CursorLineNr term=bold ctermfg=246 ctermbg=232
 hi ColorColumn ctermbg=232
