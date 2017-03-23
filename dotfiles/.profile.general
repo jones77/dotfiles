@@ -30,7 +30,7 @@ function _vi() {
 
 if [[ -f "/$( which vim )" ]]
 then
-    alias vi='_vi'
+    alias v='_vi'
 fi
 
 # cyan '$ ' or '# ' depending if we're root or not

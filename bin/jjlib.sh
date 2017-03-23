@@ -5,7 +5,6 @@ alias cp="cp -i"
 alias ls="ls --color --group-directories-first"
 alias mv="mv -i"
 alias rm="rm -i"
-alias v="vim"
 
 # functions
 function hh() {

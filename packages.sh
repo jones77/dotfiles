@@ -7,17 +7,29 @@ set -e
 declare -r basename=$(basename $0)
 
 # Minimum apt packages we want.
-APT="
+PACKAGES="
 ruby
 strace
 sudo
 "
 
-for a in $APT
+distro=$(lsb_release -i | cut -f2)
+
+if [[ "$distro" = "RedHatEnterpriseServer" ]]
+then
+    test_cmd="rpm -q"
+    install_cmd="sudo yum install"
+else
+    test_cmd="apt show"
+    install_cmd="sudo apt-get install"
+fi
+
+for a in $PACKAGES
 do
     echo "----aa---- $a" 
-    apt show "$a" || (
+    $test_cmd "$a" || (
         echo "$basename: apt: Installing $a"
+        $install_cmd "$a"
     )
 done
 
@@ -38,7 +50,7 @@ vim
 for b in $BREW
 do
     echo "----bb---- $b"
-    hash $b || (
+    brew ls --versions $b || (
         echo "$basename: brew: Installing $b"
         brew install "$b"
     )
