@@ -1,25 +1,26 @@
 #!/usr/bin/env bash
 # Useful functions and aliases.
-# aliases
+#
+## ALIASES ##
 alias cp="cp -i"
 alias mv="mv -i"
 alias rm="rm -i"
 # https://ubuntuforums.org/showthread.php?t=816753
 alias ls="LC_COLLATE=C ls --color --group-directories-first"
-# for use with https://github.com/tpope/vim-obsession
-function _vi() {
+alias vv='_vi'
+## FUNCTIONS ##
+_vi() {
+    # Auto-start Obsession sessions.  https://github.com/tpope/vim-obsession
     (( $# == 0 )) && [[ -f Session.vim ]] && vim -S Session.vim || vim "$@";
 }
-alias vv='_vi'
-# functions
-function hh() {
+hh() {
     hostname
     uname -a
     lsb_release -a
 }
-# Used by percent.sh, for example:
-#   usage_exit "$#" 2 "`basename $0` part total" "$@"
-function usage_exit() {  # args: argc argc_check usage
+usage_exit() {  # args: argc argc_check usage
+    # Used by percent.sh, for example:
+    #   usage_exit "$#" 2 "`basename $0` part total" "$@"
     argc="$1"       && shift
     argc_check="$1" && shift
     usage="$1"      && shift
@@ -29,11 +30,12 @@ function usage_exit() {  # args: argc argc_check usage
         exit 1
     fi
 }
-function azify() {
+azify() {
     # http://stackoverflow.com/a/23816607/469045
     echo "$@" | tr -dc '[:alnum:]' | tr '[:upper:]' '[:lower:]'
 }
 pre_add_path() {
+    # pre_add_path & post_add_path: https://gist.github.com/morganp/964200
     [[ -s "$1" ]] && [[ ":$PATH:" != *":$1:"* ]] && PATH="$1:$PATH"
 }
 post_add_path() {
