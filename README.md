@@ -1,6 +1,6 @@
 # Scripts
 
-Initial dotfile and `~/bin` configuration.
+Dotfiles and `~/bin` configuration.
 
 # `files.sh`
 
