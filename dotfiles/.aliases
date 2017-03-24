@@ -2,9 +2,10 @@
 # Useful functions and aliases.
 # aliases
 alias cp="cp -i"
-alias ls="ls --color --group-directories-first"
 alias mv="mv -i"
 alias rm="rm -i"
+# https://ubuntuforums.org/showthread.php?t=816753
+alias ls="LC_COLLATE=C ls --color --group-directories-first"
 # for use with https://github.com/tpope/vim-obsession
 function _vi() {
     (( $# == 0 )) && [[ -f Session.vim ]] && vim -S Session.vim || vim "$@";
