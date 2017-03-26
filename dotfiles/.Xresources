@@ -1,6 +1,6 @@
 xterm*faceName: DejaVu Sans Mono for Powerline
 xterm*faceSize: 16
-xterm*loginshell: true
+xterm*loginShell: true
 xterm*savelines: 65536
 xterm*toolBar: off
 xterm*geometry: 80x50

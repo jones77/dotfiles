@@ -3,7 +3,6 @@
 echo running .profile.general
 source ~/.aliases  # azify
 
-# standard
 export EDITOR=vim
 export PAGER=less
 

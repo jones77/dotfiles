@@ -30,3 +30,6 @@ pre_add_path() {
 post_add_path() {
     [[ -s "$1" ]] && [[ ":$PATH:" != *":$1:"* ]] && PATH="$PATH:$1" || :
 }
+unsafe_sshkeygen() {
+    ssh-keygen -t rsa -q -P ""
+}
