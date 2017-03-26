@@ -34,4 +34,3 @@ profile_os="$HOME/.profile.${os}"
 [[ -f "$profile_os" ]]    && . "$profile_os"
 profile_extra="$HOME/.profile.extra"
 [[ -f "$profile_extra" ]] && . "$profile_extra"
-

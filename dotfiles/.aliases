@@ -19,26 +19,14 @@ hh() {
     uname -a
     lsb_release -a
 }
-usage_exit() {  # args: argc argc_check usage
-    # Used by percent.sh, for example:
-    #   usage_exit "$#" 2 "`basename $0` part total" "$@"
-    argc="$1"       && shift
-    argc_check="$1" && shift
-    usage="$1"      && shift
-    if (( argc != argc_check ))
-    then
-        echo "Usage:    $usage"
-        exit 1
-    fi
-}
 azify() {
     # http://stackoverflow.com/a/23816607/469045
     echo "$@" | tr -dc '[:alnum:]' | tr '[:upper:]' '[:lower:]'
 }
 pre_add_path() {
     # pre_add_path & post_add_path: https://gist.github.com/morganp/964200
-    [[ -s "$1" ]] && [[ ":$PATH:" != *":$1:"* ]] && PATH="$1:$PATH"
+    [[ -s "$1" ]] && [[ ":$PATH:" != *":$1:"* ]] && PATH="$1:$PATH" || :
 }
 post_add_path() {
-    [[ -s "$1" ]] && [[ ":$PATH:" != *":$1:"* ]] && PATH="$PATH:$1"
+    [[ -s "$1" ]] && [[ ":$PATH:" != *":$1:"* ]] && PATH="$PATH:$1" || :
 }
