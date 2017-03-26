@@ -4,6 +4,16 @@
 # Vim
 # https://github.com/github/gitignore/blob/master/Global/Vim.gitignore
 ###############################################################################
+# C
+*.o
+
+# Haskell
+*.hi
+
+# xmonad
+xmonad.errors
+xmonad-x86_64-linux
+
 # swap
 [._]*.s[a-v][a-z]
 [._]*.sw[a-p]
@@ -114,4 +124,5 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
 ###############################################################################

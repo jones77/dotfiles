@@ -99,9 +99,6 @@ set whichwrap=b,s,,>,h,l
 set wrap                " wrap lines
 set scrolloff=4
 
-" both?
-" set title titleold=%%F%=%l/%L-%P titlelen=70
-
 " unix specific
 set t_vb= "who needs a visual bell anyway?
 set t_te= "stops vim clearing the screen

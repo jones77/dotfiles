@@ -1,12 +1,15 @@
-xterm*faceName: DejaVu Sans Mono Book
-xterm*faceSize: 14
+xterm*faceName: DejaVu Sans Mono for Powerline
+xterm*faceSize: 16
 xterm*loginshell: true
 xterm*savelines: 65536
 xterm*toolBar: off
 xterm*geometry: 80x50
 xterm*termName: xterm-256color
+xterm*dynamicColrs: true
 
 xterm*allowSendEvents: true
+
+xterm*metaSendsEscape: true
 
 ! double-click to select URLs
 xterm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
