@@ -20,8 +20,8 @@ xterm*scrollBar: false
 
 ! stop output to terminal from jumping down to bottom of scroll again
 xterm*scrollTtyOutput: false
-! select pastes to the motherfucking clipboard
-! xterm*selectToClipboard: true
+! http://askubuntu.com/questions/237942/how-does-copy-paste-work-with-xterm
+xterm*selectToClipboard: true
 
 ! From https://unix4lyfe.org/xterm/
 ! DOS-box colours
