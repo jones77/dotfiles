@@ -9,6 +9,7 @@ declare -r basename=$(basename $0)
 # Minimum apt packages we want.
 PACKAGES="
 curl
+ntp
 python-dev
 python-pip
 python-virtualenv
