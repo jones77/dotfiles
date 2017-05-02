@@ -3,14 +3,12 @@
 # configure.sh args
 #     quick and dirty developer install
 #
-set -e
 declare -r basename=$(basename $0)
 
 # Minimum apt packages we want.
 PACKAGES="
 curl
 ntp
-python-dev
 python-pip
 python-virtualenv
 ruby
@@ -22,10 +20,14 @@ distro=$(lsb_release -i | cut -f2)
 
 if [[ "$distro" = "RedHatEnterpriseServer" ]]
 then
-    install_cmd="sudo yum install"
+    sudo yum groupinstall -y 'Development Tools'
+    sudo yum install -y curl git irb python-setuptools ruby
+    install_cmd="sudo yum install -y"
+    PACKGES="$PACKAGES python-devel"
 # if [[ "$distro" = "??ubuntu" ]]
 else
     install_cmd="sudo apt-get install -y"
+    PACKGES="$PACKAGES python-dev"
 fi
 
 for a in $PACKAGES
@@ -46,7 +48,6 @@ hash brew || (
 # Linuxbrew packages.
 BREW="
 fortune
-git
 go
 python
 python3
@@ -58,8 +59,8 @@ vim
 for b in $BREW
 do
     echo "----bb---- $b"
-    brew ls --versions $b || (
+    ~/.linuxbrew/bin/brew ls --versions $b || (
         echo "$basename: brew: Installing $b"
-        brew install "$b"
+        ~/.linuxbrew/bin/brew install "$b"
     )
 done
