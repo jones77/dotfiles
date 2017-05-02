@@ -45,6 +45,9 @@ hash brew || (
 # http://askubuntu.com/questions/3697/how-do-i-install-fonts
 # font-dejavu-sans-mono-for-powerline
 
+# FIXME: Installing on RHEL needs the following workaround:
+# https://github.com/Linuxbrew/brew/issues/340#issuecomment-294900797
+
 # Linuxbrew packages.
 BREW="
 fortune
