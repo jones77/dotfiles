@@ -84,6 +84,9 @@ then
 elif $(grep -i centos /etc/os-release 2>/dev/null 1>&2)
 then
     distro="Centos"
+elif $(uname -a | grep FreeBSD >/dev/null 2>&1)
+then
+    distro="FreeBSD"
 else
     ce Red "$(ce Green $basename): Unknown distro: uname -a=$(uname -a)"
     exit 1
@@ -160,11 +163,12 @@ Ubuntu)
 # elif [[ "$distro" = "???ubuntu" ]]
 declare -r install_cmd="sudo apt-get install -y echo $distropkgs python-dev"
 ;;
-*)
-
+FreeBSD)
 declare -r install_cmd="sudo pkg"
-# ce Red "$(ce Green $basename): Unknown distro: uname -a=$(uname -a)"
-# exit 1
+;;
+*)
+ce Red "$(ce Green $basename): Unknown distro: uname -a=$(uname -a)"
+exit 1
 ;;
 esac
 $install_cmd

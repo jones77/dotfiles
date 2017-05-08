@@ -2,45 +2,63 @@
 # Useful script library functions, ie `source library.sh`
 # http://wiki.bash-hackers.org/scripting/terminalcodes
 
+# This broke on FreeBSD
 # Foreground
-__fg_Black=$(tput setaf 0)
-__fg_Red=$(tput setaf 1)
-__fg_Green=$(tput setaf 2)
-__fg_Yellow=$(tput setaf 3)
-__fg_Blue=$(tput setaf 4)
-__fg_Magenta=$(tput setaf 5)
-__fg_Cyan=$(tput setaf 6)
-__fg_White=$(tput setaf 7)
-# FIXME: What's tput setaf 8 do?
-__fg_Default=$(tput setaf 9)
-# Foreground
-__bg_Black=$(tput setab 0)
-__bg_Red=$(tput setab 1)
-__bg_Green=$(tput setab 2)
-__bg_Yellow=$(tput setab 3)
-__bg_Blue=$(tput setab 4)
-__bg_Magenta=$(tput setab 5)
-__bg_Cyan=$(tput setab 6)
-__bg_White=$(tput setab 7)
-# FIXME: What's tput setab 8 do?
-__bg_Default=$(tput setab 9)
+# export __fg_Black=$(tput setaf 0)
+# export __fg_Red=$(tput setaf 1)
+# export __fg_Green=$(tput setaf 2)
+# export __fg_Yellow=$(tput setaf 3)
+# export __fg_Blue=$(tput setaf 4)
+# export __fg_Magenta=$(tput setaf 5)
+# export __fg_Cyan=$(tput setaf 6)
+# export __fg_White=$(tput setaf 7)
+# # FIXME: What's tput setaf 8 do?
+# export __fg_Default=$(tput setaf 9)
+# # Foreground
+# export __bg_Black=$(tput setab 0)
+# export __bg_Red=$(tput setab 1)
+# export __bg_Green=$(tput setab 2)
+# export __bg_Yellow=$(tput setab 3)
+# export __bg_Blue=$(tput setab 4)
+# export __bg_Magenta=$(tput setab 5)
+# export __bg_Cyan=$(tput setab 6)
+# export __bg_White=$(tput setab 7)
+# # FIXME: What's tput setab 8 do?
+# export __bg_Default=$(tput setab 9)
 
-__NoColor=$(tput sgr0)
+# export __NoColor=$(tput sgr0)
+
+# http://stackoverflow.com/a/5947802
+__fg_Black="0;30"
+__fg_Blue="0;34"
+__fg_BrownOrange="0;33"
+__fg_Cyan="0;36"
+__fg_DarkGray="1;30"
+__fg_Green="0;32"
+__fg_LightBlue="1;34"
+__fg_LightCyan="1;36"
+__fg_LightGray="0;37"
+__fg_LightGreen="1;32"
+__fg_LightPurple="1;35"
+__fg_LightRed="1;31"
+__fg_Purple="0;35"
+__fg_Red="0;31"
+__fg_White="1;37"
+__fg_Yellow="1;33"
 
 function ce {  # color echo, eg ce Green string [...]
     (( $# == 0 )) && return 0  # http://stackoverflow.com/questions/3666846
-    # http://stackoverflow.com/a/5947802
     # https://en.wikipedia.org/wiki/ANSI_escape_code
     # FIXME: Add background colors.
     local color_name="$1"
     local col
     shift
 
-    col=$(eval echo \$__fg_${color_name})
+    col="$(eval echo \$__fg_${color_name})"
 
     if [[ -n "$col" ]]
     then
-        echo -e "\001${col}\002$@\001${__NoColor}\002"   
+        echo -e "\001\033[${col}m\002$@\001\033[0m\002"   
     else
         # Didn't understand the command, fallback to regular echo.
         set "$color_name $@"
