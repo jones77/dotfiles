@@ -165,6 +165,9 @@ declare -r install_cmd="sudo apt-get install -y echo $distropkgs python-dev"
 ;;
 FreeBSD)
 declare -r install_cmd="sudo pkg"
+sudo pkg install git tmux vim \
+    xorg hs-xmonad hs-xmonad-contrib hs-xmobar \
+    :
 ;;
 *)
 ce Red "$(ce Green $basename): Unknown distro: uname -a=$(uname -a)"
