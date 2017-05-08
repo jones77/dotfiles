@@ -12,26 +12,32 @@ export PAGER=less
 export TERM='xterm-256color'
 set -o vi
 
-function my_prompt {
+function dollar_or_hash {
     if (( $UID ))
     then
-        ce Cyan '$'
+        echo -n '$'
     else
-        ce Cyan '#'
+        echo -n '#'
     fi
 }
-function git_prompt {
-    # https://coderwall.com/p/fasnya/add-git-branch-name-to-bash-prompt
-    ce Cyan "$(git branch 2>/dev/null \
+function my_prompt {
+    doh=$(dollar_or_hash)
+    local branch="$(git branch 2>/dev/null \
         | sed -e '/^[^*]/d' -e 's/^[*( ]*//' -e 's/[ )]*$//')"
+
+    if [[ -z "$branch" ]]
+    then
+        ce Cyan "$doh"
+        return 0
+    fi
+        
+    case $branch in
+        develop) ce Green "$doh" ;;
+        master)  ce Red "$doh" ;;
+        *) echo "$(ce Yellow ${branch})$(ce Cyan $doh)" ;;
+    esac
 }
-export PS1="\$(git_prompt)\$(my_prompt) "
-function hideprompt {
-    export PS1="\$(my_prompt) "
-}
-function showprompt {
-    export PS1="\$(git_prompt)\$(my_prompt) "
-}
+export PS1="\$(my_prompt) "
 
 pre_add_path  "$HOME/bin"
 post_add_path "$HOME/gocode/bin"

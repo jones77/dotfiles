@@ -1,19 +1,29 @@
 #!/usr/bin/env bash
 # Useful aliases and functions
 ce Green running .aliases
+
 ###########
 # ALIASES #
 ###########
 alias cp="cp -i"
 alias mv="mv -i"
 alias rm="rm -i"
-# ASCIIbetical! https://ubuntuforums.org/showthread.php?t=816753
-alias ls="LC_COLLATE=C ls --color --group-directories-first"
+
+# LS #
+the_ls=$(which gls)
+[[ -z "$the_ls" ]] && the_ls=$(which ls)
+# gnu ls is `gls` on FreeBSD, if it exists just use that as per usual
+uname -a | grep FreeBSD >/dev/null 2>&1 \
+&& [[ "$the_ls" == "ls" ]] && alias ls="ls -G" \
+|| alias ls="LC_COLLATE=C $the_ls --color --group-directories-first"
+# ^^ ASCIIbetical! https://ubuntuforums.org/showthread.php?t=816753
+
 alias vv='_vi'
 alias gg="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 # alias gg="git log --graph \
 #     --pretty=format:'%Cred%h -%C(yellow)%d %s %Cgreen(%cr) %C(bold blue)<%an>' \
 #     --abbrev-commit"
+
 #############
 # FUNCTIONS #
 #############
