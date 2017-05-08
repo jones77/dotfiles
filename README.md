@@ -15,7 +15,9 @@ versions of tmux and go).
 
 ## Linux VM on Windows
 
-* [Create an Awesome \[XUbuntu 14\] Development Environment in Windows with \[VWMare Player 7\]](https://nickjanetakis.com/blog/create-an-awesome-linux-development-environment-in-windows-with-vmware)
+* [Create an Awesome \[XUbuntu 14\] Development Environment in Windows with
+  \[VWMare Player
+  7\]](https://nickjanetakis.com/blog/create-an-awesome-linux-development-environment-in-windows-with-vmware)
 ** [VMWare Player 7](https://my.vmware.com/web/vmware/free#desktop_end_user_computing/vmware_player/7_0)
 ** [XUbuntu 14](http://mirror.us.leaseweb.net/ubuntu-cdimage/xubuntu/releases/14.04/release/xubuntu-14.04.2-desktop-amd64.iso)
 
