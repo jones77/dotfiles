@@ -39,32 +39,35 @@ EOF
     exit 1
 }
 
-declare -r package_group=$(ls _packages)  # List the packages lists
-declare distro_packages=""
+declare -r package_files=$(ls _packages/*)  # List the packages lists
+distropkgs=""
 while getopts ":$args" opt
 do
+    echo "$basename: Processing option: $opt"
     case $opt in
-	a) for packages in $package_group  # All packages
+	a) for file in $package_files  # All packages
         do
-            distro_packages="$distro_packages $(cat _packages/$packages)"
+            distropkgs="$distropkgs $(cat _packages/$(basename file))"
         done
     ;;
         h) usage
     ;;
-        l) declare -r linuxbrew_packages="$(cat _packages/$l)"
+        l) linuxbrew_packages="$(cat _packages/$l)"
     ;;
-	\?) if [[ -f "_packages/$OPTARG" ]]
+	?) if [[ -f "_packages/$opt" ]]
         then
-            distro_packages="$distro_packages $(cat _packages/$OPTARG)"
-            echo "$basename: Added $OPTARG packages"
+            l=$(list_packages $opt)
+            distropkgs="$distropkgs $l" && echo $basename: Adding: $l
         else
-            echo "$basename: Quitting, Unknown option: $OPTARG"
+            echo "$basename: Quitting, Unknown opt: $opt"
             usage
         fi
     ;;
-  esac
+    esac
 done
-[[ -z "$distro_packges" ]] && distro_packages=$(cat _packages/p)  # Default
+shift $((OPTIND-1))
+[[ -z "$distropkgs" ]] && distropkgs=$(cat _packages/p)  # Default
+echo "$basename: Installing distro packages: $distropkgs"
 #
 # END args
 #
@@ -76,7 +79,7 @@ declare -r distro=$(lsb_release -i | cut -f2)
 # FIXME: centos?
 if [[ "$distro" = "RedHatEnterpriseServer" ]]
 then declare -r install_cmd="
-    sudo yum install -y $(echo $distro_packages $(echo '
+    sudo yum install -y $(echo $distropkgs $(echo '
 
     irb 
     python-devel 
@@ -89,7 +92,7 @@ then declare -r install_cmd="
 # FIXME: Ubuntu specific instead of defaulting to Ubuntu
 # elif [[ "$distro" = "???ubuntu" ]]
 else declare -r install_cmd="
-        sudo apt-get install -y $(echo $distro_packages $(echo '
+        sudo apt-get install -y $(echo $distropkgs $(echo '
 
         python-dev
 
