@@ -46,7 +46,9 @@ filetype plugin indent on " required
 "" EndVundle
 
 set background=dark
-set term=putty-256color
+" http://www.robmeerman.co.uk/unix/256colours
+" set term=putty-256color
+set term=xterm
 set t_Co=256
 colorscheme burnttoast256
 
