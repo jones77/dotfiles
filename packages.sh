@@ -10,10 +10,19 @@
 # configure.sh args
 #     quick and dirty developer install
 #
-# BEGIN args
+# BEGIN functions
 #
+declare -r original_dir=$(pwd)
+function cdback {
+    # Error handling returns you to where you were on error
+    cd "$original_dir"
+}
+trap cdback ERR
+cd $(dirname "${BASH_SOURCE[0]}")  # cd me
+
 declare -r basename=$(basename $0)
 declare -r args="ahlpdx"
+
 function list_packages {
     echo $(cat _packages/$1)
 }
@@ -120,6 +129,7 @@ done
 # FIXME: Not everybody is James Jones
 git config --global user.name "James Jones"
 git config --global user.email "james@jones77.com"
+cdback
 # 
 # END Miscellaneous configuration
 # 

@@ -4,14 +4,14 @@
 #
 # Be careful, 'cos it's dotfiles:
 set -e
-# Error handling returns you to where you were on error.
 declare -r original_dir=$(pwd)
 function cdback {
+    # Error handling returns you to where you were on error
     cd "$original_dir"
 }
 trap cdback ERR
 # But we move to the scripts dir until we get to the end of the program.
-cd $(dirname "${BASH_SOURCE[0]}")  # Go to ./configure.sh's directory
+cd $(dirname "${BASH_SOURCE[0]}")  # cd me
 # Install Vundle if necessary
 if [[ ! -d ~/.vim/bundle/Vundle.vim ]]
 then
