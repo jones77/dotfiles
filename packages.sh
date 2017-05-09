@@ -1,64 +1,107 @@
 #!/usr/bin/env bash
+#
+# TODO: Install dejavu sans mono automagically.
+# http://askubuntu.com/questions/3697/how-do-i-install-fonts
+# font-dejavu-sans-mono-for-powerline
+#
+# FIXME: Installing on RHEL needs the following workaround:
+# https://github.com/Linuxbrew/brew/issues/340#issuecomment-294900797
 # 
 # configure.sh args
 #     quick and dirty developer install
 #
+# BEGIN args
+#
 declare -r basename=$(basename $0)
+declare -r args="ahlpdx"
+function list_packages {
+    echo $(cat _packages/$1)
+}
+function usage {
+    echo "Usage:    $basename -$args"
+    cat <<EOF
+a) all
+h) help
+l) install Linuxbrew packages: $(list_packages l)
+p) install default packages: $(list_packages p)
+d) install developer packages: $(list_packages d)
+x) install desktop packages: $(list_packages x)
+EOF
+    exit 1
+}
 
-# Minimum apt packages we want.
-PACKAGES="
-curl
-ntp
-python-pip
-python-virtualenv
-ruby
-strace
-sudo
-"
-
-distro=$(lsb_release -i | cut -f2)
-
-if [[ "$distro" = "RedHatEnterpriseServer" ]]
-then
-    sudo yum groupinstall -y 'Development Tools'
-    sudo yum install -y curl git irb python-setuptools ruby
-    install_cmd="sudo yum install -y"
-    PACKGES="$PACKAGES python-devel"
-# if [[ "$distro" = "??ubuntu" ]]
-else
-    install_cmd="sudo apt-get install -y"
-    PACKGES="$PACKAGES python-dev"
-fi
-
-for a in $PACKAGES
+declare -r package_group=$(ls _packages)  # List the packages lists
+declare distro_packages=""
+while getopts ":$args" opt
 do
-    echo "----aa---- $a" 
-    $install_cmd "$a"
+    case $opt in
+	a) for packages in $package_group  # All packages
+        do
+            distro_packages="$distro_packages $(cat _packages/$packages)"
+        done
+    ;;
+        h) usage
+    ;;
+        l) declare -r linuxbrew_packages="$(cat _packages/$l)"
+    ;;
+	\?) if [[ -f "_packages/$OPTARG" ]]
+        then
+            distro_packages="$distro_packages $(cat _packages/$OPTARG)"
+            echo "$basename: Added $OPTARG packages"
+        else
+            echo "$basename: Quitting, Unknown option: $OPTARG"
+            usage
+        fi
+    ;;
+  esac
 done
+[[ -z "$distro_packges" ]] && distro_packages=$(cat _packages/p)  # Default
+#
+# END args
+#
+# -----------------------------------------------------------------------------
+#
+# BEGIN distro package configuration
+#
+declare -r distro=$(lsb_release -i | cut -f2)
+# FIXME: centos?
+if [[ "$distro" = "RedHatEnterpriseServer" ]]
+then declare -r install_cmd="
+    sudo yum install -y $(echo $distro_packages $(echo '
 
-# Linuxbrew itself.
+    irb 
+    python-devel 
+    python-setuptools 
+
+    '))
+    sudo yum groupinstall -y 'Development Tools'
+    "
+# FIXME: ArchLinux specific
+# FIXME: Ubuntu specific instead of defaulting to Ubuntu
+# elif [[ "$distro" = "???ubuntu" ]]
+else declare -r install_cmd="
+        sudo apt-get install -y $(echo $distro_packages $(echo '
+
+        python-dev
+
+    '))
+    "
+fi
+$install_cmd
+#
+# END distro configuration
+#
+# -----------------------------------------------------------------------------
+#
+# BEGIN Linuxbrew configuration
+#
+[[ -z "$install_linux_brew" ]] && exit 0  # jk
+
 hash brew || (
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
 )
 
-# TODO: Install dejavu sans mono automagically.
-# http://askubuntu.com/questions/3697/how-do-i-install-fonts
-# font-dejavu-sans-mono-for-powerline
-
-# FIXME: Installing on RHEL needs the following workaround:
-# https://github.com/Linuxbrew/brew/issues/340#issuecomment-294900797
-
 # Linuxbrew packages.
-BREW="
-fortune
-go
-python
-python3
-tmux
-the_silver_searcher
-vim
-"
-
 for b in $BREW
 do
     echo "----bb---- $b"
@@ -67,3 +110,16 @@ do
         ~/.linuxbrew/bin/brew install "$b"
     )
 done
+#
+# END Linuxbrew configuration
+#
+# -----------------------------------------------------------------------------
+#
+# BEGIN Miscellaneous configuration
+#
+# FIXME: Not everybody is James Jones
+git config --global user.name "James Jones"
+git config --global user.email "james@jones77.com"
+# 
+# END Miscellaneous configuration
+# 
