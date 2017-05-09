@@ -62,4 +62,7 @@ do
     done
 done
 
-source ~/.profile.general  # So fresh and so clean.
+declare -r spg="source $HOME/.profile.general"
+# add "source .profile.general" if it doesn't exist
+grep "$spg" ~/.profile 2>/dev/null || echo "$spg" >> ~/.profile
+eval $spg  # So fresh and so clean.  (ie: source .profile.general)
