@@ -30,6 +30,6 @@ export GOPATH="$HOME/gocode"
 # Run the per os profiles and the extra profile if they exist.
 os=$(azify $(uname -o))
 profile_os="$HOME/.profile.${os}"
-[[ -f "$profile_os" ]]    && . "$profile_os"
+[[ -f "$profile_os" ]]    && source "$profile_os"
 profile_extra="$HOME/.profile.extra"
-[[ -f "$profile_extra" ]] && . "$profile_extra"
+[[ -f "$profile_extra" ]] && source "$profile_extra"

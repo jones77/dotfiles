@@ -72,11 +72,11 @@ done
 
 [[ -f "$HOME/.bash_profile" ]] && profile_file="$HOME/.bash_profile" \
                                || profile_file="$HOME/.profile"
-declare -r spg="source $HOME/.profile.general"
+declare -r spg="source ~/.profile.general"
 function add_spg {
     echo "$spg" >> "$profile_file"
     echo "$spg added to $profile_file"
 }
 grep '^source.*\.profile\.general$' "$profile_file" 1>/dev/null 2>&1 || add_spg
-$spg
+eval $spg
 cdback
