@@ -58,23 +58,27 @@
     ai = add --interactive
     # grep on filename
     f = "!git ls-files | grep -i"
-    # }}}
-    # commit {{{
+    
+    # commit
     cm = commit -m
     cma = commit -a -m
     # ca = commit --amend
     amend = commit --amend
     # caa = commit -a --amend -C HEAD
 
-    # log commands {{{
-    ls = log --pretty=format:"%C(green)%h\\ %C(yellow)[%ad]%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
-    ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
-    lc  = "!f() { git ll "$1"^.."$1"; }; f"
-    lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
+    # log commands
+    # ls  = log --pretty=format:"%C(green)%h\\ %C(yellow)[%ad]%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
+    # ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+    # lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
+    # FIXME: http://stackoverflow.com/questions/21539607/git-color-ui-support-for-256-colors
+    ls  = log --pretty=format:"%C(green\\ dim)%h\\ %ad%Creset%C(yellow\\ nodim)%d%C(white)\\ %s" --decorate --date=short
+    lsb = log --pretty=format:"%C(green\\ dim)%h\\ %ad%Creset%C(yellow\\ nodim)%d%C(white)\\ %s\\ %C(white\\ dim)%cn" --decorate --date=short
+    ll  = log --pretty=format:"%C(green\\ dim)%h%C(yellow\\ nodim)%d%C(white)\\ %s\\ %C(white\\ dim)%cn" --decorate --numstat
+    # lc  = "!f() { git ll "$1"^.."$1"; }; f"
     fl = log -u
     filelog = log -u
-    # }}}
-    # diff {{{
+    
+    # diff
     d = diff --word-diff
     dc = diff --cached
     # diff last commit
