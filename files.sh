@@ -1,31 +1,35 @@
 #!/usr/bin/env bash
 #
-# Creates symbolic links from $HOME or $HOME/<dir> to ./dotfiles or ./<dir>.
+# Create symbolic links for the dotfiles in ./dotfiles/
 #
-# Be careful, 'cos it's dotfiles:
+# Stop on first error
 set -e
 declare -r original_dir=$(pwd)
 function cdback {
-    # Error handling returns you to where you were on error
+    # On error we return to where we were ...
     cd "$original_dir"
 }
 trap cdback ERR
-# But we move to the scripts dir until we get to the end of the program.
-cd $(dirname "${BASH_SOURCE[0]}")  # cd me
-# Install Vundle if necessary
+# ... and we move to the scripts dir.  Until we get to the end of the program.
+cd $(dirname "${BASH_SOURCE[0]}")
+
 if [[ ! -d ~/.vim/bundle/Vundle.vim ]]
 then
     git clone https://github.com/VundleVim/Vundle.vim.git \
               ~/.vim/bundle/Vundle.vim
     vim +PluginInstall +qall
+
+    /home/vagrant/github/fonts
+    git clone https://github.com/powerline/fonts.git ~/github/fonts
+    ~/github/fonts/install.sh
 fi
 
 for dir in "bin" "dotfiles"
 do
     if [[ "$dir" == "dotfiles" ]]
-    then  # $HOME's dotfiles
+    then
         to_dir="$HOME"
-    else  # per dir installs
+    else
         to_dir="$HOME/$dir"
         if [[ ! -e "$to_dir" ]]
         then
@@ -48,9 +52,11 @@ do
 
         if [[ -L "$to" ]]
         then
-            rm "$to"  # Remove symbolic links
+            # Remove symbolic links ...
+            rm "$to"
         elif [[ -e "$to" ]]
         then
+            # ... backup real files.
             backups="$HOME/backups"
             timestamp=$(date +%Y%m%d%H%M%S)
             echo "Backing up $to => $backups/$file.$timestamp"
@@ -58,13 +64,19 @@ do
             [[ -d "$backups" ]] || mkdir -p "$backups"
             mv -f "$to" "$backups/$file.$timestamp"
         fi
+
         ln -s "$from" "$to"
         echo $(ls -l "$to")
     done
 done
 
+[[ -f "$HOME/.bash_profile" ]] && profile_file="$HOME/.bash_profile" \
+                               || profile_file="$HOME/.profile"
 declare -r spg="source $HOME/.profile.general"
-# add "source .profile.general" if it doesn't exist
-grep "$spg" ~/.profile 2>/dev/null || echo "$spg" >> ~/.profile
-eval $spg  # So fresh and so clean.  (ie: source .profile.general)
+function add_spg {
+    echo "$spg" >> "$profile_file"
+    echo "$spg added to $profile_file"
+}
+grep '^source.*\.profile\.general$' "$profile_file" 1>/dev/null 2>&1 || add_spg
+$spg
 cdback
