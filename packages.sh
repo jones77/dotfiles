@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 #
-# TODO: Install dejavu sans mono automagically.
-# http://askubuntu.com/questions/3697/how-do-i-install-fonts
-# font-dejavu-sans-mono-for-powerline
-#
 # FIXME: Installing on RHEL needs the following workaround:
 # https://github.com/Linuxbrew/brew/issues/340#issuecomment-294900797
 # 
@@ -24,7 +20,7 @@ declare -r basename=$(basename $0)
 declare -r args="ahlpdx"
 
 function list_packages {
-    echo $(cat _packages/$1)
+    echo $( echo $(cat _packages/$1) )
 }
 function usage {
     echo "Usage:    $basename -$args"
@@ -40,21 +36,25 @@ EOF
 }
 
 declare -r package_files=$(ls _packages/*)  # List the packages lists
-distropkgs=""
+distropkgs=""  # Note: First package added adds a leading space
 while getopts ":$args" opt
 do
-    echo "$basename: Processing option: $opt"
     case $opt in
-	a) for file in $package_files  # All packages
+	a)  # All packages
+        for file in $package_files
         do
-            distropkgs="$distropkgs $(cat _packages/$(basename file))"
+            f=$(basename $file)
+            [[ "$f" != "l" ]] \
+                && distropkgs="$distropkgs $(list_packages $(basename $file))"
         done
+        linuxbrew_packages="$(list_packages l)"
     ;;
         h) usage
     ;;
-        l) linuxbrew_packages="$(cat _packages/$l)"
+        l) linuxbrew_packages="$(list_packages l)"
     ;;
-	?) if [[ -f "_packages/$opt" ]]
+	?)  # A specific package, quit if it doesn't exist
+        if [[ -f "_packages/$opt" ]]
         then
             l=$(list_packages $opt)
             distropkgs="$distropkgs $l" && echo $basename: Adding: $l
@@ -66,8 +66,8 @@ do
     esac
 done
 shift $((OPTIND-1))
-[[ -z "$distropkgs" ]] && distropkgs=$(cat _packages/p)  # Default
-echo "$basename: Installing distro packages: $distropkgs"
+[[ -z "$distropkgs" ]] && distropkgs=$(list_packages p)  # Default
+echo "$basename: Installing distro packages:$distropkgs"
 #
 # END args
 #
@@ -104,19 +104,18 @@ $install_cmd
 # END distro configuration
 #
 # -----------------------------------------------------------------------------
+[[ -z "$linuxbrew_packages" ]] && exit 0
+# -----------------------------------------------------------------------------
 #
 # BEGIN Linuxbrew configuration
 #
-[[ -z "$install_linux_brew" ]] && exit 0  # jk
-
-hash brew || (
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
+hash brew || (  # Get brew if we don't have it
+    ruby -e "$(curl -fsSL \
+        https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
 )
 
-# Linuxbrew packages.
-for b in $BREW
+for b in $linuxbrew_packages
 do
-    echo "----bb---- $b"
     ~/.linuxbrew/bin/brew ls --versions $b || (
         echo "$basename: brew: Installing $b"
         ~/.linuxbrew/bin/brew install "$b"
@@ -132,7 +131,7 @@ done
 # FIXME: Not everybody is James Jones
 git config --global user.name "James Jones"
 git config --global user.email "james@jones77.com"
-cdback
 # 
 # END Miscellaneous configuration
 # 
+cdback
