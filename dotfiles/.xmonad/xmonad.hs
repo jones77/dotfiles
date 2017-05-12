@@ -24,7 +24,7 @@ main = do
                         }
         , normalBorderColor = "#333333"
         , focusedBorderColor = "#666666"
-        , terminal = "xterm -ls"
+        , terminal = "uxterm"
         , modMask = mod4Mask -- cmd key
         }
         `additionalKeysP`
