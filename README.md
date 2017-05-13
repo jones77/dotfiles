@@ -29,8 +29,9 @@ Have a look in the [`_packages/`](_packages/) directory and modify to your heart
 
 ## Cheatsheets
 
-* [Xmonad](https://wiki.haskell.org/wikiupload/b/b8/Xmbindings.png)
 * [Git](https://www.git-tower.com/blog/content/posts/54-git-cheat-sheet/git-cheat-sheet-large01.png)
+* [pep8](http://i.imgur.com/ckjEZOi.png)
+* [Xmonad](https://wiki.haskell.org/wikiupload/b/b8/Xmbindings.png)
 
 ## General
 
