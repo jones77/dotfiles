@@ -1,27 +1,14 @@
 #!/usr/bin/env bash
 #
-# FIXME: Installing on RHEL needs the following workaround:
+# configure -h for help, quick and dirty developer install
+#
+# Note: Installing Linuxbrew on RHEL needs the following workaround:
 # https://github.com/Linuxbrew/brew/issues/340#issuecomment-294900797
-# 
-# configure.sh args
-#     quick and dirty developer install
+source ~/.shelllib.sh
 #
 # BEGIN functions
 #
-declare -r original_dir=$(pwd)
-function cdback {
-    # Error handling returns you to where you were on error
-    cd "$original_dir"
-}
-trap cdback ERR
-cd $(dirname "${BASH_SOURCE[0]}")  # cd me
-
-declare -r basename=$(basename $0)
 declare -r args="ahlpdx"
-
-function list_packages {
-    echo $( echo $(cat _packages/$1) )
-}
 function usage {
     echo "Usage:    $basename -$args"
     cat <<EOF
@@ -34,7 +21,9 @@ x) install desktop packages: $(list_packages x)
 EOF
     exit 1
 }
-
+function list_packages {
+    echo $( echo $(cat _packages/$1) )
+}
 declare -r package_files=$(ls _packages/*)  # List the packages lists
 distropkgs=""  # Note: First package added adds a leading space
 while getopts ":$args" opt
@@ -66,8 +55,10 @@ do
     esac
 done
 shift $((OPTIND-1))
+#
 [[ -z "$distropkgs" ]] && distropkgs=$(list_packages p)  # Default
-echo "$basename: Installing distro packages:$distropkgs"
+#
+echo "$basename: Installing distro packages:$distropkgs"  # Note: leading space
 #
 # END args
 #
@@ -134,4 +125,3 @@ git config --global user.email "james@jones77.com"
 # 
 # END Miscellaneous configuration
 # 
-cdback
