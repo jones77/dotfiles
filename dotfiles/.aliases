@@ -39,3 +39,7 @@ function post_add_path {
 function unsafe_sshkeygen {
     ssh-keygen -t rsa -q -P ""
 }
+function trash {
+    [[ ! -d "~/.trash" ]] && mkdir -p ~/.trash
+    mv "$@" ~/.trash
+}

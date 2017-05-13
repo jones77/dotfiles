@@ -19,7 +19,8 @@ Have a look in the [`_packages/`](_packages/) directory and modify to your heart
 
 ### Freeware VMWare
 
-* [Create an Awesome \[XUbuntu 14\] Development Environment in Windows with \[VWMare Player 7\]](https://nickjanetakis.com/blog/create-an-awesome-linux-development-environment-in-windows-with-vmware)
+* [Create an Awesome \[XUbuntu 14\] Development Environment in Windows with
+  \[VWMare Player 7\]](https://nickjanetakis.com/blog/create-an-awesome-linux-development-environment-in-windows-with-vmware)
   * [VMWare Player 7](https://my.vmware.com/web/vmware/free#desktop_end_user_computing/vmware_player/7_0)
   * [XUbuntu 14](http://mirror.us.leaseweb.net/ubuntu-cdimage/xubuntu/releases/14.04/release/xubuntu-14.04.2-desktop-amd64.iso)
 
@@ -40,4 +41,10 @@ Use `timedatectl` to configure machine timezone from the keyboard.
     sudo timedatectl set-timezone EST
 
 You want [**powerline fonts**](https://github.com/powerline/fonts) for `vim` and
-`tmux`.  [This is where **DejaVuSansMono** lives, the world's greatest programmer font.](https://github.com/powerline/fonts/tree/master/DejaVuSansMono)
+`tmux`.  [This is where **DejaVuSansMono** lives, the world's greatest
+programmer font.](https://github.com/powerline/fonts/tree/master/DejaVuSansMono)
+
+# TODO
+
+- rename github to git
+- move tmux's hostname:/current/dir to the left
