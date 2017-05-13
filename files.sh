@@ -2,29 +2,23 @@
 #
 # Create symbolic links for the dotfiles in ./dotfiles/
 #
-# Stop on first error
+[[ -z "$DEBUG" ]] && source dotfiles/.shelllib.sh \
+    || source ~/.shelllib.sh || source dotfiles/.shelllib.sh
+# Stop on first error 'cos we're dealing with dotfiles,
+# configure cd_back and cd to script directory.
 set -e
-declare -r original_dir=$(pwd)
-function cdback {
-    # On error we return to where we were ...
-    cd "$original_dir"
-}
-trap cdback ERR
-# ... and we move to the scripts dir.  Until we get to the end of the program.
-cd $(dirname "${BASH_SOURCE[0]}")
-
+# VUNDLE
 if [[ ! -d ~/.vim/bundle/Vundle.vim ]]
 then
     git clone https://github.com/VundleVim/Vundle.vim.git \
               ~/.vim/bundle/Vundle.vim
     vim +PluginInstall +qall
 
-    /home/vagrant/github/fonts
     git clone https://github.com/powerline/fonts.git ~/github/fonts
     ~/github/fonts/install.sh
 fi
-
-for dir in "bin" "dotfiles"
+# DOTFILES
+for dir in "$(script dir)/bin" "$(script dir)/dotfiles"
 do
     if [[ "$dir" == "dotfiles" ]]
     then
@@ -69,7 +63,7 @@ do
         echo $(ls -l "$to")
     done
 done
-
+# APPEND TO DOT PROFILE
 [[ -f "$HOME/.bash_profile" ]] && profile_file="$HOME/.bash_profile" \
                                || profile_file="$HOME/.profile"
 declare -r spg="source ~/.profile.general"
@@ -79,4 +73,4 @@ function add_spg {
 }
 grep '^source.*\.profile\.general$' "$profile_file" 1>/dev/null 2>&1 || add_spg
 eval $spg
-cdback
+# END
