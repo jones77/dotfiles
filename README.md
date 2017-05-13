@@ -6,22 +6,31 @@ Creates symbolic links for `./dotfiles/*` to `"$HOME"`.
 
 # `packages.sh`
 
-Tried to install some initial apt/yum packages.  eg `ruby` which is needed by
+Install some basic apt/yum packages.  eg `ruby`, needed by
 linuxbrew, `sudo` in case I'm on a Debian machine, `strace` just because.  Then
 installs [Linuxbrew](http://linuxbrew.sh/) and more packages (eg the latest
 versions of tmux and go).
+
+Have a look in the [`_packages/`](_packages/) directory and modify to your heart's content.
 
 # Tips
 
 ## Linux VM on Windows
 
+### Freeware VMWare
+
 * [Create an Awesome \[XUbuntu 14\] Development Environment in Windows with \[VWMare Player 7\]](https://nickjanetakis.com/blog/create-an-awesome-linux-development-environment-in-windows-with-vmware)
   * [VMWare Player 7](https://my.vmware.com/web/vmware/free#desktop_end_user_computing/vmware_player/7_0)
   * [XUbuntu 14](http://mirror.us.leaseweb.net/ubuntu-cdimage/xubuntu/releases/14.04/release/xubuntu-14.04.2-desktop-amd64.iso)
 
-## Xmonad
+### Various Vagrants
 
-* [**Xmonad** cheatsheet](https://wiki.haskell.org/wikiupload/b/b8/Xmbindings.png)
+* [jones77/vagrants](github.com/jones77/vagrants)
+
+## Cheatsheets
+
+* [Xmonad](https://wiki.haskell.org/wikiupload/b/b8/Xmbindings.png)
+* [Git](https://www.git-tower.com/blog/content/posts/54-git-cheat-sheet/git-cheat-sheet-large01.png)
 
 ## General
 
