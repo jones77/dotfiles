@@ -1,35 +1,39 @@
 #!/usr/bin/env bash
-# Useful functions and aliases.
-#
-## ALIASES ##
+# Useful aliases and functions
+###########
+# ALIASES #
+###########
 alias cp="cp -i"
 alias mv="mv -i"
 alias rm="rm -i"
-# https://ubuntuforums.org/showthread.php?t=816753
+# ASCIIbetical! https://ubuntuforums.org/showthread.php?t=816753
 alias ls="LC_COLLATE=C ls --color --group-directories-first"
-alias gg="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias vv='_vi'
-## FUNCTIONS ##
-_vi() {
+alias gg='git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset \
+    %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit'
+#############
+# FUNCTIONS #
+#############
+function _vi {
     # Auto-start Obsession sessions.  https://github.com/tpope/vim-obsession
     (( $# == 0 )) && [[ -f Session.vim ]] && vim -S Session.vim || vim "$@";
 }
-hh() {
+function hh {
     hostname
     uname -a
     lsb_release -a
 }
-azify() {
+function azify {
     # http://stackoverflow.com/a/23816607/469045
     echo "$@" | tr -dc '[:alnum:]' | tr '[:upper:]' '[:lower:]'
 }
-pre_add_path() {
+function pre_add_path {
     # pre_add_path & post_add_path: https://gist.github.com/morganp/964200
     [[ -s "$1" ]] && [[ ":$PATH:" != *":$1:"* ]] && PATH="$1:$PATH" || :
 }
-post_add_path() {
+function post_add_path {
     [[ -s "$1" ]] && [[ ":$PATH:" != *":$1:"* ]] && PATH="$PATH:$1" || :
 }
-unsafe_sshkeygen() {
+function unsafe_sshkeygen {
     ssh-keygen -t rsa -q -P ""
 }
