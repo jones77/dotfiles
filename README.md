@@ -19,11 +19,15 @@ versions of tmux and go).
   * [VMWare Player 7](https://my.vmware.com/web/vmware/free#desktop_end_user_computing/vmware_player/7_0)
   * [XUbuntu 14](http://mirror.us.leaseweb.net/ubuntu-cdimage/xubuntu/releases/14.04/release/xubuntu-14.04.2-desktop-amd64.iso)
 
+## Xmonad
+
+* [**Xmonad** cheatsheet](https://wiki.haskell.org/wikiupload/b/b8/Xmbindings.png)
+
 ## General
 
 Use `timedatectl` to configure machine timezone from the keyboard.
 
     sudo timedatectl set-timezone EST
 
-You **want** [powerline fonts](https://github.com/powerline/fonts) for `vim` and
-`tmux` 
+You want [**powerline fonts**](https://github.com/powerline/fonts) for `vim` and
+`tmux`.  [This is where **DejaVuSansMono** lives, the world's greatest programmer font.](https://github.com/powerline/fonts/tree/master/DejaVuSansMono)
