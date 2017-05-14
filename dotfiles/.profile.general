@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# source this file from your favourite login shell
+echo running .profile.general
+source ~/.aliases  # azify
+
+export EDITOR=vim
+export PAGER=less
+
+# let's blindly assume we'll have a 256 color terminal
+# TODO: Do this properly.
+export TERM='xterm-256color'
+set -o vi
+
+my_blue_steel='\[\033[01;36m\]'  # cyan
+my_ps_clear='\[\033[0m\]'
+my_prompt='# '
+if (( $UID ))
+then
+    my_prompt='$ '
+fi
+export PS1="${my_blue_steel}${my_prompt}${my_ps_clear}"  # blue steel
+unset my_blue_steel
+unset my_ps_clear
+unset my_prompt
+
+pre_add_path  "$HOME/bin"
+post_add_path "$HOME/gocode/bin"
+export GOPATH="$HOME/gocode"
+
+# Run the per os profiles and the extra profile if they exist.
+os=$(azify $(uname -o))
+profile_os="$HOME/.profile.${os}"
+[[ -f "$profile_os" ]]    && source "$profile_os"
+profile_extra="$HOME/.profile.extra"
+[[ -f "$profile_extra" ]] && source "$profile_extra"
+
+# Arbitrary Gunk #
+
+# # virtualenvwrapper
+# export WORKON_HOME=~/Envs
+# [[ -d "$WORKON_HOME" ]] || mkdir -p $WORKON_HOME
+# source "/home/vagrant/.local/bin/virtualenvwrapper.sh" \
+#     || source "/usr/local/bin/virtualenvwrapper.sh"

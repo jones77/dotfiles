@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# linux specific profile
+echo running .profile.gnulinux
+
+# linuxbrew
+pre_add_path "$HOME/.linuxbrew/bin"
+
+# TODO: pre_add_manpath?
+export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
+export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
+export XDG_DATA_DIRS="/home/jones/.linuxbrew/share:$XDG_DATA_DIRS"
