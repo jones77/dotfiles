@@ -2,7 +2,7 @@ Dotfiles and more.
 
 # `files.sh`
 
-Creates symbolic links for `./dotfiles/*` to `"$HOME"`.
+Creates symbolic links for `./dotfiles/*` in `"$HOME"`.
 
 # `packages.sh`
 
