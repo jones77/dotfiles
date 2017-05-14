@@ -38,9 +38,7 @@ heart's content.
 
 ## General
 
-Use `timedatectl` to configure machine timezone from the keyboard.
-
-    sudo timedatectl set-timezone EST
+Fix timezone: `sudo timedatectl set-timezone EST`
 
 You want [**powerline fonts**](https://github.com/powerline/fonts) for `vim` and
 `tmux`.  [This is where **DejaVuSansMono** lives, the world's greatest
