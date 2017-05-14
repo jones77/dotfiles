@@ -17,27 +17,27 @@ for dir in "bin" "dotfiles"
 do
     if [[ "$dir" == "dotfiles" ]]
     then
-        to_dir="$HOME"
+        to_dir_prefix="$HOME/."  # Implicit $dir/file ~/.file rename
     else
-        to_dir="$HOME/$dir"
-        if [[ ! -e "$to_dir" ]]
+        to_dir_prefix="$HOME/$dir/"
+        if [[ ! -e "$to_dir_prefix" ]]
         then
-            echo "Creating $to_dir"
-            mkdir -p "$to_dir"
+            echo "Creating $to_dir_prefix"
+            mkdir -p "$to_dir_prefix"
         fi
     fi
 
-    for file in $(ls -A "$dir")
+    for filename in $(ls -A "$dir")
     do
-	if [[ "$file" =~ '.swp'$ ]]
+	if [[ "$filename" =~ '.swp'$ ]]
         then
-            echo "Skipping VIM swapfile: $file"
+            echo "Skipping VIM swapfile: $filename"
             continue
             # FIXME: Use .gitignore to ignore more file types
         fi
 
-        from="$(pwd)/$dir/$file"
-        to="$to_dir/$file"
+        from="$(pwd)/${dir}/${filename}"
+        to="${to_dir_prefix}${filename}"
 
         if [[ -L "$to" ]]
         then
