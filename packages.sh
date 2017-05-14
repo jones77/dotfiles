@@ -72,30 +72,52 @@ echo "$basename: Installing distro packages:$distropkgs"  # Note: leading space
 #
 # BEGIN distro package configuration
 #
-declare -r distro=$(lsb_release -i | cut -f2)
+if $(hash lsb_release)
+then
+    distro=$(hash lsb_release && lsb_release -i | cut -f2)
+elif $(hash pacman)
+then
+    distro="ArchLinux"
+fi
+
 # FIXME: centos?
-if [[ "$distro" = "RedHatEnterpriseServer" ]]
-then declare -r install_cmd="
-    sudo yum install -y $(echo $distropkgs $(echo '
+case $distro in
 
-    irb 
-    python-devel 
-    python-setuptools 
+RedHatEnterpriseServer)
+declare -r install_cmd="sudo yum install -y $(
+    echo $distropkgs $(echo '
 
-    '))
-    sudo yum groupinstall -y 'Development Tools'
-    "
-# FIXME: ArchLinux specific
+    irb python-devel python-setuptools 
+
+')); sudo yum groupinstall -y 'Development Tools'"
+;;
+
+ArchLinux)
+# Note: --noconfirm: https://unix.stackexchange.com/a/52278 
+# Note: ArchLinux's decision to make /usr/bin/python
+# be Python3 is causing issues installing virtualenv.
+# https://wiki.archlinux.org/index.php/python
+# FIXME: Install virtualenvwrpper, python developer packages
+declare -r install_cmd="sudo pacman -Syu --noconfirm $(
+    echo $distropkgs $(echo '
+
+
+
+'))"
+;;
+
+
+*)
 # FIXME: Ubuntu specific instead of defaulting to Ubuntu
 # elif [[ "$distro" = "???ubuntu" ]]
-else declare -r install_cmd="
-        sudo apt-get install -y $(echo $distropkgs $(echo '
+declare -r install_cmd="sudo apt-get install -y $(
+    echo $distropkgs $(echo '
 
-        python-dev
+    python-dev
 
-    '))
-    "
-fi
+'))"
+;;
+esac
 $install_cmd
 #
 # END distro configuration
@@ -104,7 +126,7 @@ $install_cmd
 #
 # BEGIN Linuxbrew configuration
 #
-if [[ -z "$linuxbrew_pkgs" ]]
+if [[ -n "$linuxbrew_pkgs" ]]
 then
     hash brew || (  # Get brew if we don't have it
         ruby -e "$(curl -fsSL \

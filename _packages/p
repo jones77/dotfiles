@@ -1,4 +1,5 @@
 curl
 git
 ntp
+python-pip
 sudo
