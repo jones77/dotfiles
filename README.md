@@ -1,4 +1,4 @@
-Dotfiles and `~/bin` configuration.
+Dotfiles and more.
 
 # `files.sh`
 
@@ -11,7 +11,8 @@ linuxbrew, `sudo` in case I'm on a Debian machine, `strace` just because.  Then
 installs [Linuxbrew](http://linuxbrew.sh/) and more packages (eg the latest
 versions of tmux and go).
 
-Have a look in the [`_packages/`](_packages/) directory and modify to your heart's content.
+Have a look in the [`_packages/`](_packages/) directory and modify to your
+heart's content.
 
 # Tips
 
@@ -30,9 +31,10 @@ Have a look in the [`_packages/`](_packages/) directory and modify to your heart
 
 ## Cheatsheets
 
-* [git](https://www.git-tower.com/blog/content/posts/54-git-cheat-sheet/git-cheat-sheet-large01.png)
-* [pep8](http://i.imgur.com/ckjEZOi.png)
-* [xmonad](https://wiki.haskell.org/wikiupload/b/b8/Xmbindings.png)
+[git](https://www.git-tower.com/blog/content/posts/54-git-cheat-sheet/git-cheat-sheet-large01.png)
+[pep8](http://i.imgur.com/ckjEZOi.png)
+[virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/)
+[xmonad](https://wiki.haskell.org/wikiupload/b/b8/Xmbindings.png)
 
 ## General
 

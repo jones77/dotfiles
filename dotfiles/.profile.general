@@ -33,3 +33,11 @@ profile_os="$HOME/.profile.${os}"
 [[ -f "$profile_os" ]]    && source "$profile_os"
 profile_extra="$HOME/.profile.extra"
 [[ -f "$profile_extra" ]] && source "$profile_extra"
+
+# Arbitrary Gunk #
+
+# virtualenvwrapper
+export WORKON_HOME=~/Envs
+[[ -d "$WORKON_HOME" ]] || mkdir -p $WORKON_HOME
+source "/home/vagrant/.local/bin/virtualenvwrapper.sh" \
+    || source "/usr/local/bin/virtualenvwrapper.sh"
