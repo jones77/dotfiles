@@ -47,4 +47,3 @@ programmer font.](https://github.com/powerline/fonts/tree/master/DejaVuSansMono)
 # TODO
 
 - rename github to git
-- move tmux's hostname:/current/dir to the left
