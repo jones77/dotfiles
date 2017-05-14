@@ -36,8 +36,8 @@ profile_extra="$HOME/.profile.extra"
 
 # Arbitrary Gunk #
 
-# virtualenvwrapper
-export WORKON_HOME=~/Envs
-[[ -d "$WORKON_HOME" ]] || mkdir -p $WORKON_HOME
-source "/home/vagrant/.local/bin/virtualenvwrapper.sh" \
-    || source "/usr/local/bin/virtualenvwrapper.sh"
+# # virtualenvwrapper
+# export WORKON_HOME=~/Envs
+# [[ -d "$WORKON_HOME" ]] || mkdir -p $WORKON_HOME
+# source "/home/vagrant/.local/bin/virtualenvwrapper.sh" \
+#     || source "/usr/local/bin/virtualenvwrapper.sh"

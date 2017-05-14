@@ -2,11 +2,6 @@
 #
 # Create symbolic links for the dotfiles in ./dotfiles/
 #
-[[ -z "$DEBUG" ]] && source dotfiles/.shelllib.sh \
-    || source ~/.shelllib.sh || source dotfiles/.shelllib.sh
-# Stop on first error 'cos we're dealing with dotfiles,
-# configure cd_back and cd to script directory.
-set -e
 # VUNDLE
 if [[ ! -d ~/.vim/bundle/Vundle.vim ]]
 then
@@ -18,7 +13,7 @@ then
     ~/github/fonts/install.sh
 fi
 # DOTFILES
-for dir in "$(script dir)/bin" "$(script dir)/dotfiles"
+for dir in "bin" "dotfiles"
 do
     if [[ "$dir" == "dotfiles" ]]
     then
