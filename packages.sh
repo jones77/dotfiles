@@ -5,6 +5,7 @@
 # Note: Installing Linuxbrew on RHEL needs the following workaround:
 # https://github.com/Linuxbrew/brew/issues/340#issuecomment-294900797
 source ~/.shelllib.sh
+# -----------------------------------------------------------------------------
 #
 # BEGIN functions
 #
@@ -36,17 +37,22 @@ do
             [[ "$f" != "l" ]] \
                 && distropkgs="$distropkgs $(list_packages $(basename $file))"
         done
-        linuxbrew_packages="$(list_packages l)"
+        linuxbrew_pkgs="$(list_packages l)"
     ;;
         h) usage
     ;;
-        l) linuxbrew_packages="$(list_packages l)"
+        l) linuxbrew_pkgs="$(list_packages l)"
     ;;
 	?)  # A specific package, quit if it doesn't exist
         if [[ -f "_packages/$opt" ]]
         then
             l=$(list_packages $opt)
             distropkgs="$distropkgs $l" && echo $basename: Adding: $l
+
+            if [[ "$opt" == "d" ]]
+            then
+                pip_pkgs="virtualenvwrapper"
+            fi
         else
             echo "$basename: Quitting, Unknown opt: $opt"
             usage
@@ -95,25 +101,38 @@ $install_cmd
 # END distro configuration
 #
 # -----------------------------------------------------------------------------
-[[ -z "$linuxbrew_packages" ]] && exit 0
-# -----------------------------------------------------------------------------
 #
 # BEGIN Linuxbrew configuration
 #
-hash brew || (  # Get brew if we don't have it
-    ruby -e "$(curl -fsSL \
-        https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
-)
-
-for b in $linuxbrew_packages
-do
-    ~/.linuxbrew/bin/brew ls --versions $b || (
-        echo "$basename: brew: Installing $b"
-        ~/.linuxbrew/bin/brew install "$b"
+if [[ -z "$linuxbrew_pkgs" ]]
+then
+    hash brew || (  # Get brew if we don't have it
+        ruby -e "$(curl -fsSL \
+            https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
     )
-done
+
+    for b in $linuxbrew_pkgs
+    do
+        ~/.linuxbrew/bin/brew ls --versions $b || (
+            echo "$basename: brew: Installing $b"
+            ~/.linuxbrew/bin/brew install "$b"
+        )
+    done
+fi
 #
 # END Linuxbrew configuration
+#
+# -----------------------------------------------------------------------------
+#
+# BEGIN pip configuration
+#
+pip install --upgrade pip
+for p in $pip_pkgs
+do
+    pip install $p
+done
+#
+# END pip configuration
 #
 # -----------------------------------------------------------------------------
 #
