@@ -41,7 +41,7 @@ heart's content.
 Fix timezone: `sudo timedatectl set-timezone EST`
 
 You want [**powerline fonts**](https://github.com/powerline/fonts) for `vim` and
-`tmux`.  [This is where **DejaVuSansMono** lives, the world's greatest
+`tmux`.  [This is where **Deja Vu Sans Mono** lives, the world's greatest
 programmer font.](https://github.com/powerline/fonts/tree/master/DejaVuSansMono)
 
 # TODO
