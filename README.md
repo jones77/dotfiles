@@ -38,7 +38,7 @@ heart's content.
 
 ## General
 
-Fix timezone: `sudo timedatectl set-timezone EST`
+Fix timezone: `sudo timedatectl set-timezone America/New_York`
 
 You want [**powerline fonts**](https://github.com/powerline/fonts) for `vim` and
 `tmux`.  [This is where **Deja Vu Sans Mono** lives, the world's greatest

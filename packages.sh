@@ -5,6 +5,7 @@
 # Note: Installing Linuxbrew on RHEL needs the following workaround:
 # https://github.com/Linuxbrew/brew/issues/340#issuecomment-294900797
 source ~/.shelllib.sh
+declare -r basename=$(basename $0)
 # -----------------------------------------------------------------------------
 #
 # BEGIN functions
@@ -47,7 +48,8 @@ do
         if [[ -f "_packages/$opt" ]]
         then
             l=$(list_packages $opt)
-            distropkgs="$distropkgs $l" && echo $basename: Adding: $l
+            distropkgs="$distropkgs $l" \
+                && echo $(ce Green $basename): Adding: $(ce green $l)
 
             if [[ "$opt" == "d" ]]
             then
@@ -64,7 +66,7 @@ shift $((OPTIND-1))
 #
 [[ -z "$distropkgs" ]] && distropkgs=$(list_packages p)  # Default
 #
-echo "$basename: Installing distro packages:$distropkgs"  # Note: leading space
+echo -e "$(ce Green $basename): Installing distro packages: $(ce Green $distropkgs)"  # Note: leading space
 #
 # END args
 #
@@ -140,6 +142,11 @@ then
             ~/.linuxbrew/bin/brew install "$b"
         )
     done
+
+    # Haskell stack specific
+    # www.stephendiehl.com/posts/vim_2016.html
+    stack setup
+    stack install hlint ghc-mod
 fi
 #
 # END Linuxbrew configuration
