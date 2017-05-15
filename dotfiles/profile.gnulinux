@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # linux specific profile
-echo running .profile.gnulinux
+ce Green running .profile.gnulinux
 
 # linuxbrew
 pre_add_path "$HOME/.linuxbrew/bin"

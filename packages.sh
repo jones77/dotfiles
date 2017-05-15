@@ -130,7 +130,8 @@ $install_cmd
 #
 if [[ -n "$linuxbrew_pkgs" ]]
 then
-    hash brew || (  # Get brew if we don't have it
+    # Get brew if we don't have it
+    hash brew || (
         ruby -e "$(curl -fsSL \
             https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
     )
@@ -155,21 +156,11 @@ fi
 #
 # BEGIN pip configuration
 #
-pip install --upgrade pip
+sudo pip install --upgrade pip
 for p in $pip_pkgs
 do
-    pip install $p
+    sudo pip install $p
 done
 #
 # END pip configuration
 #
-# -----------------------------------------------------------------------------
-#
-# BEGIN Miscellaneous configuration
-#
-# FIXME: Not everybody is James Jones
-git config --global user.name "James Jones"
-git config --global user.email "james@jones77.com"
-# 
-# END Miscellaneous configuration
-# 

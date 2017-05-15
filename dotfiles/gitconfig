@@ -3,8 +3,8 @@
 # [core]
     # excludesfile = /Users/np/.gitignore_global
 [user]
-    email = james@jones77.com
-    name = James Jones
+	email = james@jones77.com
+	name = James Jones
 
 [color]
     branch = auto
@@ -164,7 +164,5 @@
 # 	clean = git-lfs clean %f
 # 	smudge = git-lfs smudge %f
 # 	required = true
-
-[user]
-	name = James Jones
-	email = james@jones77.com
+[push]
+	default = simple
