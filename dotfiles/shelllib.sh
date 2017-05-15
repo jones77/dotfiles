@@ -35,7 +35,7 @@ function ce {  # color echo, eg ce Green string [...]
     fi
 }
 #
-ce Green sourcing .shelllib.sh
+ce Green running .shelllib.sh
 #
 original_dir="$(pwd)"
 script_pathtoname="$(

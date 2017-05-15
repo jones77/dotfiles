@@ -94,17 +94,20 @@ declare -r install_cmd="sudo yum install -y $(
 
 Debian)
 declare -r install_cmd="sudo apt-get install -y $distropkgs x11-xserver-utils"
+# FIXME: Create per OS install scripts.
 debmozlist="/etc/apt/sources.list.d/debian-mozilla.list"
+debmozkeyring="pkg-mozzila-archive-keyring_1.1_all.deb"
 if [[ ! -f "$debmozlist" ]]
 then
     # https://medium.com/@mos3abof/how-to-install-firefox-on-debian-jessie-90fa135e9e9
     sudo touch "$debmozlist"
     echo 'deb http://mozilla.debian.net/ jessie-backports firefox-release' \
         | sudo tee "$debmozlist"
-    wget mozilla.debian.net/pkg-mozilla-archive-keyring_1.1_all.deb
-    sudo dpkg -i            pkg-mozzila-archive-keyring_1.1_all.deb
+    wget "mozilla.debian.net/$debmozkeyring"
+    sudo dpkg -i            "$debmozkeyring"
     sudo apt-get update
     sudo apt-get install -t jessie-backports firefox
+    rm $debmozkeyring
 fi
 ;;
 ArchLinux)
