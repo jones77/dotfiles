@@ -93,7 +93,10 @@ declare -r install_cmd="sudo yum install -y $(
 ;;
 
 Debian)
-declare -r install_cmd="sudo apt-get install -y $distropkgs x11-xserver-utils"
+declare -r install_cmd="sudo apt-get install -y $distropkgs
+pip
+x11-xserver-utils
+"
 # FIXME: Create per OS install scripts.
 debmozlist="/etc/apt/sources.list.d/debian-mozilla.list"
 debmozkeyring="pkg-mozzila-archive-keyring_1.1_all.deb"
