@@ -1,22 +1,10 @@
 #!/usr/bin/env bash
 # Useful script library functions, ie `source library.sh`
-#
-# http://stackoverflow.com/questions/3666846/how-do-you-return-to-a-sourced-bash-script#comment15666398_3666941
-original_dir="$(pwd)"
-script_pathtoname="$(
-                 ps -f | grep $$ | grep $PPID | awk '{ print $NF }')"
-script_dir="$(dirname '$script_pathtoname')"
-script_name="$(basename '$script_pathtoname')"
-
-function ce {
-    if (( $# == 0 ))
-    then
-        return 0
-    fi
-    # Color codes
+function ce {  # color echo, eg ce Green string [...]
+    (( $# == 0 )) && return 0  # http://stackoverflow.com/questions/3666846
     # http://stackoverflow.com/a/5947802
-    # FIXME: Add background colors.
     # https://en.wikipedia.org/wiki/ANSI_escape_code
+    # FIXME: Add background colors.
     local Black="0;30"
     local Blue="0;34"
     local BrownOrange="0;33"
@@ -34,11 +22,7 @@ function ce {
     local White="1;37"
     local Yellow="1;33"
     local NoColor='0' # No Color
-    local col nocol
-
-    # echo -e "I \e[${Red}mlove${NoColor} Stack Overflow\n"
-
-    color_name="$1"
+    local color_name="$1" col nocol
     shift
     col=$(eval echo \$$color_name)
     if [[ -n "$col" ]]
@@ -50,6 +34,15 @@ function ce {
         echo "$@"
     fi
 }
+#
+ce Green sourcing .shelllib.sh
+#
+original_dir="$(pwd)"
+script_pathtoname="$(
+                 ps -f | grep $$ | grep $PPID | awk '{ print $NF }')"
+script_dir="$(dirname '$script_pathtoname')"
+script_name="$(basename '$script_pathtoname')"
+#
 function sl_debug {
     [[ -n "$DEBUG" ]] && echo "$@"
 }
