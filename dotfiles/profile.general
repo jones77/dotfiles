@@ -22,15 +22,15 @@ function my_prompt {
 }
 function git_prompt {
     # https://coderwall.com/p/fasnya/add-git-branch-name-to-bash-prompt
-    ce Green "$(git branch 2>/dev/null \
+    ce Cyan "$(git branch 2>/dev/null \
         | sed -e '/^[^*]/d' -e 's/^[*( ]*//' -e 's/[ )]*$//')"
 }
-export PS1="\$(git_prompt) \$(my_prompt) "
+export PS1="\$(git_prompt)\$(my_prompt) "
 function hideprompt {
     export PS1="\$(my_prompt) "
 }
 function showprompt {
-    export PS1="\$(git_prompt) \$(my_prompt) "
+    export PS1="\$(git_prompt)\$(my_prompt) "
 }
 
 pre_add_path  "$HOME/bin"
