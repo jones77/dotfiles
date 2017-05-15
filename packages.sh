@@ -88,12 +88,25 @@ case $distro in
 RedHatEnterpriseServer)
 declare -r install_cmd="sudo yum install -y $(
     echo $distropkgs $(echo '
-
-    irb python-devel python-setuptools 
-
+        irb python-devel python-setuptools 
 ')); sudo yum groupinstall -y 'Development Tools'"
 ;;
 
+Debian)
+declare -r install_cmd="sudo apt-get install -y $distropkgs x11-xserver-utils"
+debmozlist="/etc/apt/sources.list.d/debian-mozilla.list"
+if [[ ! -f "$debmozlist" ]]
+then
+    # https://medium.com/@mos3abof/how-to-install-firefox-on-debian-jessie-90fa135e9e9
+    sudo touch "$debmozlist"
+    echo 'deb http://mozilla.debian.net/ jessie-backports firefox-release' \
+        | sudo tee "$debmozlist"
+    wget mozilla.debian.net/pkg-mozilla-archive-keyring_1.1_all.deb
+    sudo dpkg -i            pkg-mozzila-archive-keyring_1.1_all.deb
+    sudo apt-get update
+    sudo apt-get install -t jessie-backports firefox
+fi
+;;
 ArchLinux)
 # Note: --noconfirm: https://unix.stackexchange.com/a/52278 
 # Note: ArchLinux's decision to make /usr/bin/python
@@ -102,13 +115,8 @@ ArchLinux)
 # FIXME: Install virtualenvwrpper, python developer packages
 declare -r install_cmd="sudo pacman -Syu --noconfirm $(
     echo $distropkgs $(echo '
-
-
-
 '))"
 ;;
-
-
 *)
 # FIXME: Ubuntu specific instead of defaulting to Ubuntu
 # elif [[ "$distro" = "???ubuntu" ]]
