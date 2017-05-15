@@ -94,7 +94,7 @@ declare -r install_cmd="sudo yum install -y $(
 
 Debian)
 declare -r install_cmd="sudo apt-get install -y $distropkgs
-pip
+python-pip
 x11-xserver-utils
 "
 # FIXME: Create per OS install scripts.
@@ -108,9 +108,9 @@ then
         | sudo tee "$debmozlist"
     wget "mozilla.debian.net/$debmozkeyring"
     sudo dpkg -i            "$debmozkeyring"
-    sudo apt-get update
-    sudo apt-get install -t jessie-backports firefox
-    rm $debmozkeyring
+    sudo apt-get update -y
+    sudo apt-get install -y -t jessie-backports firefox
+    sudo rm "$debmozkeyring"
 fi
 ;;
 ArchLinux)
