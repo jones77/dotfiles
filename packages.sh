@@ -6,6 +6,7 @@
 # https://github.com/Linuxbrew/brew/issues/340#issuecomment-294900797
 source ~/.shelllib.sh
 declare -r basename=$(basename $0)
+declare -r indent=$(echo $basename | sed 's/./~/g')
 # -----------------------------------------------------------------------------
 #
 # BEGIN functions
@@ -66,7 +67,6 @@ shift $((OPTIND-1))
 #
 [[ -z "$distropkgs" ]] && distropkgs=$(list_packages p)  # Default
 #
-echo -e "$(ce Green $basename): Installing distro packages: $(ce Green $distropkgs)"  # Note: leading space
 #
 # END args
 #
@@ -74,34 +74,48 @@ echo -e "$(ce Green $basename): Installing distro packages: $(ce Green $distropk
 #
 # BEGIN distro package configuration
 #
-if $(hash lsb_release)
+if $(hash lsb_release 2>/dev/null)
 then
     # Ubuntu, RedHat
     distro=$(hash lsb_release && lsb_release -i | cut -f2)
-elif $(hash pacman)
+elif $(hash pacman 2>/dev/null)
 then
     distro="ArchLinux"
-elif $(grep -i centos /etc/os-version 2>/dev/null 1>&2)
+elif $(grep -i centos /etc/os-release 2>/dev/null 1>&2)
 then
     distro="Centos"
 fi
+
+ce White "$(ce Green $basename): Installing $(ce Yellow $distro) Packages:"
+ce Yellow "${indent}  $(ce Green ${distropkgs})"
 
 case $distro \
 in
 
 Centos|RedHatEnterpriseServer)
+# Linuxbrew workarounds for Centos 7.3
+# Building from source might be overkill
+export HOMEBREW_BUILD_FROM_SOURCE=1
+# vim wouldn't compile without brew's perl
+# vim wouldn't run without brew's python
+PRE_LINUX_BREW_INSTALL="echo yes \
+    | $HOME/.linuxbrew/bin/brew install perl python"
 
+# FIXME: Make installing 'Development Tools' dependent on -d
 sudo yum groupinstall -y 'Development Tools'
-declare -r install_cmd="sudo yum install -y $distropkgs \
-        irb python-devel python-setuptools"
+# FIXME: Make 'X Window System' install dependent on -x
+sudo yum groupinstall -y 'X Window System'
+# FIXME: Do we need epel-release if we rely on Linuxbrew?
+sudo yum install -y epel-release
+# FIXME: Aren't these redundant?
+sudo yum install -y irb python-devel python-setuptools
+
+declare -r install_cmd="sudo yum install -y $distropkgs"
 ;;
 
 Debian)
 
-declare -r install_cmd="sudo apt-get install -y $distropkgs
-python-pip
-x11-xserver-utils
-"
+declare -r install_cmd="sudo apt-get install -y $distropkgs python-pip x11-xserver-utils"
 # FIXME: Create per OS install scripts.
 debmozlist="/etc/apt/sources.list.d/debian-mozilla.list"
 debmozkeyring="pkg-mozzila-archive-keyring_1.1_all.deb"
@@ -133,12 +147,7 @@ declare -r install_cmd="sudo pacman -Syu --noconfirm $(
 *)
 # FIXME: Ubuntu specific instead of defaulting to Ubuntu
 # elif [[ "$distro" = "???ubuntu" ]]
-declare -r install_cmd="sudo apt-get install -y $(
-    echo $distropkgs $(echo '
-
-    python-dev
-
-'))"
+declare -r install_cmd="sudo apt-get install -y echo $distropkgs python-dev"
 ;;
 esac
 $install_cmd
@@ -151,24 +160,19 @@ $install_cmd
 #
 if [[ -n "$linuxbrew_pkgs" ]]
 then
-    # Get brew if we don't have it
-    hash brew || (
-        ruby -e "$(curl -fsSL \
-            https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
+    brewcmd="$HOME/.linuxbrew/bin/brew"
+    [[ -f "$brewcmd" ]] || ( echo yes | ruby -e "$(curl -fsSL \
+        'https://raw.githubusercontent.com/Linuxbrew/install/master/install')"
     )
-
-    for b in $linuxbrew_pkgs
-    do
-        ~/.linuxbrew/bin/brew ls --versions $b || (
-            echo "$basename: brew: Installing $b"
-            ~/.linuxbrew/bin/brew install "$b"
-        )
-    done
+    eval "$PRE_LINUX_BREW_INSTALL"
+    echo yes | $brewcmd install curl git
+    echo yes | $brewcmd install $linuxbrew_pkgs
 
     # Haskell stack specific
     # www.stephendiehl.com/posts/vim_2016.html
-    stack setup
-    stack install hlint ghc-mod
+    # echo yes | $brewcmd install stack
+    # stack setup
+    # stack install hlint ghc-mod
 fi
 #
 # END Linuxbrew configuration
