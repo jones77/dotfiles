@@ -6,6 +6,7 @@
 # https://github.com/Linuxbrew/brew/issues/340#issuecomment-294900797
 source ~/.shelllib.sh
 declare -r basename=$(basename $0)
+declare -r indent=$(echo $basename | sed 's/./~/g')
 # -----------------------------------------------------------------------------
 #
 # BEGIN functions
@@ -66,7 +67,6 @@ shift $((OPTIND-1))
 #
 [[ -z "$distropkgs" ]] && distropkgs=$(list_packages p)  # Default
 #
-echo -e "$(ce Green $basename): Installing distro packages: $(ce Green $distropkgs)"  # Note: leading space
 #
 # END args
 #
@@ -74,27 +74,78 @@ echo -e "$(ce Green $basename): Installing distro packages: $(ce Green $distropk
 #
 # BEGIN distro package configuration
 #
-if $(hash lsb_release)
+if $(hash lsb_release 2>/dev/null)
 then
+    # Ubuntu, RedHat
     distro=$(hash lsb_release && lsb_release -i | cut -f2)
-elif $(hash pacman)
+elif $(hash pacman 2>/dev/null)
 then
     distro="ArchLinux"
+elif $(grep -i centos /etc/os-release 2>/dev/null 1>&2)
+then
+    distro="Centos"
+else
+    ce Red "$(ce Green $basename): Unknown distro: uname -a=$(uname -a)"
+    exit 1
 fi
 
-# FIXME: centos?
-case $distro in
+ce White "$(ce Green $basename): Installing $(ce Yellow $distro) Packages:"
+ce Yellow "${indent}  $(ce Green ${distropkgs})"
 
-RedHatEnterpriseServer)
-declare -r install_cmd="sudo yum install -y $(
-    echo $distropkgs $(echo '
+case $distro \
+in
 
-    irb python-devel python-setuptools 
+Centos|RedHatEnterpriseServer)
+# Linuxbrew workarounds for Centos 7.3
+# Building from source might be overkill
+export HOMEBREW_BUILD_FROM_SOURCE=1
+# vim wouldn't compile without brew's perl
+# vim wouldn't run without brew's python
+PRE_LINUX_BREW_INSTALL="echo yes \
+    | $HOME/.linuxbrew/bin/brew install perl python"
 
-')); sudo yum groupinstall -y 'Development Tools'"
+# FIXME: Make installing 'Development Tools' dependent on -d
+sudo yum groupinstall -y 'Development Tools'
+# FIXME: Make 'X Window System' install dependent on -x
+sudo yum groupinstall -y 'X Window System'
+# FIXME: Do we need epel-release if we rely on Linuxbrew?
+sudo yum install -y epel-release
+# FIXME: Aren't these redundant?
+sudo yum install -y irb python-devel python-setuptools
+
+declare -r install_cmd="sudo yum install -y $distropkgs"
+;;
+
+Debian)
+sudo apt-get update -y
+# FIXME: Create per OS install scripts.
+declare -r install_cmd="sudo apt-get install -y $distropkgs \
+    python-pip x11-xserver-utils"
+
+# Firefox
+debmozlist="/etc/apt/sources.list.d/debian-mozilla.list"
+debmozkeyring="pkg-mozzila-archive-keyring_1.1_all.deb"
+if [[ ! -f "$debmozlist" ]]
+then
+    # https://www.google.com/search?q=NO_PUBKEY+85A3D26506C4AE2A
+    # http://www.hangelot.eu/?p=209&lang=en
+    sudo apt-get install debian-keyring
+    gpg --keyserver keys.gnupg.net --recv-key 06C4AE2A
+    gpg -a --export 06C4AE2A | sudo apt-key add -
+    # https://medium.com/@mos3abof/how-to-install-firefox-on-debian-jessie-90fa135e9e9
+    sudo touch "$debmozlist"
+    echo 'deb http://mozilla.debian.net/ jessie-backports firefox-release' \
+        | sudo tee "$debmozlist"
+    wget "mozilla.debian.net/$debmozkeyring"
+    sudo dpkg -i            "$debmozkeyring"
+    sudo apt-get update -y
+    sudo apt-get install -y -t jessie-backports firefox
+    sudo rm "$debmozkeyring"
+fi
 ;;
 
 ArchLinux)
+
 # Note: --noconfirm: https://unix.stackexchange.com/a/52278 
 # Note: ArchLinux's decision to make /usr/bin/python
 # be Python3 is causing issues installing virtualenv.
@@ -102,22 +153,16 @@ ArchLinux)
 # FIXME: Install virtualenvwrpper, python developer packages
 declare -r install_cmd="sudo pacman -Syu --noconfirm $(
     echo $distropkgs $(echo '
-
-
-
 '))"
 ;;
-
-
-*)
+Ubuntu)
 # FIXME: Ubuntu specific instead of defaulting to Ubuntu
 # elif [[ "$distro" = "???ubuntu" ]]
-declare -r install_cmd="sudo apt-get install -y $(
-    echo $distropkgs $(echo '
-
-    python-dev
-
-'))"
+declare -r install_cmd="sudo apt-get install -y echo $distropkgs python-dev"
+;;
+*)
+ce Red "$(ce Green $basename): Unknown distro: uname -a=$(uname -a)"
+exit 1
 ;;
 esac
 $install_cmd
@@ -130,24 +175,19 @@ $install_cmd
 #
 if [[ -n "$linuxbrew_pkgs" ]]
 then
-    # Get brew if we don't have it
-    hash brew || (
-        ruby -e "$(curl -fsSL \
-            https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
+    brewcmd="$HOME/.linuxbrew/bin/brew"
+    [[ -f "$brewcmd" ]] || ( echo yes | ruby -e "$(curl -fsSL \
+        'https://raw.githubusercontent.com/Linuxbrew/install/master/install')"
     )
-
-    for b in $linuxbrew_pkgs
-    do
-        ~/.linuxbrew/bin/brew ls --versions $b || (
-            echo "$basename: brew: Installing $b"
-            ~/.linuxbrew/bin/brew install "$b"
-        )
-    done
+    eval "$PRE_LINUX_BREW_INSTALL"
+    echo yes | $brewcmd install curl git
+    echo yes | $brewcmd install $linuxbrew_pkgs
 
     # Haskell stack specific
     # www.stephendiehl.com/posts/vim_2016.html
-    stack setup
-    stack install hlint ghc-mod
+    # echo yes | $brewcmd install stack
+    # stack setup
+    # stack install hlint ghc-mod
 fi
 #
 # END Linuxbrew configuration

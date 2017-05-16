@@ -3,8 +3,8 @@
 # [core]
     # excludesfile = /Users/np/.gitignore_global
 [user]
-	email = james@jones77.com
-	name = James Jones
+    email = james@jones77.com
+    name = James Jones
 
 [color]
     branch = auto
@@ -12,9 +12,9 @@
     status = auto
 
 [color "branch"]
-    current = red reverse
-    local = blue
-    remote = green
+    current = green
+    local = white
+    remote = red
 
 [color "diff"]
     meta = yellow
@@ -24,9 +24,9 @@
     plain = white
 
 [color "status"]
-    added = yellow
-    changed = green
-    untracked = cyan
+    added = green
+    changed = yellow
+    untracked = red
 
 # [push]
 #     default = current
