@@ -118,8 +118,11 @@ declare -r install_cmd="sudo yum install -y $distropkgs"
 
 Debian)
 sudo apt-get update -y
-declare -r install_cmd="sudo apt-get install -y $distropkgs python-pip x11-xserver-utils"
 # FIXME: Create per OS install scripts.
+declare -r install_cmd="sudo apt-get install -y $distropkgs \
+    python-pip x11-xserver-utils"
+
+# Firefox
 debmozlist="/etc/apt/sources.list.d/debian-mozilla.list"
 debmozkeyring="pkg-mozzila-archive-keyring_1.1_all.deb"
 if [[ ! -f "$debmozlist" ]]
