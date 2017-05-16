@@ -84,6 +84,9 @@ then
 elif $(grep -i centos /etc/os-release 2>/dev/null 1>&2)
 then
     distro="Centos"
+else
+    ce Red "$(ce Green $basename): Unknown distro: uname -a=$(uname -a)"
+    exit 1
 fi
 
 ce White "$(ce Green $basename): Installing $(ce Yellow $distro) Packages:"
@@ -149,10 +152,14 @@ declare -r install_cmd="sudo pacman -Syu --noconfirm $(
     echo $distropkgs $(echo '
 '))"
 ;;
-*)
+Ubuntu)
 # FIXME: Ubuntu specific instead of defaulting to Ubuntu
 # elif [[ "$distro" = "???ubuntu" ]]
 declare -r install_cmd="sudo apt-get install -y echo $distropkgs python-dev"
+;;
+*)
+ce Red "$(ce Green $basename): Unknown distro: uname -a=$(uname -a)"
+exit 1
 ;;
 esac
 $install_cmd
