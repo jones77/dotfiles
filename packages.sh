@@ -114,13 +114,18 @@ declare -r install_cmd="sudo yum install -y $distropkgs"
 ;;
 
 Debian)
-
+sudo apt-get update -y
 declare -r install_cmd="sudo apt-get install -y $distropkgs python-pip x11-xserver-utils"
 # FIXME: Create per OS install scripts.
 debmozlist="/etc/apt/sources.list.d/debian-mozilla.list"
 debmozkeyring="pkg-mozzila-archive-keyring_1.1_all.deb"
 if [[ ! -f "$debmozlist" ]]
 then
+    # https://www.google.com/search?q=NO_PUBKEY+85A3D26506C4AE2A
+    # http://www.hangelot.eu/?p=209&lang=en
+    sudo apt-get install debian-keyring
+    gpg --keyserver keys.gnupg.net --recv-key 06C4AE2A
+    gpg -a --export 06C4AE2A | sudo apt-key add -
     # https://medium.com/@mos3abof/how-to-install-firefox-on-debian-jessie-90fa135e9e9
     sudo touch "$debmozlist"
     echo 'deb http://mozilla.debian.net/ jessie-backports firefox-release' \
