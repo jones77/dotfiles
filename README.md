@@ -27,7 +27,7 @@ heart's content.
 
 ### Various Vagrants
 
-* [jones77/vagrants](github.com/jones77/vagrants)
+* [jones77/vagrants](https://github.com/jones77/vagrants)
 
 ## Cheatsheets
 
