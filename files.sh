@@ -39,6 +39,8 @@ do
         from="$(pwd)/${dir}/${filename}"
         to="${to_dir_prefix}${filename}"
 
+        # FIXME: the symbolic links git bash on Windows uses return false for
+        # test -L so we have to windowshackhack some tests in the following.
         if [[ -L "$to" ]]
         then
             # Remove symbolic links ...
@@ -51,11 +53,14 @@ do
             echo "Backing up $to => $backups/$file.$timestamp"
 
             [[ -d "$backups" ]] || mkdir -p "$backups"
-            mv -f "$to" "$backups/$file.$timestamp"
+            # Ignore directories though. 
+            [[ ! -d "$to" ]] && mv -f "$to" "$backups/$file.$timestamp"
+            # ^^ windowshackhack
         fi
 
-        ln -s "$from" "$to"
-        echo $(ls -l "$to")
+        [[ ! -d "$to" ]] && ln -s "$from" "$to"
+        # ^^ windowshackhack
+        ls -l "$to"
     done
 done
 # APPEND TO DOT PROFILE
