@@ -76,23 +76,28 @@ echo -e "$(ce Green $basename): Installing distro packages: $(ce Green $distropk
 #
 if $(hash lsb_release)
 then
+    # Ubuntu, RedHat
     distro=$(hash lsb_release && lsb_release -i | cut -f2)
 elif $(hash pacman)
 then
     distro="ArchLinux"
+elif $(grep -i centos /etc/os-version 2>/dev/null 1>&2)
+then
+    distro="Centos"
 fi
 
-# FIXME: centos?
-case $distro in
+case $distro \
+in
 
-RedHatEnterpriseServer)
-declare -r install_cmd="sudo yum install -y $(
-    echo $distropkgs $(echo '
-        irb python-devel python-setuptools 
-')); sudo yum groupinstall -y 'Development Tools'"
+Centos|RedHatEnterpriseServer)
+
+sudo yum groupinstall -y 'Development Tools'
+declare -r install_cmd="sudo yum install -y $distropkgs \
+        irb python-devel python-setuptools"
 ;;
 
 Debian)
+
 declare -r install_cmd="sudo apt-get install -y $distropkgs
 python-pip
 x11-xserver-utils
@@ -113,7 +118,9 @@ then
     sudo rm "$debmozkeyring"
 fi
 ;;
+
 ArchLinux)
+
 # Note: --noconfirm: https://unix.stackexchange.com/a/52278 
 # Note: ArchLinux's decision to make /usr/bin/python
 # be Python3 is causing issues installing virtualenv.
