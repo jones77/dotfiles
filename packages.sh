@@ -98,7 +98,7 @@ in
 Centos|RedHatEnterpriseServer)
 # Linuxbrew workarounds for Centos 7.3
 # Building from source might be overkill
-# export HOMEBREW_BUILD_FROM_SOURCE=1
+export HOMEBREW_BUILD_FROM_SOURCE=1
 # vim wouldn't compile without brew's perl
 # vim wouldn't run without brew's python
 PRE_LINUX_BREW_INSTALL="echo yes \

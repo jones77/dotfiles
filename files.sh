@@ -73,5 +73,6 @@ function add_spg {
     echo "$spg added to $profile_file"
 }
 grep '^source.*\.profile\.general$' "$profile_file" 1>/dev/null 2>&1 || add_spg
-ce Yellow "Source it: $( ce Green source $profile_file )"
+ce Yellow "Source it:"
+ce Green "    source $profile_file"
 # END
