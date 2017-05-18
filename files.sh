@@ -64,6 +64,7 @@ do
     done
 done
 vim +PluginInstall +qall  # Can only install plugins after .vimrc is updated
+mkdir -p ~/gocode/bin
 # APPEND TO DOT PROFILE
 [[ -f "$HOME/.bash_profile" ]] && profile_file="$HOME/.bash_profile" \
                                || profile_file="$HOME/.profile"
