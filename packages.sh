@@ -98,18 +98,18 @@ in
 Centos|RedHatEnterpriseServer)
 # Linuxbrew workarounds for Centos 7.3
 # Building from source might be overkill
-export HOMEBREW_BUILD_FROM_SOURCE=1
+# export HOMEBREW_BUILD_FROM_SOURCE=1
 # vim wouldn't compile without brew's perl
 # vim wouldn't run without brew's python
 PRE_LINUX_BREW_INSTALL="echo yes \
-    | $HOME/.linuxbrew/bin/brew install perl python"
+    | $HOME/.linuxbrew/bin/brew install gcc perl python"
 
 # FIXME: Make installing 'Development Tools' dependent on -d
 sudo yum groupinstall -y 'Development Tools'
 # FIXME: Make 'X Window System' install dependent on -x
 sudo yum groupinstall -y 'X Window System'
 # FIXME: Do we need epel-release if we rely on Linuxbrew?
-sudo yum install -y epel-release
+# sudo yum install -y epel-release
 # FIXME: Aren't these redundant?
 sudo yum install -y irb python-devel python-setuptools
 
@@ -123,25 +123,25 @@ declare -r install_cmd="sudo apt-get install -y $distropkgs \
     python-pip x11-xserver-utils"
 
 # Firefox
-debmozlist="/etc/apt/sources.list.d/debian-mozilla.list"
-debmozkeyring="pkg-mozzila-archive-keyring_1.1_all.deb"
-if [[ ! -f "$debmozlist" ]]
-then
-    # https://www.google.com/search?q=NO_PUBKEY+85A3D26506C4AE2A
-    # http://www.hangelot.eu/?p=209&lang=en
-    sudo apt-get install debian-keyring
-    gpg --keyserver keys.gnupg.net --recv-key 06C4AE2A
-    gpg -a --export 06C4AE2A | sudo apt-key add -
-    # https://medium.com/@mos3abof/how-to-install-firefox-on-debian-jessie-90fa135e9e9
-    sudo touch "$debmozlist"
-    echo 'deb http://mozilla.debian.net/ jessie-backports firefox-release' \
-        | sudo tee "$debmozlist"
-    wget "mozilla.debian.net/$debmozkeyring"
-    sudo dpkg -i            "$debmozkeyring"
-    sudo apt-get update -y
-    sudo apt-get install -y -t jessie-backports firefox
-    sudo rm "$debmozkeyring"
-fi
+# debmozlist="/etc/apt/sources.list.d/debian-mozilla.list"
+# debmozkeyring="pkg-mozzila-archive-keyring_1.1_all.deb"
+# if [[ ! -f "$debmozlist" ]]
+# then
+#     # https://www.google.com/search?q=NO_PUBKEY+85A3D26506C4AE2A
+#     # http://www.hangelot.eu/?p=209&lang=en
+#     sudo apt-get install debian-keyring
+#     gpg --keyserver keys.gnupg.net --recv-key 06C4AE2A
+#     gpg -a --export 06C4AE2A | sudo apt-key add -
+#     # https://medium.com/@mos3abof/how-to-install-firefox-on-debian-jessie-90fa135e9e9
+#     sudo touch "$debmozlist"
+#     echo 'deb http://mozilla.debian.net/ jessie-backports firefox-release' \
+#         | sudo tee "$debmozlist"
+#     wget "mozilla.debian.net/$debmozkeyring"
+#     sudo dpkg -i            "$debmozkeyring"
+#     sudo apt-get update -y
+#     sudo apt-get install -y -t jessie-backports firefox
+#     sudo rm "$debmozkeyring"
+# fi
 ;;
 
 ArchLinux)
@@ -183,7 +183,10 @@ then
     )
     eval "$PRE_LINUX_BREW_INSTALL"
     echo yes | $brewcmd install curl git
-    echo yes | $brewcmd install $linuxbrew_pkgs
+    for lb_package in $linuxbrew_pkgs
+    do
+        echo yes | $brewcmd install $linuxbrew_pkgs
+    done
 
     # Haskell stack specific
     # www.stephendiehl.com/posts/vim_2016.html
