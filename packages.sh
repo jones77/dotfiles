@@ -161,8 +161,10 @@ Ubuntu)
 declare -r install_cmd="sudo apt-get install -y echo $distropkgs python-dev"
 ;;
 *)
-ce Red "$(ce Green $basename): Unknown distro: uname -a=$(uname -a)"
-exit 1
+
+declare -r install_cmd="sudo pkg"
+# ce Red "$(ce Green $basename): Unknown distro: uname -a=$(uname -a)"
+# exit 1
 ;;
 esac
 $install_cmd
