@@ -35,7 +35,9 @@ function ce {  # color echo, eg ce Green string [...]
     local color_name="$1"
     local col
     shift
+
     col=$(eval echo \$__fg_${color_name})
+
     if [[ -n "$col" ]]
     then
         echo -e "\001${col}\002$@\001${__NoColor}\002"   

@@ -27,7 +27,7 @@ function my_prompt {
 
     if [[ -z "$branch" ]]
     then
-        ce Cyan "$doh "
+        ce Cyan "$doh"
         return 0
     fi
         
