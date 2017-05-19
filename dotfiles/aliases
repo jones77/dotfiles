@@ -10,7 +10,7 @@ alias mv="mv -i"
 alias rm="rm -i"
 
 # LS #
-the_ls=$(which gls)
+the_ls=$(which gls 2>/dev/null)
 [[ -z "$the_ls" ]] && the_ls=$(which ls)
 # gnu ls is `gls` on FreeBSD, if it exists just use that as per usual
 uname -a | grep FreeBSD >/dev/null 2>&1 \
