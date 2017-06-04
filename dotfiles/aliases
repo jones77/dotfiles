@@ -26,6 +26,7 @@ alias gs='cd ~/github/scripts; ls'
 alias ll="ls -latr"
 alias pp="ps aux"
 alias tt='tmux attach -d'
+alias vu="vim '+PluginInstall!' +qall"
 alias vv='_vi'
 
 #############
