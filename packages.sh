@@ -4,7 +4,8 @@
 #
 # Note: Installing Linuxbrew on RHEL needs the following workaround:
 # https://github.com/Linuxbrew/brew/issues/340#issuecomment-294900797
-source ~/.shelllib.sh
+cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd  # cd $script_dir
+source dotfiles/shelllib.sh
 declare -r basename=$(basename $0)
 declare -r indent=$(echo $basename | sed 's/./~/g')
 # -----------------------------------------------------------------------------
