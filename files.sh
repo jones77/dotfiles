@@ -2,6 +2,8 @@
 #
 # Create symbolic links for the dotfiles in ./dotfiles/
 #
+declare -r script_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+cd "$script_dir"
 source dotfiles/shelllib.sh
 # VUNDLE
 if [[ ! -d ~/.vim/bundle/Vundle.vim ]]
