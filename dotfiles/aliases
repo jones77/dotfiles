@@ -20,11 +20,13 @@ uname -a | grep FreeBSD >/dev/null 2>&1 \
 || alias ls="LC_COLLATE=C $the_ls --color --group-directories-first"
 # ^^ ASCIIbetical! https://ubuntuforums.org/showthread.php?t=816753
 
-alias vv='_vi'
+# jones77's Unix alphabet:
 alias gg="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
-# alias gg="git log --graph \
-#     --pretty=format:'%Cred%h -%C(yellow)%d %s %Cgreen(%cr) %C(bold blue)<%an>' \
-#     --abbrev-commit"
+alias gs='cd ~/github/scripts; ls'
+alias ll="ls -latr"
+alias pp="ps aux"
+alias tt='tmux attach -d'
+alias vv='_vi'
 
 #############
 # FUNCTIONS #
