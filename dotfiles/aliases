@@ -31,13 +31,15 @@ alias va="vagrant"
 alias vp="vagrant"
 alias vu="vim '+PluginInstall!' +qall"
 alias vv='_vi'
-
 #############
 # FUNCTIONS #
 #############
+jj_vim_options="-X"
 function _vi {
     # Auto-start Obsession sessions.  https://github.com/tpope/vim-obsession
-    (( $# == 0 )) && [[ -f Session.vim ]] && vim -S Session.vim || vim "$@";
+    (( $# == 0 )) && [[ -f Session.vim ]] \
+        && vim $jj_vim_options -S Session.vim \
+        || vim $jj_vim_options "$@";
 }
 function hh {
     hostname
