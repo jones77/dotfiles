@@ -106,7 +106,7 @@ export HOMEBREW_BUILD_FROM_SOURCE=1
 # vim wouldn't compile without brew's perl
 # vim wouldn't run without brew's python
 PRE_LINUX_BREW_INSTALL="echo yes \
-    | $HOME/.linuxbrew/bin/brew install gcc perl python"
+    | /home/linuxbrew/.linuxbrew/bin/brew install gcc perl python"
 
 # FIXME: Make installing 'Development Tools' dependent on -d
 sudo yum groupinstall -y 'Development Tools'
@@ -185,7 +185,7 @@ $install_cmd
 #
 if [[ -n "$linuxbrew_pkgs" ]]
 then
-    brewcmd="$HOME/.linuxbrew/bin/brew"
+    brewcmd="/home/linuxbrew/.linuxbrew/bin/brew"
     [[ -f "$brewcmd" ]] || ( echo yes | ruby -e "$(curl -fsSL \
         'https://raw.githubusercontent.com/Linuxbrew/install/master/install')"
     )
