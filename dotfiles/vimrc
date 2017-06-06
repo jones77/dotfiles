@@ -138,6 +138,11 @@ augroup LoadOnce
     autocmd Filetype gitcommit setlocal spell textwidth=72
 augroup END
 
+augroup obsessionfix
+    autocmd!
+    autocmd SessionLoadPost * silent :Obsession|silent :Obsession
+augroup END
+
 set relativenumber
 set number
 set ttyfast
