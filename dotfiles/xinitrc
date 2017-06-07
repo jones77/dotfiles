@@ -1,0 +1,2 @@
+# https://superuser.com/a/1093596
+xrandr --output VGA-0 --mode 2560x1600

@@ -1,5 +1,6 @@
 fortune
 go
+shellcheck
 the_silver_searcher
 tmux
 vim

@@ -19,17 +19,19 @@ Plugin 'flazz/vim-colorschemes'
 Plugin 'gregsexton/gitv'
 Plugin 'hashivim/vim-vagrant'
 Plugin 'heavenshell/vim-pydocstring'
-Plugin 'hynek/vim-python-pep8-indent'
-Plugin 'klen/python-mode'
+"Plugin 'hynek/vim-python-pep8-indent'
+"Plugin 'python-mode/python-mode'
 Plugin 'mileszs/ack.vim'
 Plugin 'mkitt/tabline.vim'
 Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
+"Plugin 'scrooloose/syntastic'
+Plugin 'w0rp/ale'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-obsession'
 Plugin 'tpope/vim-capslock'
+Plugin 'tmux-plugins/vim-tmux'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-scripts/burnttoast256'
 Plugin 'guns/xterm-color-table.vim'
@@ -45,6 +47,10 @@ filetype plugin indent on " required
 " :PluginClean - `!` auto-approve
 "   see :h vundle for more details or wiki for FAQ
 "" EndVundle
+
+" https://github.com/w0rp/ale
+filetype plugin on
+let &runtimepath.=',~/.vim/bundle/ale'
 
 set background=dark
 " http://www.robmeerman.co.uk/unix/256colours
@@ -76,8 +82,8 @@ let g:syntastic_check_on_wq = 0
 " Let pymode do the work
 " let g:syntastic_mode_map = { 'passive_filetypes': ['python'] }
 
-let g:pymode_doc = 0
-let g:pymode_rope_complete_on_dot = 0
+" let g:pymode_doc = 0
+" let g:pymode_rope_complete_on_dot = 0
 
 let g:sql_type_default = 'pgsql'
 
@@ -130,6 +136,11 @@ augroup LoadOnce
         \ autocmd BufWritePre <buffer> :%s/\s\+$//e
     autocmd BufNewFile,BufReadPost *.md set filetype=markdown
     autocmd Filetype gitcommit setlocal spell textwidth=72
+augroup END
+
+augroup obsessionfix
+    autocmd!
+    autocmd SessionLoadPost * silent :Obsession|silent :Obsession
 augroup END
 
 set relativenumber

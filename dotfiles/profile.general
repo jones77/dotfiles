@@ -27,13 +27,13 @@ function my_prompt {
 
     if [[ -z "$branch" ]]
     then
-        ce Cyan "$doh"
+        ce BoldCyan "$doh"
         return 0
     fi
         
     case $branch in
-        develop) ce Green "$doh" ;;
-        master)  ce Red "$doh" ;;
+        develop) ce BoldGreen "$doh" ;;
+        master)  ce BoldRed "$doh" ;;
         *) echo "$(ce Yellow ${branch})$(ce Cyan $doh)" ;;
     esac
 }
