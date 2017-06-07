@@ -36,13 +36,7 @@ alias vv='_vi'
 #############
 jj_vim_options="-X"
 function _vi {
-    # Auto-start Obsession sessions.  https://github.com/tpope/vim-obsession
-    if (( $# == 0 )) && [[ -f Session.vim ]] 
-    then
-        vim $jj_vim_options -S Session.vim
-    else
-        vim $jj_vim_options "$@"
-    fi
+    vim $jj_vim_options "$@"
 }
 function hh {
     hostname
