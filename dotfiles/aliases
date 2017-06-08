@@ -36,7 +36,12 @@ alias vv='_vi'
 #############
 jj_vim_options="-X"
 function _vi {
-    vim $jj_vim_options "$@"
+    if (( $# == 0 )) && [[ -f "Session.vim" ]]
+    then
+        vim $jj_vim_options -S Session.vim
+    else
+        vim $jj_vim_options "$@"
+    fi
 }
 function hh {
     hostname

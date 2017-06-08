@@ -24,7 +24,7 @@ Plugin 'heavenshell/vim-pydocstring'
 Plugin 'mileszs/ack.vim'
 Plugin 'mkitt/tabline.vim'
 Plugin 'scrooloose/nerdtree'
-"Plugin 'scrooloose/syntastic'
+" Plugin 'scrooloose/syntastic'
 Plugin 'w0rp/ale'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-eunuch'
@@ -33,6 +33,7 @@ Plugin 'tpope/vim-obsession'
 Plugin 'tpope/vim-capslock'
 Plugin 'tmux-plugins/vim-tmux'
 Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-scripts/burnttoast256'
 Plugin 'guns/xterm-color-table.vim'
 
@@ -65,7 +66,8 @@ let g:NERDTreeShowHidden=1
 let g:airline_powerline_fonts = 1
 " Show capslock status in the statusline
 let g:airline#extensions#capslock#enabled = 1
-
+let g:airline_theme='base16'
+set laststatus=2
 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
@@ -75,10 +77,10 @@ let g:ctrlp_working_path_mode = 'ra'
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
 " Let pymode do the work
 " let g:syntastic_mode_map = { 'passive_filetypes': ['python'] }
 
@@ -118,12 +120,6 @@ command! -nargs=? T :tabnew
 map H :tabprev<return>
 map L :tabnext<return>
 
-" automatically load Session file
-" - if it exists and no file arguments were specified
-:if !empty(glob("Session.vim")) && argc() == 0
-:   source Session.vim
-:endif
-
 map <space> 
 
 augroup LoadOnce
@@ -136,11 +132,6 @@ augroup LoadOnce
         \ autocmd BufWritePre <buffer> :%s/\s\+$//e
     autocmd BufNewFile,BufReadPost *.md set filetype=markdown
     autocmd Filetype gitcommit setlocal spell textwidth=72
-augroup END
-
-augroup obsessionfix
-    autocmd!
-    autocmd SessionLoadPost * silent :Obsession|silent :Obsession
 augroup END
 
 set relativenumber
