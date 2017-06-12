@@ -74,9 +74,9 @@ let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 
 " https://github.com/scrooloose/syntastic#settings
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 " let g:syntastic_always_populate_loc_list = 1
 " let g:syntastic_auto_loc_list = 1
 " let g:syntastic_check_on_open = 1
@@ -109,7 +109,6 @@ set textwidth=80
 set whichwrap=b,s,,>,h,l
 set wrap                " wrap lines
 set scrolloff=4
-set nu
 
 " unix specific
 set t_vb= "who needs a visual bell anyway?
@@ -121,6 +120,11 @@ map H :tabprev<return>
 map L :tabnext<return>
 
 map <space> 
+
+" Python, turn off double indent, https://stackoverflow.com/a/3539528/469045
+" let g:pyindent_open_paren = '&sw'
+" let g:pyindent_nested_paren = '&sw'
+" let g:pyindent_continue = '&sw'
 
 augroup LoadOnce
     " Prevent progressively slower reloading time of .vimrc
@@ -134,7 +138,6 @@ augroup LoadOnce
     autocmd Filetype gitcommit setlocal spell textwidth=72
 augroup END
 
-set relativenumber
 set number
 set ttyfast
 set clipboard^=unnamed
