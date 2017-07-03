@@ -47,3 +47,13 @@ programmer font.](https://github.com/powerline/fonts/tree/master/DejaVuSansMono)
 # TODO
 
 - rename github to git
+
+# Building vim
+
+# Debian
+
+    ./configure --with-features=huge \
+        --enable-multibyte=yes \
+        --enable-python3interp=yes \
+        --enable-pythoninterp=yes \
+        --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu

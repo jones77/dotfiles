@@ -20,18 +20,29 @@ uname -a | grep FreeBSD >/dev/null 2>&1 \
 || alias ls="LC_COLLATE=C $the_ls --color --group-directories-first"
 # ^^ ASCIIbetical! https://ubuntuforums.org/showthread.php?t=816753
 
-alias vv='_vi'
+# jones77's Unix alphabet:
 alias gg="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
-# alias gg="git log --graph \
-#     --pretty=format:'%Cred%h -%C(yellow)%d %s %Cgreen(%cr) %C(bold blue)<%an>' \
-#     --abbrev-commit"
-
+alias gp='git pull'
+alias gs='cd ~/github/scripts; ls'
+alias gv='cd ~/github/vagrants; ls'
+alias ll="ls -latr"
+alias pp="ps aux"
+alias tt='tmux attach -d'
+alias va="vagrant"
+alias vp="vagrant"
+alias vu="vim '+PluginInstall!' +qall"
+alias vv='_vi'
 #############
 # FUNCTIONS #
 #############
+jj_vim_options="-X"
 function _vi {
-    # Auto-start Obsession sessions.  https://github.com/tpope/vim-obsession
-    (( $# == 0 )) && [[ -f Session.vim ]] && vim -S Session.vim || vim "$@";
+    if (( $# == 0 )) && [[ -f "Session.vim" ]]
+    then
+        vim $jj_vim_options -S Session.vim
+    else
+        vim $jj_vim_options "$@"
+    fi
 }
 function hh {
     hostname
@@ -44,15 +55,21 @@ function azify {
 }
 function pre_add_path {
     # pre_add_path & post_add_path: https://gist.github.com/morganp/964200
-    [[ -s "$1" ]] && [[ ":$PATH:" != *":$1:"* ]] && PATH="$1:$PATH" || :
+    if [[ -s "$1" ]]
+    then
+        [[ ":$PATH:" != *":$1:"* ]] && PATH="$1:$PATH"
+    fi
 }
 function post_add_path {
-    [[ -s "$1" ]] && [[ ":$PATH:" != *":$1:"* ]] && PATH="$PATH:$1" || :
+    if [[ -s "$1" ]]
+    then
+        [[ ":$PATH:" != *":$1:"* ]] && PATH="$PATH:$1"
+    fi
 }
 function unsafe_sshkeygen {
     ssh-keygen -t rsa -q -P ""
 }
 function trash {
-    [[ ! -d "~/.trash" ]] && mkdir -p ~/.trash
-    mv "$@" ~/.trash
+    [[ ! -d "$HOME/.trash" ]] && mkdir -p "$HOME/.trash"
+    mv "$@" "$HOME/.trash"
 }

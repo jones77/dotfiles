@@ -2,6 +2,7 @@
 #
 # Create symbolic links for the dotfiles in ./dotfiles/
 #
+cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd  # cd $script_dir
 source dotfiles/shelllib.sh
 # VUNDLE
 if [[ ! -d ~/.vim/bundle/Vundle.vim ]]
@@ -63,8 +64,13 @@ do
         ls -l "$to"
     done
 done
-vim +PluginInstall +qall  # Can only install plugins after .vimrc is updated
+# vim
+vim '+PluginInstall' +qall  # Can only install plugins after .vimrc is updated
+# go
 mkdir -p ~/gocode/bin
+# gitconfig hack
+[[ "$(whoami)" == "jjones" ]] && sed -i \
+        's/james@jones77.com/jjones18@bloomberg.net/' dotfiles/gitconfig
 # APPEND TO DOT PROFILE
 [[ -f "$HOME/.bash_profile" ]] && profile_file="$HOME/.bash_profile" \
                                || profile_file="$HOME/.profile"

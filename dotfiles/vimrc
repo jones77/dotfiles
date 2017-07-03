@@ -17,20 +17,24 @@ Plugin 'exu/pgsql.vim'
 Plugin 'fatih/vim-go'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'gregsexton/gitv'
+Plugin 'hashivim/vim-terraform'
 Plugin 'hashivim/vim-vagrant'
 Plugin 'heavenshell/vim-pydocstring'
-Plugin 'hynek/vim-python-pep8-indent'
-Plugin 'klen/python-mode'
+"Plugin 'hynek/vim-python-pep8-indent'
+"Plugin 'python-mode/python-mode'
 Plugin 'mileszs/ack.vim'
 Plugin 'mkitt/tabline.vim'
 Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
+" Plugin 'scrooloose/syntastic'
+Plugin 'w0rp/ale'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-obsession'
 Plugin 'tpope/vim-capslock'
+Plugin 'tmux-plugins/vim-tmux'
 Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-scripts/burnttoast256'
 Plugin 'guns/xterm-color-table.vim'
 
@@ -46,6 +50,10 @@ filetype plugin indent on " required
 "   see :h vundle for more details or wiki for FAQ
 "" EndVundle
 
+" https://github.com/w0rp/ale
+filetype plugin on
+let &runtimepath.=',~/.vim/bundle/ale'
+
 set background=dark
 " http://www.robmeerman.co.uk/unix/256colours
 " set term=putty-256color
@@ -59,25 +67,31 @@ let g:NERDTreeShowHidden=1
 let g:airline_powerline_fonts = 1
 " Show capslock status in the statusline
 let g:airline#extensions#capslock#enabled = 1
+let g:airline_theme='base16'
+set laststatus=2
 
+" vim-terraform
+let g:terraform_align=1
+let g:terraform_fmt_on_save=1
+autocmd FileType terraform setlocal commentstring=#%s
 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 
 " https://github.com/scrooloose/syntastic#settings
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
 " Let pymode do the work
 " let g:syntastic_mode_map = { 'passive_filetypes': ['python'] }
 
-let g:pymode_doc = 0
-let g:pymode_rope_complete_on_dot = 0
+" let g:pymode_doc = 0
+" let g:pymode_rope_complete_on_dot = 0
 
 let g:sql_type_default = 'pgsql'
 
@@ -101,7 +115,6 @@ set textwidth=80
 set whichwrap=b,s,,>,h,l
 set wrap                " wrap lines
 set scrolloff=4
-set nu
 
 " unix specific
 set t_vb= "who needs a visual bell anyway?
@@ -112,13 +125,12 @@ command! -nargs=? T :tabnew
 map H :tabprev<return>
 map L :tabnext<return>
 
-" automatically load Session file
-" - if it exists and no file arguments were specified
-:if !empty(glob("Session.vim")) && argc() == 0
-:   source Session.vim
-:endif
-
 map <space> 
+
+" Python, turn off double indent, https://stackoverflow.com/a/3539528/469045
+" let g:pyindent_open_paren = '&sw'
+" let g:pyindent_nested_paren = '&sw'
+" let g:pyindent_continue = '&sw'
 
 augroup LoadOnce
     " Prevent progressively slower reloading time of .vimrc
@@ -126,13 +138,13 @@ augroup LoadOnce
     autocmd!
     autocmd bufwritepost .vimrc source $MYVIMRC
 
-    autocmd FileType c,cpp,python,ruby,java,sql
+    autocmd FileType c,cpp,python,ruby,java,sql,Vagrantfile,Jenkinsfile
         \ autocmd BufWritePre <buffer> :%s/\s\+$//e
     autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+    autocmd BufNewFile,BufReadPost Jenkinsfile set filetype=groovy
     autocmd Filetype gitcommit setlocal spell textwidth=72
 augroup END
 
-set relativenumber
 set number
 set ttyfast
 set clipboard^=unnamed
