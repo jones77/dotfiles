@@ -22,6 +22,7 @@ uname -a | grep FreeBSD >/dev/null 2>&1 \
 
 # jones77's Unix alphabet:
 alias gg="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias gp='git pull'
 alias gs='cd ~/github/scripts; ls'
 alias gv='cd ~/github/vagrants; ls'
 alias ll="ls -latr"
