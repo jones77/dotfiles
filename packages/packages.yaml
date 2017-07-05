@@ -1,0 +1,7 @@
+distro:
+    - ArchLinux
+    - Centos
+    - Debian
+    - FreeBSD
+    - RedHatEnterpriseServer
+    - Ubuntu
