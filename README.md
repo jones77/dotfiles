@@ -57,3 +57,11 @@ programmer font.](https://github.com/powerline/fonts/tree/master/DejaVuSansMono)
         --enable-python3interp=yes \
         --enable-pythoninterp=yes \
         --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu
+
+# Troubleshooting
+
+If you get 256 color errors, try setting TERMINFO:
+
+    $ tmux
+    open terminal failed: missing or unsuitable terminal: xterm-256color
+    $ TERMINFO=/usr/share/terminfo tmux
