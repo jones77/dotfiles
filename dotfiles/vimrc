@@ -138,7 +138,7 @@ augroup LoadOnce
     autocmd!
     autocmd bufwritepost .vimrc source $MYVIMRC
 
-    autocmd FileType c,cpp,python,ruby,java,sql,Vagrantfile,Jenkinsfile
+    autocmd FileType c,cpp,python,ruby,java,sql,sh,Vagrantfile,Jenkinsfile
         \ autocmd BufWritePre <buffer> :%s/\s\+$//e
     autocmd BufNewFile,BufReadPost *.md set filetype=markdown
     autocmd BufNewFile,BufReadPost Jenkinsfile set filetype=groovy

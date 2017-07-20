@@ -21,10 +21,14 @@ uname -a | grep FreeBSD >/dev/null 2>&1 \
 # ^^ ASCIIbetical! https://ubuntuforums.org/showthread.php?t=816753
 
 # jones77's Unix alphabet:
+alias ga="git add"
+alias gc="git commit"
+alias gd="git diff"
 alias gg="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias gp='git pull'
-alias gs='cd ~/github/scripts; ls'
-alias gv='cd ~/github/vagrants; ls'
+alias gs='git st'
+alias js='cd ~/github/scripts; ls'
+alias jv='cd ~/github/vagrants; ls'
 alias ll="ls -latr"
 alias pp="ps aux"
 alias tt='tmux attach -d'
@@ -68,6 +72,9 @@ function post_add_path {
 }
 function unsafe_sshkeygen {
     ssh-keygen -t rsa -q -P ""
+    echo "~/.ssh/id_rsa.pub:"
+    echo
+    cat ~/.ssh/id_rsa.pub
 }
 function trash {
     [[ ! -d "$HOME/.trash" ]] && mkdir -p "$HOME/.trash"
