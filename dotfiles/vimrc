@@ -11,6 +11,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 ""
 
+" Plugin 'Valloric/YouCompleteMe'
 Plugin 'chrisbra/Recover.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'exu/pgsql.vim'
@@ -25,8 +26,8 @@ Plugin 'heavenshell/vim-pydocstring'
 Plugin 'mileszs/ack.vim'
 Plugin 'mkitt/tabline.vim'
 Plugin 'scrooloose/nerdtree'
-" Plugin 'scrooloose/syntastic'
-Plugin 'w0rp/ale'
+Plugin 'scrooloose/syntastic'
+" Plugin 'w0rp/ale'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-fugitive'
