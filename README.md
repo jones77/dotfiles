@@ -31,6 +31,7 @@ heart's content.
 
 ## Cheatsheets
 
+[bash](http://kvz.io/blog/2013/11/21/bash-best-practices/)
 [git](https://www.git-tower.com/blog/content/posts/54-git-cheat-sheet/git-cheat-sheet-large01.png)
 [pep8](http://i.imgur.com/ckjEZOi.png)
 [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/)
