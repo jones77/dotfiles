@@ -54,7 +54,7 @@ do
             echo "Backing up $to => $backups/$file.$timestamp"
 
             [[ -d "$backups" ]] || mkdir -p "$backups"
-            # Ignore directories though. 
+            # Ignore directories though.
             [[ ! -d "$to" ]] && mv -f "$to" "$backups/$file.$timestamp"
             # ^^ windowshackhack
         fi
@@ -65,7 +65,7 @@ do
     done
 done
 # vim
-vim '+PluginInstall' +qall  # Can only install plugins after .vimrc is updated
+vim '+PluginInstall!' +qall  # Can only install plugins after .vimrc is updated
 # go
 mkdir -p ~/gocode/bin
 # gitconfig hack
