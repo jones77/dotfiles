@@ -30,7 +30,7 @@ function my_prompt {
         ce BoldCyan "$doh"
         return 0
     fi
-        
+
     case $branch in
         develop) ce BoldGreen "$doh" ;;
         master)  ce BoldRed "$doh" ;;
@@ -45,9 +45,10 @@ export GOPATH="$HOME/gocode"
 
 # Run the per os profiles and the extra profile if they exist.
 os=$(azify $(uname -o))
-profile_os="$HOME/.profile.${os}"
-[[ -f "$profile_os" ]]    && source "$profile_os"
-profile_extra="$HOME/.profile.extra"
+for __p in "${os}" "extra" "fortune" "work"
+do
+    [[ -f "${HOME}/.profile.${__p}" ]] && source "${HOME}/.profile.${__p}"
+done
 [[ -f "$profile_extra" ]] && source "$profile_extra"
 
 # Arbitrary Gunk #
