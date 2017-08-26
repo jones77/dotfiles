@@ -81,18 +81,24 @@ let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 
 " https://github.com/scrooloose/syntastic#settings
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 " Let pymode do the work
 " let g:syntastic_mode_map = { 'passive_filetypes': ['python'] }
 
 " let g:pymode_doc = 0
 " let g:pymode_rope_complete_on_dot = 0
+
+" Python, turn off double indent, https://stackoverflow.com/a/3539528/469045
+let g:pyindent_open_paren = '&sw'
+let g:pyindent_nested_paren = '&sw'
+let g:pyindent_continue = '&sw'
+
 
 let g:sql_type_default = 'pgsql'
 
@@ -127,11 +133,6 @@ map H :tabprev<return>
 map L :tabnext<return>
 
 map <space> 
-
-" Python, turn off double indent, https://stackoverflow.com/a/3539528/469045
-" let g:pyindent_open_paren = '&sw'
-" let g:pyindent_nested_paren = '&sw'
-" let g:pyindent_continue = '&sw'
 
 augroup LoadOnce
     " Prevent progressively slower reloading time of .vimrc

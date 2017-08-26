@@ -9,7 +9,7 @@
 set -o errexit
 set -o nounset
 # set -o xtrace
-# set -o pipefile
+set -o pipefile
 
 declare -r dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 declare -r journalctl_file="journalctl.json-pretty"
