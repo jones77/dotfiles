@@ -7,7 +7,7 @@ set -e
 # eg 4625653760 3578519552 8369909760
 #
 # FIXME: free not available on Darwin
-if $(which free 2>/dev/null)
+if $(type free >/dev/null 2>&1)
 then
     set $( free -b -t | head -2 | tail -1 \
         | awk '{ print $3 " " $NF " " $2 }' )
