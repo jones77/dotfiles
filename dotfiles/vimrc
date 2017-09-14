@@ -54,12 +54,12 @@ filetype plugin indent on " required
 " https://github.com/w0rp/ale
 filetype plugin on
 let &runtimepath.=',~/.vim/bundle/ale'
-
-set background=dark
 " http://www.robmeerman.co.uk/unix/256colours
 " set term=putty-256color
 set term=xterm
 set t_Co=256
+
+set background=dark
 colorscheme burnttoast256
 
 let g:NERDTreeDirArrows=0
@@ -90,7 +90,6 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 " Let pymode do the work
 " let g:syntastic_mode_map = { 'passive_filetypes': ['python'] }
-
 " let g:pymode_doc = 0
 " let g:pymode_rope_complete_on_dot = 0
 
@@ -99,16 +98,11 @@ let g:pyindent_open_paren = '&sw'
 let g:pyindent_nested_paren = '&sw'
 let g:pyindent_continue = '&sw'
 
-
 let g:sql_type_default = 'pgsql'
-
-nmap <silent> <Leader>l <Plug>(pydocstring)
-
 set encoding=utf-8
-
 syntax on
-
 set nofoldenable
+nmap <silent> <Leader>l <Plug>(pydocstring)
 " vim options circa 2003
 set autochdir
 set autoindent
@@ -155,6 +149,7 @@ set clipboard^=unnamed
 set mouse=a
 map <ScrollWheelUp> <C-U>
 map <ScrollWheelDown> <C-D>
+
 " Not sure why these need to be at the end to be respected.
 hi CursorLineNr term=bold ctermfg=246 ctermbg=232
 hi ColorColumn ctermbg=232
