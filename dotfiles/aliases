@@ -21,6 +21,7 @@ uname -a | grep FreeBSD >/dev/null 2>&1 \
 # ^^ ASCIIbetical! https://ubuntuforums.org/showthread.php?t=816753
 
 # jones77's Unix alphabet:
+alias t="python ~/github/t/t.py --task-dir ~/tasks --list tasks"
 alias ga="git add"
 alias gc="git commit"
 alias gd="git diff"

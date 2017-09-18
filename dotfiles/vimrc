@@ -156,6 +156,6 @@ map <ScrollWheelUp> <C-U>
 map <ScrollWheelDown> <C-D>
 " Not sure why these need to be at the end to be respected.
 hi CursorLineNr term=bold ctermfg=246 ctermbg=232
-hi ColorColumn ctermbg=232
+hi ColorColumn ctermbg=234
 hi LineNr term=bold ctermfg=237 ctermbg=232
 set colorcolumn=80
