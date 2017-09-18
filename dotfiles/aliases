@@ -37,6 +37,7 @@ alias va="vagrant"
 alias vp="vagrant"
 alias vu="vim '+PluginInstall!' +qall"
 alias vv='_vi'
+alias ws='python -m SimpleHTTPServer 8000'
 #############
 # FUNCTIONS #
 #############
@@ -72,6 +73,16 @@ function post_add_path {
     fi
 }
 function unsafe_sshkeygen {
+    if [[ -f ~/.ssh/id_rsa ]]
+    then
+        echo "Warning: ~/.ssh/id_rsa already exists, replace? [y/n]"
+        read answer
+        if [[ "$answer" != "y" ]]
+        then
+            echo "not replacing ~/.ssh/id_rsa"
+            return 1
+        fi
+    fi
     ssh-keygen -t rsa -q -P ""
     echo "~/.ssh/id_rsa.pub:"
     echo
