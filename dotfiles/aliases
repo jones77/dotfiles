@@ -21,16 +21,21 @@ uname -a | grep FreeBSD >/dev/null 2>&1 \
 # ^^ ASCIIbetical! https://ubuntuforums.org/showthread.php?t=816753
 
 # jones77's Unix alphabet:
+# alias f='find' or alias f='fortune', see .profile.extra
+alias  g='grep'
 alias ga="git add"
 alias gc="git commit"
 alias gd="git diff"
 alias gg="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias gp='git pull'
-alias gs='git st'
+alias gs='git status'
+alias  j=''
 alias js='cd ~/github/scripts; ls'
 alias jv='cd ~/github/vagrants; ls'
-alias ll="ls -latr"
+alias  l="ls -latr"
+alias lz="ls -laShr"
 alias pp="ps aux"
+alias  t='python ~/path/to/t.py --task-dir ~/tasks --list tasks'
 alias tt='tmux attach -d'
 alias va="vagrant"
 alias vp="vagrant"
