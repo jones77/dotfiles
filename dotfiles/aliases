@@ -41,6 +41,7 @@ alias va="vagrant"
 alias vp="vagrant"
 alias vu="vim '+PluginInstall!' +qall"
 alias vv='_vi'
+alias ws='python -m SimpleHTTPServer 8000'
 #############
 # FUNCTIONS #
 #############
