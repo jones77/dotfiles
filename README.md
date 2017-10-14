@@ -1,4 +1,8 @@
-Dotfiles and more.
+    git clone --bare https://github.com/jones77/scripts $HOME/.jotf
+
+# `jotf`, jones77's dotfiles
+
+*Dotfiles and more.*
 
 # `files.sh`
 
