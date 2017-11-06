@@ -11,7 +11,6 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 ""
 
-" Plugin 'Valloric/YouCompleteMe'
 Plugin 'chrisbra/Recover.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'exu/pgsql.vim'
@@ -49,7 +48,6 @@ filetype plugin indent on " required
 "   see :h vundle for more details or wiki for FAQ
 "" EndVundle
 
-" https://github.com/w0rp/ale
 filetype plugin on
 let &runtimepath.=',~/.vim/bundle/ale'
 " http://www.robmeerman.co.uk/unix/256colours
