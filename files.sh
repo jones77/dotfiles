@@ -103,18 +103,26 @@ then
     ~/github/fonts/install.sh
 fi
 # DOTFILES
-for dir in "bin" "dotfiles"
+for dir in "bin" "dotfiles" "config/mopidy" "config/nixpkgs"
 do
+    echo "dir=$dir"
     if [[ "$dir" == "dotfiles" ]]
     then
-        to_dir_prefix="$HOME/."  # Implicit $dir/file ~/.file rename
+        # Implicit $dir/file ~/.file rename
+        to_dir_prefix="$HOME/."
+    elif [[ "$dir" == config* ]]
+    then
+        # Implicit $dir/config/path/to/file ~/.config/path/to/file rename
+        to_dir_prefix="$HOME/.$dir/"
     else
         to_dir_prefix="$HOME/$dir/"
-        if [[ ! -e "$to_dir_prefix" ]]
-        then
-            echo "Creating $to_dir_prefix"
-            mkdir -p "$to_dir_prefix"
-        fi
+    fi
+    echo "to_dir_prefix=$to_dir_prefix"
+
+    if [[ ! -e "$to_dir_prefix" ]]
+    then
+        echo "Creating $to_dir_prefix"
+        mkdir -p "$to_dir_prefix"
     fi
 
     for filename in $(ls -A "$dir")
@@ -178,9 +186,12 @@ fi
 
 # go
 mkdir -p ~/gocode/bin
-# gitconfig hack
+# gitconfig hack for work
 [[ "$(whoami)" == "jjones" ]] && sed -i \
         's/james@jones77.com/jjones18@bloomberg.net/' dotfiles/gitconfig
+# https://nixos.org/nix/
+[[ -f '/home/jjones/.nix-profile/etc/profile.d/nix.sh' ]] \
+    || curl https://nixos.org/nix/install | sh
 # APPEND TO DOT PROFILE
 [[ -f "$HOME/.bash_profile" ]] && profile_file="$HOME/.bash_profile" \
                                || profile_file="$HOME/.profile"
