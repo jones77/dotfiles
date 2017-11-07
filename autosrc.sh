@@ -13,7 +13,7 @@ Usage: ${__basename} [OPTION]... [CONFIG_FILE]...
 
   Config file format (columns in square brackers, eg [optional] are optional):
 
-    repo [subdir] [remote_repo remote_name branch_name tracking_branch_name]
+    repo [subdir] [remote_repo remote_name branch]
 
   repos are assumed to have either of the following formats:
 
@@ -46,8 +46,8 @@ __args=$(set +e && getopt -T || if (( $? == 4 )); then
     else echo 'bad getopt version: getopt -T || (( $? == 4 )) is false'; exit 1
 fi) && eval set -- "${__args}" || __fatal ""  # If we call __fatal "" then
 # getopt has already printed invalid option -- 'x' or unrecognized option '--x'
-is_force=
 dry_run=
+is_force=
 while (( $# ))
 do
     case $1 in
@@ -68,19 +68,31 @@ do
         __fatal "$config_file does not exist"
     fi
 
-    cat "$config_file" | while read \
-        repourl subdir remote_repourl remote_name remote_branch tracking_name
+    cat "$config_file" | while read line
     do
-        if [[ $repourl == \#* ]]
+
+        read -r repourl subdir remote_repourl remote_name branch <<< "$line"
+
+        if [[ $line == \#* ]]
         then
-            echo "Ignoring $repourl"
+            # TODO: Make verbose only
+            echo "Ignoring $line"
             continue
+        elif [[ $line == *git@* ]] || [[ $line == *https://* ]]
+        then
+            :
+        elif [[ $repourl != *.git ]]
+        then
+            :
+        else
+            # TODO: Line Numbers
+            __fatal "Syntax Error in $config_file: $line"
         fi
 
         if [[ "$repourl" == git@* ]] && [[ "$repourl" == *.git ]]
         then
            repourl=${repourl%.git}  # git@github.com:jones77/shlintro.git
-        fi                  #                          trims ^^^^
+        fi                          #                          trims ^^^^
 
         repo=${repourl##*/}  # aka basename(repourl)
         todir="$HOME/src/$subdir/$repo"
@@ -107,10 +119,10 @@ do
 
         if [[ -n $remote_repourl ]]
         then
-            echo "Remoting $remote_repourl $remote_branch $tracking_name"
-            $dry_run git add remote "$remote_name" "$remote_repourl"
+            echo "Remoting $remote_repourl $remote_name/$branch $branch"
+            $dry_run git remote add "$remote_name" "$remote_repourl"
             $dry_run git fetch "$remote_name"
-            $dry_run git checkout -tb "$remote_branch" "$tracking_name"
+            $dry_run git checkout -tb "$remote_name/$branch" "$branch"
         fi
     done
     shift
