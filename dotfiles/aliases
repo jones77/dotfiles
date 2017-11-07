@@ -20,9 +20,8 @@ uname -a | grep FreeBSD >/dev/null 2>&1 \
 || alias ls="LC_COLLATE=C $the_ls --color --group-directories-first"
 # ^^ ASCIIbetical! https://ubuntuforums.org/showthread.php?t=816753
 
-# jones77's Unix alphabet:
-# alias f='find' or alias f='fortune', see .profile.extra
 alias bb="curl -Ss http://169.254.169.254/openstack/latest/meta_data.json | python -m json.tool"
+#alias f='find' or alias f='fortune', see .profile.extra
 alias  g='grep'
 alias ga="git add"
 alias gc="git commit"

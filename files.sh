@@ -2,7 +2,7 @@
 #
 # Create symbolic links for the dotfiles in ./dotfiles/
 #
-cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd  # always be local
+cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd  # Note: Always Be Local
 source ./dotfiles/shelllib.sh
 
 is_windows_bash() {
@@ -11,6 +11,7 @@ is_windows_bash() {
 }
 longest_common_prefix () {
     # https://stackoverflow.com/a/6974992/469045
+    # FIXME: This prefix line looks weird.
     local prefix= n
     ## Truncate the two strings to the minimum of their lengths
     if [[ ${#1} -gt ${#2} ]]
@@ -170,9 +171,8 @@ do
 done
 
 declare -r touch=".touch"
-if ! $(find "$touch" -mtime +1 -print >/dev/null)
+if ! $(find "$touch" -mtime +1 -print >/dev/null)  # Update plugins once a day
 then
-    # Update plugins after .vimrc is updated (but once a day max)
     vim '+PluginInstall!' +qall
 fi
 
