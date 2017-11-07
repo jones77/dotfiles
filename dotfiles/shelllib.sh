@@ -61,7 +61,7 @@ function ce {  # color echo, eg ce Green string [...]
 
     if [[ -n "$col" ]]
     then
-        echo -e "\001\033[${col}m\002$@\001\033[0m\002"   
+        echo -e "\001\033[${col}m\002$@\001\033[0m\002"
     else
         # Didn't understand the command, fallback to regular echo.
         set "$color_name $@"

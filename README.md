@@ -1,4 +1,8 @@
-Dotfiles and more.
+    git clone --bare https://github.com/jones77/scripts $HOME/.jotf
+
+# `jotf`, jones77's dotfiles
+
+*Dotfiles and more.*
 
 # `files.sh`
 
@@ -31,6 +35,7 @@ heart's content.
 
 ## Cheatsheets
 
+[bash](http://kvz.io/blog/2013/11/21/bash-best-practices/)
 [git](https://www.git-tower.com/blog/content/posts/54-git-cheat-sheet/git-cheat-sheet-large01.png)
 [pep8](http://i.imgur.com/ckjEZOi.png)
 [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/)
@@ -57,3 +62,11 @@ programmer font.](https://github.com/powerline/fonts/tree/master/DejaVuSansMono)
         --enable-python3interp=yes \
         --enable-pythoninterp=yes \
         --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu
+
+# Troubleshooting
+
+If you get 256 color errors, try setting TERMINFO:
+
+    $ tmux
+    open terminal failed: missing or unsuitable terminal: xterm-256color
+    $ TERMINFO=/usr/share/terminfo tmux

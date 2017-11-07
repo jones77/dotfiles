@@ -20,18 +20,28 @@ uname -a | grep FreeBSD >/dev/null 2>&1 \
 || alias ls="LC_COLLATE=C $the_ls --color --group-directories-first"
 # ^^ ASCIIbetical! https://ubuntuforums.org/showthread.php?t=816753
 
-# jones77's Unix alphabet:
+alias bb="curl -Ss http://169.254.169.254/openstack/latest/meta_data.json | python -m json.tool"
+#alias f='find' or alias f='fortune', see .profile.extra
+alias  g='grep'
+alias ga="git add"
+alias gc="git commit"
+alias gd="git diff"
 alias gg="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias gp='git pull'
-alias gs='cd ~/github/scripts; ls'
-alias gv='cd ~/github/vagrants; ls'
-alias ll="ls -latr"
+alias gs='git st'
+alias js='cd ~/github/scripts; ls'
+alias jv='cd ~/github/vagrants; ls'
+alias  l="ls -latr"
+alias lz="ls -laShr"
 alias pp="ps aux"
+alias st="sed 's/\x1b\[[0-9;]*m//g'"  # strip color, https://superuser.com/a/380778
+alias  t="python ~/github/t/t.py --task-dir ~/tasks --list tasks"
 alias tt='tmux attach -d'
 alias va="vagrant"
 alias vp="vagrant"
 alias vu="vim '+PluginInstall!' +qall"
 alias vv='_vi'
+alias ws='python -m SimpleHTTPServer 8000'
 #############
 # FUNCTIONS #
 #############
@@ -67,7 +77,20 @@ function post_add_path {
     fi
 }
 function unsafe_sshkeygen {
+    if [[ -f ~/.ssh/id_rsa ]]
+    then
+        echo "Warning: ~/.ssh/id_rsa already exists, replace? [y/n]"
+        read answer
+        if [[ "$answer" != "y" ]]
+        then
+            echo "not replacing ~/.ssh/id_rsa"
+            return 1
+        fi
+    fi
     ssh-keygen -t rsa -q -P ""
+    echo "~/.ssh/id_rsa.pub:"
+    echo
+    cat ~/.ssh/id_rsa.pub
 }
 function trash {
     [[ ! -d "$HOME/.trash" ]] && mkdir -p "$HOME/.trash"

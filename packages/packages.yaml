@@ -1,0 +1,15 @@
+distro:
+    - ArchLinux
+    - Centos
+    - Debian
+    - FreeBSD
+    - RedHatEnterpriseServer
+    - Ubuntu
+
+packages:
+    - curl
+    - git
+    - haskell-platform
+    - the-silver-searcher
+    - tmux
+    - vim
