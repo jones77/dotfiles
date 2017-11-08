@@ -22,9 +22,6 @@ Usage: ${__basename} [OPTION]... [CONFIG_FILE]...
     https://domain/user/repo, eg https://github.com/jones77/shlintro
     git@domain:user/repo.git, eg git@github.com:jones77/shlintro.git
 
-  If subdir is _, repos are checked out to $HOME/src/repo.
-  If subdir is specified, repos are checked out to $HOME/src/subdir/repo.
-
 Example:
   ${__basename} repo.cfg
 
