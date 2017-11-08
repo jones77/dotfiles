@@ -5,6 +5,8 @@
 
 set -o nounset && set -o errexit && set -o pipefail
 # set -xtrace && set -verbose
+cd "$(dirname "${BASH_SOURCE[0]}")"  # Note: Always Be Local
+
 # based on: https://github.com/jones77/shlintro
 __usage() { cat <<USAGE
 Usage: ${__basename} [OPTION]... [CONFIG_FILE]...
@@ -105,9 +107,8 @@ do
 
         if [[ -e $todir ]]
         then
-            if [[ $is_force == true ]]
-            then
-                # backup previous folders
+            if [[ $todir != $PWD ]] && [[ $is_force == true ]]
+            then  # ^^ !! Ignore working directory !!
                 backups="$HOME/backups"
                 timestamp=$(date +%Y%m%d%H%M%S)
                 todir_basename=$(basename "$todir")

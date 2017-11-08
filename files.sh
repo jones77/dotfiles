@@ -2,7 +2,7 @@
 #
 # Create symbolic links for the dotfiles in ./dotfiles/
 #
-cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd  # Note: Always Be Local
+cd "$(dirname "${BASH_SOURCE[0]}")"  # Note: Always Be Local
 source ./dotfiles/shelllib.sh
 
 is_windows_bash() {
