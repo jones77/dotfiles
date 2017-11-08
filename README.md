@@ -1,20 +1,20 @@
-# scripts
+# Quick env init with **scripts**
 
 *Dotfiles and more.*
 
 * `FIXME: Name this something more compelling`
 
-# ./files.sh
+## ./files.sh
 
 Creates symbolic links for `./dotfiles/*` in `"$HOME"`.
 
     FIXME: Usage, what to run next.
 
-# ./autosrc.sh repo.cfg
+## ./autosrc.sh repo.cfg
 
 Checks out your favourite repos.
 
-# nixit.sh -- Work In Progress
+## nixit.sh -- Work In Progress
 
 Installs the latest [Nix packages](https://nixos.org/nix/) of your favourite
 applications.
