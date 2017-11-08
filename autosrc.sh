@@ -74,10 +74,10 @@ do
     cat "$config_file" | while read line
     do
         $verbose "Parsing: $line"
-        read -r repourl subdir remote_repourl remote_name branch <<< "$line"
-        $verbose "Parsed: repourl=$repourl subdir=$subdir" \
-            "remote_repourl=$remote_repourl remote_name=$remote_name" \
-            "branch=$branch"
+        read -r url subdir remote_url remote_name remote_branch branch <<< "$line"
+        $verbose "Parsed: url=$url subdir=$subdir" \
+            "remote_url=$remote_url remote_name=$remote_name" \
+            "remote_branch=$remote_branch branch=$branch"
 
         if [[ $line == \#* ]]
         then
@@ -87,7 +87,7 @@ do
         elif [[ $line == *git@* ]] || [[ $line == *https://* ]]
         then
             :
-        elif [[ $repourl != *.git ]]
+        elif [[ $url != *.git ]]
         then
             :
         else
@@ -95,12 +95,12 @@ do
             __fatal "Syntax Error in $config_file: $line"
         fi
 
-        if [[ "$repourl" == git@* ]] && [[ "$repourl" == *.git ]]
+        if [[ "$url" == git@* ]] && [[ "$url" == *.git ]]
         then
-           repourl=${repourl%.git}  # git@github.com:jones77/shlintro.git
+           url=${url%.git}  # git@github.com:jones77/shlintro.git
         fi                          #                          trims ^^^^
 
-        repo=${repourl##*/}  # aka basename(repourl)
+        repo=${url##*/}  # aka basename(url)
         todir="$HOME/src/$subdir/$repo"
 
         if [[ -e $todir ]]
@@ -120,17 +120,17 @@ do
             fi
         fi
 
-        echo "Cloning $repourl => $todir"
-        $dry_run git clone -q "$repourl" "$todir"
+        echo "Cloning $url => $todir"
+        $dry_run git clone -q "$url" "$todir"
 
-        if [[ -n $remote_repourl ]]
+        if [[ -n $remote_url ]]
         then
             (
                 $verbose "cd $todir" && cd $todir
-                echo "Remoting $remote_repourl $remote_name/$branch $branch"
-                $dry_run git remote add "$remote_name" "$remote_repourl"
+                echo "Remoting $remote_url $remote_name/$remote_branch $branch"
+                $dry_run git remote add "$remote_name" "$remote_url"
                 $dry_run git fetch "$remote_name"
-                $dry_run git checkout -tb "$remote_name/$branch" "$branch"
+                $dry_run git checkout -b "$branch" "$remote_name/$remote_branch"
             )
         fi
     done
