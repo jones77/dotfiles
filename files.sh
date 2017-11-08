@@ -180,20 +180,21 @@ do
     done
 done
 
-declare -r touch=".touch"
-if ! $(find "$touch" -mtime +1 -print >/dev/null)  # Update plugins once a day
-then
-    vim '+PluginInstall!' +qall
-fi
-
-# go
-mkdir -p ~/gocode/bin
 # gitconfig hack for work
 [[ "$(whoami)" == "jjones" ]] && (
     git config --global http.sslVerify false
     git config --global user.name "James Jones"
     git config --global user.email jjones18@bloomberg.net
 )
+# vundle
+declare -r touch=".touch"
+if ! $(find "$touch" -mtime +1 -print >/dev/null)  # Update plugins once a day
+then
+    vim '+PluginInstall!' +qall
+fi
+touch "$touch"
+# go
+mkdir -p ~/gocode/bin
 # https://nixos.org/nix/
 # [[ -f '/home/jjones/.nix-profile/etc/profile.d/nix.sh' ]] \
 #     || curl https://nixos.org/nix/install | sh
@@ -209,4 +210,3 @@ grep '^source.*\.profile\.general$' "$profile_file" 1>/dev/null 2>&1 || add_spg
 ce Yellow "Source it:"
 ce Green "    source $profile_file"
 # END
-touch "$touch"
