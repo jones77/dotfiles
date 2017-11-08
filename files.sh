@@ -190,8 +190,9 @@ fi
 mkdir -p ~/gocode/bin
 # gitconfig hack for work
 [[ "$(whoami)" == "jjones" ]] && (
-    sed -i 's/james@jones77.com/jjones18@bloomberg.net/' dotfiles/gitconfig
     git config --global http.sslVerify false
+    git config --global user.name "James Jones"
+    git config --global user.email jjones18@bloomberg.net
 )
 # https://nixos.org/nix/
 # [[ -f '/home/jjones/.nix-profile/etc/profile.d/nix.sh' ]] \
