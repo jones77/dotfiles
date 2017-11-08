@@ -132,7 +132,8 @@ do
                 $dry_run git remote add "$remote_name" "$remote_url"
                 $dry_run git fetch "$remote_name"
                 $dry_run git checkout \
-                    --tracking -b "$branch" "$remote_name/$remote_branch"
+                    --track -b "$branch" "$remote_name/$remote_branch"
+                #
             )
         fi
     done
