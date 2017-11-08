@@ -190,8 +190,8 @@ mkdir -p ~/gocode/bin
 [[ "$(whoami)" == "jjones" ]] && sed -i \
         's/james@jones77.com/jjones18@bloomberg.net/' dotfiles/gitconfig
 # https://nixos.org/nix/
-[[ -f '/home/jjones/.nix-profile/etc/profile.d/nix.sh' ]] \
-    || curl https://nixos.org/nix/install | sh
+# [[ -f '/home/jjones/.nix-profile/etc/profile.d/nix.sh' ]] \
+#     || curl https://nixos.org/nix/install | sh
 # APPEND TO DOT PROFILE
 [[ -f "$HOME/.bash_profile" ]] && profile_file="$HOME/.bash_profile" \
                                || profile_file="$HOME/.profile"

@@ -29,13 +29,13 @@ alias gd="git diff"
 alias gg="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias gp='git pull'
 alias gs='git st'
-alias js='cd ~/github/scripts; ls'
-alias jv='cd ~/github/vagrants; ls'
+alias js='cd ~/src/bitbucket/scripts; ls'
+alias jv='cd ~/src/bitbucket/vagrants; ls'
 alias  l="ls -latr"
 alias lz="ls -laShr"
 alias pp="ps aux"
 alias st="sed 's/\x1b\[[0-9;]*m//g'"  # strip color, https://superuser.com/a/380778
-alias  t="python ~/github/t/t.py --task-dir ~/tasks --list tasks"
+alias  t="python ~/src/github/t/t.py --task-dir ~/tasks --list tasks"
 alias tt='tmux attach -d'
 alias va="vagrant"
 alias vp="vagrant"
