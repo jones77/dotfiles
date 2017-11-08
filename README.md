@@ -4,17 +4,17 @@
 
 * `FIXME: Name this something more compelling`
 
-# `files.sh`
+# ./files.sh
 
 Creates symbolic links for `./dotfiles/*` in `"$HOME"`.
 
     FIXME: Usage, what to run next.
 
-# `autosrc.sh`
+# ./autosrc.sh repo.cfg
 
 Checks out your favourite repos.
 
-# `nixit.sh`
+# nixit.sh -- Work In Progress
 
 Installs the latest [Nix packages](https://nixos.org/nix/) of your favourite
 applications.
