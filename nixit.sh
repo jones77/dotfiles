@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -o errexit
+
 # https://nixos.org/nix/manual/#chap-quick-start
 nix-channel --update nixpkgs
 nix-env -i \
