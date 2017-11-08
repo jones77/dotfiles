@@ -5,6 +5,8 @@
 cd "$(dirname "${BASH_SOURCE[0]}")"  # Note: Always Be Local
 source ./dotfiles/shelllib.sh
 
+# FIXME: Add options, eg disable installing vim plugins
+
 is_windows_bash() {
     set -o errexit
     [[ $(uname -s) == MINGW6* ]]
@@ -187,8 +189,10 @@ fi
 # go
 mkdir -p ~/gocode/bin
 # gitconfig hack for work
-[[ "$(whoami)" == "jjones" ]] && sed -i \
-        's/james@jones77.com/jjones18@bloomberg.net/' dotfiles/gitconfig
+[[ "$(whoami)" == "jjones" ]] && (
+    sed -i 's/james@jones77.com/jjones18@bloomberg.net/' dotfiles/gitconfig
+    git config --global http.sslVerify false
+)
 # https://nixos.org/nix/
 # [[ -f '/home/jjones/.nix-profile/etc/profile.d/nix.sh' ]] \
 #     || curl https://nixos.org/nix/install | sh
