@@ -132,6 +132,7 @@ do
                 $dry_run git remote add "$remote_name" "$remote_url"
                 $dry_run git fetch "$remote_name"
                 $dry_run git checkout --track -b "$branch" "$remote_name/$remote_branch"
+                $dry_run git config push.default upstream  # https://stackoverflow.com/a/5739015/469045
             )
         fi
     done
