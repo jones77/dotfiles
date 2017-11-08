@@ -35,9 +35,10 @@ Options:
   -h, --help    Show this help and exit
   -f, --force   Force checkout (backs up existing directories to $HOME/backups)
   -n, --dry-run Perform a trial run with no changes made
+  -v, --verbose Debug trace
 USAGE
-};__shopts="hfn"
-__longopts="help,force,dry-run"
+};__shopts="hfnv"
+__longopts="help,force,dry-run,verbose"
 __basename="$(      basename "${BASH_SOURCE[0]}" )"
 __dirname="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 __fatal(){ [[ -n "$@" ]] && printf "$__basename: $@\n\n"; __usage; exit 1;}
@@ -46,8 +47,9 @@ __args=$(set +e && getopt -T || if (( $? == 4 )); then
     else echo 'bad getopt version: getopt -T || (( $? == 4 )) is false'; exit 1
 fi) && eval set -- "${__args}" || __fatal ""  # If we call __fatal "" then
 # getopt has already printed invalid option -- 'x' or unrecognized option '--x'
-dry_run=
 is_force=
+dry_run=
+verbose=": ||"  # default: ignore trace
 while (( $# ))
 do
     case $1 in
@@ -55,7 +57,8 @@ do
 	--) shift && break  # [FILES]... argument parsing, shift && break
             ;;
         -f|  --force) shift && is_force=true ;;
-        -n|--dry-run) shift &&  dry_run=echo ;;
+        -n|--dry-run) shift &&  dry_run="echo dry-run:" ;;
+        -v|--verbose) shift &&  verbose="echo debug:" ;;
 	*) __fatal "unknown option: $1" ;;
    esac
 done
@@ -70,13 +73,16 @@ do
 
     cat "$config_file" | while read line
     do
-
+        $verbose "Parsing: $line"
         read -r repourl subdir remote_repourl remote_name branch <<< "$line"
+        $verbose "Parsed: repourl=$repourl subdir=$subdir" \
+            "remote_repourl=$remote_repourl remote_name=$remote_name" \
+            "branch=$branch"
 
         if [[ $line == \#* ]]
         then
             # TODO: Make verbose only
-            echo "Ignoring $line"
+            $verbose "Ignoring $line"
             continue
         elif [[ $line == *git@* ]] || [[ $line == *https://* ]]
         then
@@ -119,10 +125,13 @@ do
 
         if [[ -n $remote_repourl ]]
         then
-            echo "Remoting $remote_repourl $remote_name/$branch $branch"
-            $dry_run git remote add "$remote_name" "$remote_repourl"
-            $dry_run git fetch "$remote_name"
-            $dry_run git checkout -tb "$remote_name/$branch" "$branch"
+            (
+                $verbose "cd $todir" && cd $todir
+                echo "Remoting $remote_repourl $remote_name/$branch $branch"
+                $dry_run git remote add "$remote_name" "$remote_repourl"
+                $dry_run git fetch "$remote_name"
+                $dry_run git checkout -tb "$remote_name/$branch" "$branch"
+            )
         fi
     done
     shift

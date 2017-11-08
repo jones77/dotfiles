@@ -1,22 +1,23 @@
-    git clone --bare https://github.com/jones77/scripts $HOME/.jotf
-
-# `jotf`, jones77's dotfiles
+# scripts
 
 *Dotfiles and more.*
+
+* `FIXME: Name this something more compelling`
 
 # `files.sh`
 
 Creates symbolic links for `./dotfiles/*` in `"$HOME"`.
 
-# `packages.sh`
+    FIXME: Usage, what to run next.
 
-Install some basic apt/yum packages.  eg `ruby`, needed by
-linuxbrew, `sudo` in case I'm on a Debian machine, `strace` just because.  Then
-installs [Linuxbrew](http://linuxbrew.sh/) and more packages (eg the latest
-versions of tmux and go).
+# `autosrc.sh`
 
-Have a look in the [`_packages/`](_packages/) directory and modify to your
-heart's content.
+Checks out your favourite repos.
+
+# `nixit.sh`
+
+Installs the latest [Nix packages](https://nixos.org/nix/) of your favourite
+applications.
 
 # Tips
 
@@ -49,10 +50,6 @@ You want [**powerline fonts**](https://github.com/powerline/fonts) for `vim` and
 `tmux`.  [This is where **Deja Vu Sans Mono** lives, the world's greatest
 programmer font.](https://github.com/powerline/fonts/tree/master/DejaVuSansMono)
 
-# TODO
-
-- rename github to git
-
 # Building vim
 
 # Debian
@@ -70,3 +67,19 @@ If you get 256 color errors, try setting TERMINFO:
     $ tmux
     open terminal failed: missing or unsuitable terminal: xterm-256color
     $ TERMINFO=/usr/share/terminfo tmux
+
+<!--
+
+Deprecated documentation
+
+> # `packages.sh`
+
+> Install some basic apt/yum packages.  eg `ruby`, needed by
+> linuxbrew, `sudo` in case I'm on a Debian machine, `strace` just because.  Then
+> installs [Linuxbrew](http://linuxbrew.sh/) and more packages (eg the latest
+> versions of tmux and go).
+
+> Have a look in the [`_packages/`](_packages/) directory and modify to your
+> heart's content.
+
+-->
