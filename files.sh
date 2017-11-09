@@ -172,6 +172,7 @@ do
 
         if is_windows_bash
         then
+            # FIXME: This shit don't work.
             win_create_link "$from" "$to"
         else
             ln -s "$from" "$to"
@@ -185,6 +186,7 @@ done
     git config --global http.sslVerify false
     git config --global user.name "James Jones"
     git config --global user.email jjones18@bloomberg.net
+    git config --global credential.helper 'cache --timeout 604800'
 )
 # vundle
 declare -r touch=".touch"
