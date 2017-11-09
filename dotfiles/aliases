@@ -36,7 +36,6 @@ alias lz="ls -laShr"
 alias pp="ps aux"
 alias st="sed 's/\x1b\[[0-9;]*m//g'"  # strip color, https://superuser.com/a/380778
 alias  t='(
-    set -x -v
     cd ~/src/scratch
     git pull -q
     [[ "$(git diff -- tasks/tasks | wc -l)" != "0" ]] \
