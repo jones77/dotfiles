@@ -3,7 +3,7 @@
 # Create symbolic links for the dotfiles in ./dotfiles/
 #
 cd "$(dirname "${BASH_SOURCE[0]}")"  # Note: Always Be Local
-source ./dotfiles/shelllib.sh
+source ./home/dotfiles/shelllib.sh
 
 # FIXME: Add options, eg disable installing vim plugins
 
@@ -106,10 +106,10 @@ then
     ~/github/fonts/install.sh
 fi
 # DOTFILES
-for dir in "bin" "dotfiles" "config/mopidy" "config/nixpkgs"
+for dir in "home/bin" "home/dotfiles"
 do
     echo "dir=$dir"
-    if [[ "$dir" == "dotfiles" ]]
+    if [[ "$dir" == "home/dotfiles" ]]
     then
         # Implicit $dir/file ~/.file rename
         to_dir_prefix="$HOME/."
