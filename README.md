@@ -34,6 +34,12 @@ applications.
 
 * [jones77/vagrants](https://github.com/jones77/vagrants)
 
+### Hyper-V
+
+https://www.windowscentral.com/how-run-linux-distros-windows-10-using-hyper-v
+
+https://hyperv.veeam.com/blog/how-to-configure-hyper-v-virtual-switch/
+
 ## Cheatsheets
 
 [bash](http://kvz.io/blog/2013/11/21/bash-best-practices/)
