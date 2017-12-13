@@ -38,6 +38,8 @@ applications.
 
 https://www.windowscentral.com/how-run-linux-distros-windows-10-using-hyper-v
 
+https://www.netometer.com/blog/?p=1663
+
 https://hyperv.veeam.com/blog/how-to-configure-hyper-v-virtual-switch/
 
 ## Cheatsheets
