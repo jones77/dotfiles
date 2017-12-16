@@ -44,7 +44,7 @@ post_add_path "$HOME/gocode/bin"
 export GOPATH="$HOME/gocode"
 
 # Run the per os profiles and the extra profile if they exist.
-os=$(azify $(uname -o))
+os=$(azify $(uname -s))
 for __p in "${os}" "extra" "fortune" "work"
 do
     [[ -f "${HOME}/.profile.${__p}" ]] && source "${HOME}/.profile.${__p}"
