@@ -113,12 +113,9 @@ do
     then
         # Implicit $dir/file ~/.file rename
         to_dir_prefix="$HOME/."
-    elif [[ "$dir" == config* ]]
-    then
-        # Implicit $dir/config/path/to/file ~/.config/path/to/file rename
-        to_dir_prefix="$HOME/.$dir/"
     else
-        to_dir_prefix="$HOME/$dir/"
+        # This will break if $HOME has a space in it (but why would you do that)
+        to_dir_prefix="$(echo $dir | sed "s ^home $HOME ")/"
     fi
     echo "to_dir_prefix=$to_dir_prefix"
 
@@ -209,6 +206,8 @@ function add_spg {
     echo "$spg added to $profile_file"
 }
 grep '^source.*\.profile\.general$' "$profile_file" 1>/dev/null 2>&1 || add_spg
+source "$profile_file"
+go get -u github.com/nsf/gocode  # needed by completor
 ce Yellow "Source it:"
 ce Green "    source $profile_file"
 # END
