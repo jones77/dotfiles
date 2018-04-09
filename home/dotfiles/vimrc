@@ -44,6 +44,7 @@ Plugin 'tpope/vim-repeat'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-scripts/burnttoast256'
+Plugin 'cespare/vim-toml'
 Plugin 'w0rp/ale'
 
 ""
