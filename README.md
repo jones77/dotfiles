@@ -1,16 +1,17 @@
-# Quick env init with **scripts**
+# dotfiles and **scripts** for quick environment configuration
 
 *Dotfiles and more.*
 
-* `FIXME: Name this something more compelling`
+    FIXME: Name this something more compelling
 
-## ./files.sh
+## `./files.sh`
 
 Creates symbolic links for `./dotfiles/*` in `"$HOME"`.
 
-    FIXME: Usage, what to run next.
+    FIXME: Usage, what to run next
+    FIXME: configuration based
 
-## ./autosrc.sh repo.cfg
+## `./autosrc.sh [repo.cfg]`
 
 Checks out your favourite repos.
 
@@ -18,6 +19,9 @@ Checks out your favourite repos.
 
 Installs the latest [Nix packages](https://nixos.org/nix/) of your favourite
 applications.
+
+    FIXME: The portability of this rhymed with xit
+
 
 # Tips
 
@@ -43,6 +47,7 @@ https://www.netometer.com/blog/?p=1663
 https://hyperv.veeam.com/blog/how-to-configure-hyper-v-virtual-switch/
 
 ## Cheatsheets
+<!-- one-word links to quickstarts and cheatsheets -->
 
 [bash](http://kvz.io/blog/2013/11/21/bash-best-practices/)
 [git](https://www.git-tower.com/blog/content/posts/54-git-cheat-sheet/git-cheat-sheet-large01.png)
@@ -52,29 +57,23 @@ https://hyperv.veeam.com/blog/how-to-configure-hyper-v-virtual-switch/
 
 ## General
 
-Fix timezone: `sudo timedatectl set-timezone America/New_York`
+    # Fix timezone
+    sudo timedatectl set-timezone America/New_York
 
 You want [**powerline fonts**](https://github.com/powerline/fonts) for `vim` and
 `tmux`.  [This is where **Deja Vu Sans Mono** lives, the world's greatest
 programmer font.](https://github.com/powerline/fonts/tree/master/DejaVuSansMono)
 
+
 # Building vim
 
-# Debian
+## Debian
 
     ./configure --with-features=huge \
         --enable-multibyte=yes \
         --enable-python3interp=yes \
         --enable-pythoninterp=yes \
         --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu
-
-# Troubleshooting
-
-If you get 256 color errors, try setting TERMINFO:
-
-    $ tmux
-    open terminal failed: missing or unsuitable terminal: xterm-256color
-    $ TERMINFO=/usr/share/terminfo tmux
 
 <!--
 
