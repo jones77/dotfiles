@@ -102,8 +102,8 @@ then
     git clone https://github.com/VundleVim/Vundle.vim.git \
               ~/.vim/bundle/Vundle.vim
 
-    git clone https://github.com/powerline/fonts.git ~/github/fonts
-    ~/github/fonts/install.sh
+    git clone https://github.com/powerline/fonts.git ~/src/github/fonts
+    ~/src/github/fonts/install.sh
 fi
 # DOTFILES
 for dir in "home/bin" "home/dotfiles"
