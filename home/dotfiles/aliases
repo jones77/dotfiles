@@ -9,6 +9,8 @@ alias cp="cp -i"
 alias mv="mv -i"
 alias rm="rm -i"
 
+alias less="less -i"  # Make search case-insensitive
+
 unalias which 2>/dev/null  # Stupid centos: https://superuser.com/q/115356311
 
 # LS #
