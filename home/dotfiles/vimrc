@@ -131,9 +131,11 @@ augroup LoadOnce
 
     autocmd FileType c,cpp,python,ruby,java,sql,sh,Vagrantfile,Jenkinsfile
         \ autocmd BufWritePre <buffer> :%s/\s\+$//e
+    autocmd BufNewFile,BufReadPost *.conf set filetype=toml
     autocmd BufNewFile,BufReadPost *.md set filetype=markdown
     autocmd BufNewFile,BufReadPost Jenkinsfile set filetype=groovy
     autocmd Filetype gitcommit setlocal spell textwidth=72
+    " autocmd FileType conf let b:comment_leader = '# '
 augroup END
 
 set number

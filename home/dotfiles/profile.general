@@ -47,9 +47,12 @@ export GOPATH="$HOME/gocode"
 os=$(azify $(uname -s))
 for __p in "${os}" "extra" "fortune" "work"
 do
-    [[ -f "${HOME}/.profile.${__p}" ]] && source "${HOME}/.profile.${__p}"
+    if [[ -f "${HOME}/.profile.${__p}" ]]
+    then
+        ce Green sourcing ".profile.${__p}"  # Note: easier to log outside
+        source "${HOME}/.profile.${__p}"  # than inside every .profile.whatever
+    fi
 done
-[[ -f "$profile_extra" ]] && source "$profile_extra"
 
 export XDG_DATA_DIR="$HOME/.local/share"
 [[ -d "$XDG_DATA_DIR" ]] || mkdir -p "$XDG_DATA_DIR"
@@ -65,3 +68,18 @@ export XDG_MUSIC_DIR="$XDG_DATA_DIR/music"
 # [[ -d "$WORKON_HOME" ]] || mkdir -p $WORKON_HOME
 # source "/home/vagrant/.local/bin/virtualenvwrapper.sh" \
 #     || source "/usr/local/bin/virtualenvwrapper.sh"
+
+# https://stackoverflow.com/a/19533853/469045
+# Eternal bash history.
+# ---------------------
+# Undocumented feature which sets the size to "unlimited".
+# http://stackoverflow.com/questions/9457233/unlimited-bash-history
+export HISTFILESIZE=
+export HISTSIZE=
+export HISTTIMEFORMAT="[%F %T] "
+# Change the file location because certain bash sessions truncate .bash_history file upon close.
+# http://superuser.com/questions/575479/bash-history-truncated-to-500-lines-on-each-login
+export HISTFILE=~/.bash_eternal_history
+# Force prompt to write history after every command.
+# http://superuser.com/questions/20900/bash-history-loss
+PROMPT_COMMAND="history -a; $PROMPT_COMMAND"

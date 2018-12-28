@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 # linux specific profile
-ce Green running .profile.gnulinux
+
+# TODO: Delete this file or put something in it
