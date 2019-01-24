@@ -103,10 +103,10 @@ set expandtab
 set hlsearch
 set ignorecase
 set ruler               " show cursor position in status line
-set shiftwidth=4
 set showcmd             " show partial command in status line
 set showmatch           " show matching bracket
 set smarttab
+set shiftwidth=4
 set softtabstop=4       " no hard tabs
 set textwidth=80
 set whichwrap=b,s,,>,h,l
@@ -135,7 +135,7 @@ augroup LoadOnce
     autocmd BufNewFile,BufReadPost *.md set filetype=markdown
     autocmd BufNewFile,BufReadPost Jenkinsfile set filetype=groovy
     autocmd Filetype gitcommit setlocal spell textwidth=72
-    " autocmd FileType conf let b:comment_leader = '# '
+    autocmd Filetype yaml set shiftwidth=2 softtabstop=2
 augroup END
 
 set number
