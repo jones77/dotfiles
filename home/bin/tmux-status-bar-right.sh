@@ -37,3 +37,9 @@ fi
 # TODO: Add $(lsb_release -i | cut -f2) somewhere.
 # http://unix.stackexchange.com/questions/122508/set-tmux-status-line-color-based-on-hostname
 # https://github.com/alerque/que-tmux/blob/master/.tmux.conf
+
+# TODO: A cross-platform alternative is to use top.
+# # Processes: 438 total, 2 running, 436 sleeping, 2235 threads
+# # Load Avg: 2.21, 1.88, 1.83
+# # PhysMem: 14G used (2013M wired), 2370M unused.
+# cmd="top -l 1 -s 0 | awk ' /Processes/ || /PhysMem/ || /Load Avg/{print}'

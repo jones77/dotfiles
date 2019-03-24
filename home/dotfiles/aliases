@@ -2,18 +2,14 @@
 # Useful aliases and functions
 ce Green running .aliases
 
-###########
-# ALIASES #
-###########
 alias cp="cp -i"
 alias mv="mv -i"
 alias rm="rm -i"
-
 alias less="less -i"  # Make search case-insensitive
-
+# FIXME: If this is centos only check for centos?
 unalias which 2>/dev/null  # Stupid centos: https://superuser.com/q/115356311
 
-# LS #
+# ls - list directory contents
 the_ls=$(which gls 2>/dev/null)
 [[ -z "$the_ls" ]] && the_ls=$(which ls)
 # gnu ls is `gls` on FreeBSD, if it exists just use that as per usual
