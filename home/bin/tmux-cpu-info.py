@@ -8,7 +8,9 @@ GREEN = "#[fg=colour46,bg=black]"
 YELLOW = "#[fg=yellow,bg=black]"
 
 if __name__ == '__main__':
-    cpu_list = psutil.cpu_percent(interval=0.1, percpu=True)
+    cpu_list = sorted(
+        psutil.cpu_percent(interval=0.1, percpu=True),
+    )
     # print(cpu_list)
     vm = psutil.virtual_memory()
     fmts = []
