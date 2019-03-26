@@ -13,7 +13,6 @@ Plugin 'VundleVim/Vundle.vim'
 
 " http://liuchengxu.org/posts/use-vim-as-a-python-ide/
 " Plugin 'vim-airline/vim-airline-themes'
-
 Plugin 'Vimjas/vim-python-pep8-indent'
 Plugin 'brooth/far.vim'
 Plugin 'cespare/vim-toml'
@@ -48,6 +47,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-scripts/burnttoast256'
 Plugin 'vim-syntastic/syntastic'
+Plugin 'zhou13/vim-easyescape'
 
 ""
 " All of your Plugins must be added before the following line
@@ -121,7 +121,10 @@ command! -nargs=? T :tabnew
 map H :tabprev<return>
 map L :tabnext<return>
 map <space> 
-" 2003
+
+" FIXME: Stop using the Escape key?!
+" " Or should we use cnoremap?
+" inoremap jj <Esc>
 
 augroup LoadOnce
     " Prevent progressively slower reloading time of .vimrc
@@ -136,6 +139,7 @@ augroup LoadOnce
     autocmd BufNewFile,BufReadPost Jenkinsfile set filetype=groovy
     autocmd Filetype gitcommit setlocal spell textwidth=72
     autocmd Filetype yaml set shiftwidth=2 softtabstop=2
+    autocmd FileType python setlocal textwidth=79
 augroup END
 
 set number
