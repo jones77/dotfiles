@@ -1,5 +1,6 @@
 #!/usr/bin/env python3.7
 
+import os
 import sys
 
 import psutil
@@ -71,8 +72,15 @@ if __name__ == '__main__':
     else:
         pct_str = '!' + pct_str + '!'
 
+    stat = os.statvfs('.')
+    # posix.statvfs_result(f_bsize=4096, f_frsize=4096, f_blocks=65533179,
+    # f_bfree=20767004, f_bavail=20767004, f_files=131071424,
+    # f_ffree=130390422, f_favail=130390422, f_flag=4096, f_namemax=255)
+    du_used = int((1 - stat.f_bavail / stat.f_blocks) * 100)
+
     print(
         '{dir_colour}{dir}'
+        '{du_colour}{du}'
         '{ram_colour}{ram_gb}G{pct_colour}{pct_str}'
         '{display}'
         .format(
@@ -80,6 +88,8 @@ if __name__ == '__main__':
             # TODO: Indicate path was truncated
             dir=sys.argv[1][-30:],  # Truncate cwd starting from the back
             intro=INTRO,
+            du_colour=GREEN_REVERSE,
+            du=du_used,
             ram_colour=GREY,
             ram_gb=int(round(vm.total/1024/1024/1024)),
             pct_colour=GREEN_REVERSE,
