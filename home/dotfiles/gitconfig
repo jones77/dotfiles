@@ -169,4 +169,4 @@
 [http]
 	sslVerify = false
 [credential]
-	helper = cache --timeout 604800
+	helper = cache --timeout=99999
