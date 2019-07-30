@@ -76,7 +76,7 @@ if __name__ == '__main__':
     # posix.statvfs_result(f_bsize=4096, f_frsize=4096, f_blocks=65533179,
     # f_bfree=20767004, f_bavail=20767004, f_files=131071424,
     # f_ffree=130390422, f_favail=130390422, f_flag=4096, f_namemax=255)
-    du_used = int((1 - stat.f_bavail / stat.f_blocks) * 100)
+    du_used = int(round((1 - stat.f_bavail / stat.f_blocks) * 100))
 
     print(
         '{dir_colour}{dir}'
