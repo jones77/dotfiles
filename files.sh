@@ -87,7 +87,12 @@ win_create_link() {
     if [[ ! -e "$link" ]]
     then
         ce Red fallback mode, cp \"$1\" \"$2\"
-        cp "$1" "$2"
+        if [[ -d "$1" ]]
+        then
+            cp -r "$1" "$2"
+        else
+            cp "$1" "$2"
+        fi
     else
         ce "Green "$link" exists!"
     fi
@@ -200,7 +205,7 @@ mkdir -p ~/gocode/bin
 # APPEND TO DOT PROFILE
 [[ -f "$HOME/.bash_profile" ]] && profile_file="$HOME/.bash_profile" \
                                || profile_file="$HOME/.profile"
-declare -r spg="source ~/.profile.general"
+declare -r spg="source ~/.profile.general"  # source profile general
 function add_spg {
     echo "$spg" >> "$profile_file"
     echo "$spg added to $profile_file"
