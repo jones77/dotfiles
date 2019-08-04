@@ -218,7 +218,6 @@ function add_spg {
     echo "$spg added to $profile_file"
 }
 grep '^source.*\.profile\.general$' "$profile_file" 1>/dev/null 2>&1 || add_spg
-source "$profile_file"
 go get -u github.com/nsf/gocode  # needed by completor
 ce Yellow "Source it:"
 ce Green "    source $profile_file"
