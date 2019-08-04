@@ -79,14 +79,14 @@ if __name__ == '__main__':
     du_used = int(round((1 - stat.f_bavail / stat.f_blocks) * 100))
 
     print(
-        '{dir_colour}{dir}'
+        '{cwd_colour}{cwd}'
         '{du_colour}{du}'
         '{ram_colour}{ram_gb}G{pct_colour}{pct_str}'
         '{display}'
         .format(
-            dir_colour=GREEN,
+            cwd_colour=GREEN,
             # TODO: Indicate path was truncated
-            dir=sys.argv[1][-30:],  # Truncate cwd starting from the back
+            cwd=sys.argv[1][-30:],  # Truncate cwd starting from the back
             intro=INTRO,
             du_colour=GREEN_REVERSE,
             du=du_used,

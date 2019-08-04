@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# source this file from your favourite login shell
+# ce Red updating brew && brew update
+
+# brew default
+export GOROOT=/usr/local/opt/go/libexec
+# ...
+# export LANG="$LC_ALL"
