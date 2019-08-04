@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # source this file from your favourite login shell
-ce Green running .profile.general
 source ~/.shelllib.sh
+ce Green running .profile.general
 source ~/.aliases  # azify
 
 export EDITOR=vim

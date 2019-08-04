@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 source ~/.shelllib.sh
 ce Green running .profile.mingwnt
+
+export PATH="$PATH:/c/msys64/usr/bin"
