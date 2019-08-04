@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 ce Green running .aliases
+function _info() {
+    ce Yellow "  $@"
+}
 
 alias cp="cp -i"
 alias mv="mv -i"
@@ -15,10 +18,10 @@ the_ls=$(type -P gls 2>/dev/null)  # Use gls, gnu ls if it exists
 __uname=$(uname -a | grep FreeBSD >/dev/null 2>&1)
 if [[ -n "$__uname" ]] && [[ "$the_ls" == "ls" ]]
 then
-    ce Yellow "ls is ls -G"
+    _info "ls is ls -G"
     alias ls="ls -G"  # MacOS
 else
-    ce Yellow "ls is ASCIIbetical"
+    _info "ls is ASCIIbetical"
     alias ls="LC_COLLATE=C $the_ls --color --group-directories-first"
     # ^^ ASCIIbetical! https://ubuntuforums.org/showthread.php?t=816753
 fi
@@ -80,7 +83,7 @@ function hh {
 }
 function azify {
     # http://stackoverflow.com/a/23816607/469045
-    echo "$@" | tr -dc '[:alnum:]' | tr '[:upper:]' '[:lower:]'
+    echo "$@" | tr -dc '[:alpha:]' | tr '[:upper:]' '[:lower:]'
 }
 function pre_add_path {
     # pre_add_path & post_add_path: https://gist.github.com/morganp/964200
