@@ -9,14 +9,16 @@ alias less="less -i"  # Make search case-insensitive
 unalias which 2>/dev/null  # Stupid centos: https://superuser.com/q/115356311
 
 # Configure an ASCIIbetical gnu ls for any platforms.
-declare -r the_ls=$(type -P gls 2>/dev/null)
-[[ -z "$the_ls" ]] && the_ls=$(type -P ls)
+the_ls=$(type -P gls 2>/dev/null)  # Use gls, gnu ls if it exists
+[[ -z "$the_ls" ]] && the_ls=$(type -P ls)  # Otherwise default ls
 # gnu ls is `gls` on FreeBSD, if it exists just use that as per usual
 __uname=$(uname -a | grep FreeBSD >/dev/null 2>&1)
 if [[ -n "$__uname" ]] && [[ "$the_ls" == "ls" ]]
 then
+    ce Yellow "ls is ls -G"
     alias ls="ls -G"  # MacOS
 else
+    ce Yellow "ls is ASCIIbetical"
     alias ls="LC_COLLATE=C $the_ls --color --group-directories-first"
     # ^^ ASCIIbetical! https://ubuntuforums.org/showthread.php?t=816753
 fi

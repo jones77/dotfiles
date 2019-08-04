@@ -5,8 +5,8 @@
 cd "$(dirname "${BASH_SOURCE[0]}")"  # Note: Always Be Local
 source ./home/dotfiles/shelllib.sh
 
-# FIXME: Add options, eg disable installing vim plugins
-
+# TODO: Add options, eg disable installing vim plugins
+# TODO: Fix windows (lol)
 is_windows_bash() {
     set -o errexit
     [[ $(uname -s) == MINGW6* ]]
@@ -184,12 +184,19 @@ do
 done
 
 # gitconfig hack for work
-[[ "$(whoami)" == "jjones" ]] && (
+if [[ $(whoami) == jjones ]]
+then
     git config --global http.sslVerify false
     git config --global user.name "James Jones"
     git config --global user.email jjones18@bloomberg.net
     git config --global credential.helper 'cache --timeout 604800'
-)
+elif [[ $(whoami) == jones ]] || [[ $(whoami) == root ]]
+then
+    git config --global http.sslVerify true
+    git config --global user.name "James Jones"
+    git config --global user.email james@jones77.com
+    git config --global credential.helper 'cache --timeout 604800'
+fi
 # vundle
 declare -r touch=".touch"
 if ! $(find "$touch" -mtime +1 -print >/dev/null)  # Update plugins once a day
