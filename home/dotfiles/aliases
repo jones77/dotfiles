@@ -8,14 +8,18 @@ alias less="less -i"  # Make search case-insensitive
 # FIXME: If this is centos only check for centos?
 unalias which 2>/dev/null  # Stupid centos: https://superuser.com/q/115356311
 
-# ls - list directory contents
-the_ls=$(which gls 2>/dev/null)
-[[ -z "$the_ls" ]] && the_ls=$(which ls)
+# Configure an ASCIIbetical gnu ls for any platforms.
+declare -r the_ls=$(type -P gls 2>/dev/null)
+[[ -z "$the_ls" ]] && the_ls=$(type -P ls)
 # gnu ls is `gls` on FreeBSD, if it exists just use that as per usual
-uname -a | grep FreeBSD >/dev/null 2>&1 \
-  && [[ "$the_ls" == "ls" ]] && alias ls="ls -G" \
-  || alias ls="LC_COLLATE=C $the_ls --color --group-directories-first"
-# ^^ ASCIIbetical! https://ubuntuforums.org/showthread.php?t=816753
+__uname=$(uname -a | grep FreeBSD >/dev/null 2>&1)
+if [[ -n "$__uname" ]] && [[ "$the_ls" == "ls" ]]
+then
+    alias ls="ls -G"  # MacOS
+else
+    alias ls="LC_COLLATE=C $the_ls --color --group-directories-first"
+    # ^^ ASCIIbetical! https://ubuntuforums.org/showthread.php?t=816753
+fi
 
 alias bb="curl -Ss http://169.254.169.254/openstack/latest/meta_data.json | python -m json.tool"
 #alias f='find' or alias f='fortune', see .profile.extra
@@ -35,14 +39,19 @@ alias  l="ls -latr"
 alias lz="ls -laShr"
 alias pp="ps aux"
 alias st="sed 's/\x1b\[[0-9;]*m//g'"  # strip color, https://superuser.com/a/380778
-alias  t='(
-    cd ~/src/scratch
-    git pull -q
-    [[ "$(git diff -- tasks/tasks | wc -l)" != "0" ]] \
-        && git add -- tasks/tasks \
-        && git commit -q --no-status -m "Task: $(date +%Y%m%d%H%M%S)" \
-        && git push -q
-); python ~/src/github/t/t.py --task-dir ~/src/scratch/tasks --list tasks'
+# TODO: Make this a function.
+# TODO: Use bitbucket.
+function t() {
+    (
+        cd ~/src/scratch || return
+        git pull -q
+        [[ "$(git diff -- tasks/tasks | wc -l)" != "0" ]] \
+            && git add -- tasks/tasks \
+            && git commit -q --no-status -m "Task: $(date +%Y%m%d%H%M%S)" \
+            && git push -q
+    )
+    python ~/src/github/t/t.py --task-dir ~/src/scratch/tasks --list tasks
+}
 alias tt='tmux attach -d'
 alias va="vagrant"
 alias vp="vagrant"
@@ -88,7 +97,7 @@ function unsafe_sshkeygen {
     if [[ -f ~/.ssh/id_rsa ]]
     then
         echo "Warning: ~/.ssh/id_rsa already exists, replace? [y/n]"
-        read answer
+        read -r answer
         if [[ "$answer" != "y" ]]
         then
             echo "not replacing ~/.ssh/id_rsa"
@@ -96,7 +105,7 @@ function unsafe_sshkeygen {
         fi
     fi
     ssh-keygen -t rsa -q -P ""
-    echo "~/.ssh/id_rsa.pub:"
+    echo "$HOME/.ssh/id_rsa.pub:"
     echo
     cat ~/.ssh/id_rsa.pub
 }
@@ -104,4 +113,7 @@ function trash {
     [[ ! -d "$HOME/.trash" ]] && mkdir -p "$HOME/.trash"
     mv "$@" "$HOME/.trash"
 }
-[[ -f "${HOME}/.aliases.extra" ]] && source "${HOME}/.aliases.extra"
+if [[ -f "${HOME}/.aliases.extra" ]]
+then
+    source "${HOME}/.aliases.extra"
+fi
