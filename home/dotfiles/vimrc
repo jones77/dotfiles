@@ -1,6 +1,7 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 set encoding=utf-8
+scriptencoding utf-8
 
 "" VundleBegin
 " set the runtime path to include Vundle and initialize
@@ -10,10 +11,13 @@ call vundle#begin()
 "call vundle#begin('~/some/path/here')
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-""
-
 " http://liuchengxu.org/posts/use-vim-as-a-python-ide/
+Plugin 'airblade/vim-gitgutter'
+Plugin 'sinetoami/lightline-hunks'
+Plugin 'niklaas/lightline-gitdiff'
 Plugin 'Vimjas/vim-python-pep8-indent'
+Plugin 'syngan/vim-vimlint'
+Plugin 'ynkdir/vim-vimlparser'
 Plugin 'brooth/far.vim'
 Plugin 'cespare/vim-toml'
 Plugin 'chr4/nginx.vim'
@@ -63,52 +67,63 @@ filetype plugin indent on " required
 
 filetype plugin on
 let &runtimepath.=',~/.vim/bundle/ale'
-" http://www.robmeerman.co.uk/unix/256colours
-" set term=putty-256color
 set term=xterm
 set t_Co=256
-
 set background=dark
 colorscheme burnttoast256
 
-"
-" Vundle Options
-" 
 let g:NERDTreeDirArrows=0
 let g:NERDTreeShowHidden=1
 
-" lightline
-set showtabline=2
-set laststatus=2  " To make the above work
-" https://github.com/acepukas/dotfiles/blob/master/vim/plugin/lightline_config.vim#L37
-        " \ 'separator': { 'left': '', 'right': '' },
-        " \ 'subseparator': { 'left': '', 'right': '' },
 let g:lightline = {
-        \ 'separator': { 'left': '', 'right': '' },
-        \ 'subseparator': { 'left': '', 'right': '' },
-        \ 'tabline': {
-        \   'left': [ [ 'tabs' ] ],
-        \   'right': [ [ 'obession' ] ]
-        \ },
-        \ 'colorscheme': 'one',
-        \ 'component_function': {
-        \   'obession': 'MyObsession'
-        \ }
-    \ }
-
+\   'colorscheme': 'one',
+\   'separator': { 'left': '', 'right': '' },
+\   'subseparator': { 'left': '', 'right': '' },
+\   'tabline': {
+\       'left': [ [ 'tabs' ] ],
+\       'right': [ [ 'charvaluehex', 'obsess' ] ]
+\   },
+\   'active': {
+\       'left': [
+\           [ 'mode', 'paste' ],
+\           [ 'lightline_hunks', 'readonly', 'filename', 'modified' ],
+\       ],
+\       'right': [
+\           [ 'lineinfo' ],
+\           [ 'percent' ],
+\       ]
+\   },
+\   'component': {
+\       'charvaluehex': '0x%B',
+\   },
+\   'component_function': {
+\       'obsess': 'MyObsession',
+\       'lightline_hunks': 'lightline#hunks#composer',
+\   }
+\}
 function! MyObsession()
   if exists("*ObsessionStatus")
-    return ObsessionStatus('𑁍', ' ⃤')
+    return ObsessionStatus('ଭ', '𑁍') 
   endif
 endfunction
+let g:gitgutter_override_sign_column_highlight = 0
+
+set showtabline=2  " Make lightline work
+set laststatus=2  " Make the above work
+set noshowmode  " Unnecessary with lightline
  
-let g:syntastic_mode_map = {'mode': 'passive'}
-let g:syntastic_python_checkers=['flake8']
-" FIXME: Why doesn't this work?
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 let g:syntastic_error_symbol = '✘'
 let g:syntastic_style_error_symbol = '✘'
 let g:syntastic_warning_symbol = '⁈'
 let g:syntastic_style_warning_symbol = '⁈'
+let g:syntastic_python_checkers=['flake8']
 
 let g:terraform_align=1
 let g:terraform_fmt_on_save=1
@@ -120,11 +135,10 @@ let g:ctrlp_working_path_mode = 'ra'
 
 let g:sql_type_default = 'pgsql'
 
-" regular options
+" vim options circa 2003
 syntax on
 set nofoldenable
 nmap <silent> <Leader>l <Plug>(pydocstring)
-" vim options circa 2003
 set autochdir
 set autoindent
 set expandtab
@@ -141,22 +155,25 @@ set whichwrap=b,s,,>,h,l
 set wrap                " wrap lines
 set scrolloff=4
 set fileformat=unix
-
 set t_vb= "who needs a visual bell anyway?
 set t_te= "stops vim clearing the screen
-command! -nargs=? T :tabnew  " :T is New Tab
-" Tab Left is H, Tab Right is L
+set number
+set ttyfast
+set clipboard^=unnamed  " FIXME: Document this
+" :T is New Tab, Tab Left is H, Tab Right is L, Space is page down (like less)
+command!  -nargs=? T :tabnew
 map H :tabprev<return>
 map L :tabnext<return>
-" Space is page down like less
 map <space> 
+set mouse=a
+map <ScrollWheelUp> <C-U>
+map <ScrollWheelDown> <C-D>
 
 augroup LoadOnce
     " Prevent progressively slower reloading time of .vimrc
     " http://stackoverflow.com/q/15353988
     autocmd!
     autocmd bufwritepost .vimrc source $MYVIMRC
-
     autocmd FileType c,cpp,python,ruby,java,sql,sh,Vagrantfile,Jenkinsfile
         \ autocmd BufWritePre <buffer> :%s/\s\+$//e
     autocmd BufNewFile,BufReadPost *.conf set filetype=toml
@@ -167,16 +184,10 @@ augroup LoadOnce
     autocmd FileType python setlocal textwidth=79
 augroup END
 
-set number
-set ttyfast
-set clipboard^=unnamed  " FIXME: Document this
-
-set mouse=a
-map <ScrollWheelUp> <C-U>
-map <ScrollWheelDown> <C-D>
-
-" Not sure why these need to be at the end to be respected.
-" hi CursorLineNr term=bold ctermfg=22 ctermbg=232
+hi SignColumn ctermbg=232
+hi GitGutterAdd    guifg=2 guibg=232 ctermfg=2 ctermbg=232
+hi GitGutterChange guifg=3 guibg=232 ctermfg=3 ctermbg=232
+hi GitGutterDelete guifg=1 guibg=232 ctermfg=1 ctermbg=232
 hi ColorColumn ctermbg=233
-hi LineNr term=bold ctermfg=239 ctermbg=233
-set colorcolumn=40,80,120,160,200,240
+hi LineNr term=bold ctermfg=239 ctermbg=232
+set colorcolumn=40,80,120,160,200,240,280,320
