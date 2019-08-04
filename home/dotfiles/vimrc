@@ -46,6 +46,9 @@ Plugin 'tpope/vim-abolish'  " https://stackoverflow.com/a/8783131/469045
 Plugin 'tpope/vim-capslock'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-eunuch'
+Plugin 'pangloss/vim-javascript'
+" https://github.com/tpope/vim-fugitive
+"
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-obsession'
 Plugin 'tpope/vim-repeat'
@@ -185,9 +188,9 @@ augroup LoadOnce
 augroup END
 
 hi SignColumn ctermbg=232
-hi GitGutterAdd    guifg=2 guibg=232 ctermfg=2 ctermbg=232
-hi GitGutterChange guifg=3 guibg=232 ctermfg=3 ctermbg=232
-hi GitGutterDelete guifg=1 guibg=232 ctermfg=1 ctermbg=232
+hi GitGutterAdd    ctermfg=2 ctermbg=232
+hi GitGutterChange ctermfg=3 ctermbg=232
+hi GitGutterDelete ctermfg=1 ctermbg=232
 hi ColorColumn ctermbg=233
 hi LineNr term=bold ctermfg=239 ctermbg=232
 set colorcolumn=40,80,120,160,200,240,280,320
