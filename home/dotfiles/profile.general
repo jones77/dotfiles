@@ -13,7 +13,7 @@ export TERM='xterm-256color'
 set -o vi
 
 function dollar_or_hash {
-    if (( $UID ))
+    if (( UID ))
     then
         echo -n '$'
     else
@@ -34,7 +34,7 @@ function my_prompt {
     case $branch in
         develop) ce BoldGreen "$doh" ;;
         master)  ce BoldRed "$doh" ;;
-        *) echo "$(ce Yellow ${branch})$(ce Cyan $doh)" ;;
+        *) echo "$(ce Yellow "${branch}")$(ce Cyan "$doh")" ;;
     esac
 }
 export PS1="\$(my_prompt) "
@@ -44,7 +44,7 @@ post_add_path "$HOME/gocode/bin"
 export GOPATH="$HOME/gocode"
 
 # Run the per os profiles and the extra profile if they exist.
-os=$(azify $(uname -s))
+os=$(azify "$(uname -s)")
 for __p in "${os}" "extra" "fortune" "work"
 do
     if [[ -f "${HOME}/.profile.${__p}" ]]
@@ -58,6 +58,14 @@ export XDG_DATA_DIR="$HOME/.local/share"
 [[ -d "$XDG_DATA_DIR" ]] || mkdir -p "$XDG_DATA_DIR"
 export XDG_MUSIC_DIR="$XDG_DATA_DIR/music"
 [[ -d "$XDG_MUSIC_DIR" ]] || mkdir -p "$XDG_MUSIC_DIR/mopidy"
+
+export SHELLCHECK_OPTS=
+# can't follow source https://github.com/koalaman/shellcheck/wiki/SC1090
+SHELLCHECK_OPTS="$SHELLCHECK_OPTS -e SC1090"
+# expands when defined https://github.com/koalaman/shellcheck/wiki/SC2139
+SHELLCHECK_OPTS="$SHELLCHECK_OPTS -e SC2139"
+# declare & assign separately https://github.com/koalaman/shellcheck/wiki/SC2155
+SHELLCHECK_OPTS="$SHELLCHECK_OPTS -e SC2155"
 
 # https://nixos.org/nix/
 # source /home/jjones/.nix-profile/etc/profile.d/nix.sh
