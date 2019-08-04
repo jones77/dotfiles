@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Useful script library functions, ie `source library.sh`
+# Useful script library functions, ie `source shelllib.sh`
 # http://wiki.bash-hackers.org/scripting/terminalcodes
 
 # This broke on FreeBSD
@@ -57,54 +57,54 @@ function ce {  # color echo, eg ce Green string [...]
     local col
     shift
 
-    col="$(eval echo \$__fg_${color_name})"
+    col="$(eval echo "\$__fg_${color_name}")"
 
     if [[ -n "$col" ]]
     then
-        echo -e "\001\033[${col}m\002$@\001\033[0m\002"
+        echo -e "\001\033[${col}m\002$*\001\033[0m\002"
     else
         # Didn't understand the command, fallback to regular echo.
-        set "$color_name $@"
+        set "$color_name $*"
         echo "$@"
     fi
 }
 #
 ce Green running .shelllib.sh
 #
-original_dir="$(pwd)"
-script_pathtoname="$(
-                 ps -f | grep $$ | grep $PPID | awk '{ print $NF }')"
-script_dir="$(dirname '$script_pathtoname')"
-script_name="$(basename '$script_pathtoname')"
-#
-function sl_debug {
-    [[ -n "$DEBUG" ]] && echo "$@"
-}
-sl_debug "original_dir=$script_dir"
-sl_debug "script_dir=$script_dir"
-sl_debug "script_name=$script_name"
-# OO bash?
-function script {
-    case "$1" in
-        'dir')  get_script_dir ;;
-        'cd')   cd_script_dir ;;
-        'name') get_script_name ;;
-        'back') cd_back ;;
-    esac
-}
-#
-## FUNCTIONS ##
-# ... and we move to the scripts dir.  Until we get to the end of the program.
-function cd_back {
-    # On error we return to where we were ...
-    cd "$original_dir"
-}
-function cd_script_dir {
-    cd "$script_dir"
-}
-function get_script_dir {
-    echo "$script_dir"
-}
-function get_script_name {
-    echo "$script_name"
-}
+#original_dir="$(pwd)"
+#script_pathtoname="$(
+#                 ps -f | grep $$ | grep $PPID | awk '{ print $NF }')"
+#script_dir="$(dirname '$script_pathtoname')"
+#script_name="$(basename '$script_pathtoname')"
+##
+#function sl_debug {
+#    [[ -n "$DEBUG" ]] && echo "$@"
+#}
+#sl_debug "original_dir=$script_dir"
+#sl_debug "script_dir=$script_dir"
+#sl_debug "script_name=$script_name"
+## OO bash?
+#function script {
+#    case "$1" in
+#        'dir')  get_script_dir ;;
+#        'cd')   cd_script_dir ;;
+#        'name') get_script_name ;;
+#        'back') cd_back ;;
+#    esac
+#}
+##
+### FUNCTIONS ##
+## ... and we move to the scripts dir.  Until we get to the end of the program.
+#function cd_back {
+#    # On error we return to where we were ...
+#    cd "$original_dir"
+#}
+#function cd_script_dir {
+#    cd "$script_dir"
+#}
+#function get_script_dir {
+#    echo "$script_dir"
+#}
+#function get_script_name {
+#    echo "$script_name"
+#}
