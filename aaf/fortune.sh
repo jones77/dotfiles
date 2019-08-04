@@ -17,7 +17,7 @@ __update() {
     local -r my_file="$1"
     local -r http_aaf="aHR0cDovL3d3dy5hc2NpaWFydGZhcnRzLmNvbS9mb3J0dW5lLnR4dA=="
 
-    curl --progress-bar $(echo "$http_aaf"|base64 -d) >"${my_file}"
+    curl --progress-bar $(echo "$http_aaf"|base64 --decode) >"${my_file}"
     strfile "${my_file}" "${my_file}.dat"
 }
 

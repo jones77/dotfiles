@@ -3,8 +3,8 @@
 set -o errexit
 
 # Configure symbolic links
-ln -s `pwd`/fortune.sh ~/bin/fortune.sh
-ln -s `pwd`/gasbgone.sh ~/bin/gasbgone.sh
+ln -fs `pwd`/fortune.sh ~/bin/fortune.sh
+ln -fs `pwd`/gasbgone.sh ~/bin/gasbgone.sh
 
 # Update fortune
 cd ~/bin
