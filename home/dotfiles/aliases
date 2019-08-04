@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# Useful aliases and functions
 ce Green running .aliases
 
 alias cp="cp -i"
@@ -48,7 +47,7 @@ alias tt='tmux attach -d'
 alias va="vagrant"
 alias vp="vagrant"
 alias vu="vim '+PluginInstall!' +qall"
-alias vv='_vi'
+alias  v='_vi'
 alias wf='python -m pyftpdlib -w'  # sudo pip install pyftpdlib
 alias ws='python -m SimpleHTTPServer 8000'
 #############
