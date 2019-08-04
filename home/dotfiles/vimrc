@@ -1,5 +1,6 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
+set encoding=utf-8
 
 "" VundleBegin
 " set the runtime path to include Vundle and initialize
@@ -78,12 +79,16 @@ colorscheme burnttoast256
 let g:NERDTreeDirArrows=0
 let g:NERDTreeShowHidden=1
 
+set guifont=DejaVu\ Mono\ for\ Powerline
+let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''𐩣'', '''')}', 'windowswap', '%3p%% ', 'linenr', ':%3v '])
 let g:Powerline_symbols = 'fancy'
-let g:airline_powerline_fonts = 1
+"let g:Powerline_symbols = 'unicode'
 let g:airline_powerline_fonts = 1
 " Show capslock status in the statusline
+" FIXME: Does this work?
 let g:airline#extensions#capslock#enabled = 1
-let g:airline_theme='base16'
+let g:airline_theme='wombat'
+" FIXME: What's this for?
 set laststatus=2
 
 let g:syntastic_python_checkers=['flake8']
@@ -97,11 +102,8 @@ let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 
 let g:sql_type_default = 'pgsql'
-"
-"
-"
 
-set encoding=utf-8
+" regular options
 syntax on
 set nofoldenable
 nmap <silent> <Leader>l <Plug>(pydocstring)
@@ -125,15 +127,12 @@ set fileformat=unix
 
 set t_vb= "who needs a visual bell anyway?
 set t_te= "stops vim clearing the screen
-" :T => new tab, H => left, L => right, space => ctrl-D
-command! -nargs=? T :tabnew 
+command! -nargs=? T :tabnew  " :T is New Tab
+" Tab Left is H, Tab Right is L
 map H :tabprev<return>
 map L :tabnext<return>
+" Space is page down like less
 map <space> 
-
-" FIXME: Stop using the Escape key?!
-" " Or should we use cnoremap?
-" inoremap jj <Esc>
 
 augroup LoadOnce
     " Prevent progressively slower reloading time of .vimrc
@@ -153,7 +152,7 @@ augroup END
 
 set number
 set ttyfast
-set clipboard^=unnamed
+set clipboard^=unnamed  " FIXME: Document this
 
 set mouse=a
 map <ScrollWheelUp> <C-U>
