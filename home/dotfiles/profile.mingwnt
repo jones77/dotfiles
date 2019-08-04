@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+source ~/.shelllib.sh
+ce Green running .profile.mingwnt

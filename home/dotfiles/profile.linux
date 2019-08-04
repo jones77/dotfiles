@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
-# linux specific profile
+source ~/.shelllib.sh
+ce Green running .profile.linux
 
 # TODO: Delete this file or put something in it
