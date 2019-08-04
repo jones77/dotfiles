@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # source this file from your favourite login shell
+ce Green running .profile.general
 source ~/.shelllib.sh
 source ~/.aliases  # azify
-ce Green running .profile.general
 
 export EDITOR=vim
 export PAGER=less
@@ -49,7 +49,6 @@ for __p in "${os}" "extra" "fortune" "work"
 do
     if [[ -f "${HOME}/.profile.${__p}" ]]
     then
-        ce Green sourcing ".profile.${__p}"  # Note: easier to log outside
         source "${HOME}/.profile.${__p}"  # than inside every .profile.whatever
     fi
 done
