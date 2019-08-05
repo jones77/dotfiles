@@ -118,7 +118,7 @@ function trash {
     [[ ! -d "$HOME/.trash" ]] && mkdir -p "$HOME/.trash"
     mv "$@" "$HOME/.trash"
 }
-if [[ -f "${HOME}/.aliases.extra" ]]
-then
-    source "${HOME}/.aliases.extra"
-fi
+function calc {
+    echo "$@" | bc -l
+}
+[[ -f "${HOME}/.aliases.extra" ]] && source "${HOME}/.aliases.extra"
