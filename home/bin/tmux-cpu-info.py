@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.7
 
 import os
 import sys
@@ -7,7 +7,7 @@ import psutil
 
 DEBUG = False
 
-BACKGROUND='colour17'
+BACKGROUND = 'colour17'
 RED = f'#[fg=red,bg={BACKGROUND},noreverse]'
 RED_REVERSE = f'#[fg=red,bg={BACKGROUND},reverse]'
 MAGENTA = f'#[fg=magenta,bg={BACKGROUND},noreverse]'

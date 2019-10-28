@@ -177,7 +177,7 @@ augroup LoadOnce
     " http://stackoverflow.com/q/15353988
     autocmd!
     autocmd bufwritepost .vimrc source $MYVIMRC
-    autocmd FileType c,cpp,python,ruby,java,sql,sh,Vagrantfile,Jenkinsfile
+    autocmd FileType c,cpp,h,java,python,ruby,sql,sh,yaml,Dockerfile,Vagrantfile,Jenkinsfile
         \ autocmd BufWritePre <buffer> :%s/\s\+$//e
     autocmd BufNewFile,BufReadPost *.conf set filetype=toml
     autocmd BufNewFile,BufReadPost *.md set filetype=markdown
