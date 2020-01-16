@@ -40,8 +40,11 @@ function my_prompt {
 export PS1="\$(my_prompt) "
 
 pre_add_path  "$HOME/bin"
-post_add_path "$HOME/gocode/bin"
-export GOPATH="$HOME/gocode"
+post_add_path "$HOME/go/bin"
+if [[ -z $GOPATH ]]
+then
+    export GOPATH="$HOME/go"
+fi
 
 # Run the per os profiles and the extra profile if they exist.
 os=$(azify "$(uname -s)")

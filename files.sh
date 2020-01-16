@@ -205,7 +205,7 @@ then
 fi
 touch "$touch"
 # go
-mkdir -p ~/gocode/bin
+mkdir -p ~/go/bin
 # https://nixos.org/nix/
 # [[ -f '/home/jjones/.nix-profile/etc/profile.d/nix.sh' ]] \
 #     || curl https://nixos.org/nix/install | sh
