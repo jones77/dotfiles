@@ -12,18 +12,15 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 " http://liuchengxu.org/posts/use-vim-as-a-python-ide/
-Plugin 'airblade/vim-gitgutter'
-Plugin 'sinetoami/lightline-hunks'
-Plugin 'niklaas/lightline-gitdiff'
 Plugin 'Vimjas/vim-python-pep8-indent'
-Plugin 'syngan/vim-vimlint'
-Plugin 'ynkdir/vim-vimlparser'
+Plugin 'airblade/vim-gitgutter'
 Plugin 'brooth/far.vim'
 Plugin 'cespare/vim-toml'
 Plugin 'chr4/nginx.vim'
 Plugin 'chrisbra/Recover.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'editorconfig/editorconfig-vim'
+Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'exu/pgsql.vim'
 Plugin 'fatih/vim-go'
 Plugin 'flazz/vim-colorschemes'
@@ -37,23 +34,25 @@ Plugin 'jlanzarotta/bufexplorer'
 Plugin 'maralla/completor.vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'mkitt/tabline.vim'
+Plugin 'niklaas/lightline-gitdiff'
 Plugin 'nvie/vim-flake8'
+Plugin 'pangloss/vim-javascript'
 Plugin 'powerline/powerline'
 Plugin 'scrooloose/nerdtree'
+Plugin 'sinetoami/lightline-hunks'
+Plugin 'syngan/vim-vimlint'
 Plugin 'thiderman/vim-supervisor'
 Plugin 'tmux-plugins/vim-tmux'
 Plugin 'tpope/vim-abolish'  " https://stackoverflow.com/a/8783131/469045
 Plugin 'tpope/vim-capslock'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-eunuch'
-Plugin 'pangloss/vim-javascript'
-" https://github.com/tpope/vim-fugitive
-"
-Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-fugitive'  " https://github.com/tpope/vim-fugitive
 Plugin 'tpope/vim-obsession'
 Plugin 'tpope/vim-repeat'
 Plugin 'vim-scripts/burnttoast256'
 Plugin 'vim-syntastic/syntastic'
+Plugin 'ynkdir/vim-vimlparser'
 Plugin 'zhou13/vim-easyescape'
 
 ""
@@ -172,12 +171,21 @@ set mouse=a
 map <ScrollWheelUp> <C-U>
 map <ScrollWheelDown> <C-D>
 
+" https://vi.stackexchange.com/a/19062
+augroup tmux
+  autocmd!
+  if exists('$TMUX')
+    autocmd BufReadPost,FileReadPost,BufNewFile,FocusGained * call system("tmux rename-window " . expand("%:t"))
+    autocmd VimLeave,FocusLost * call system("tmux set-window-option automatic-rename")
+  endif
+augroup END
+
 augroup LoadOnce
     " Prevent progressively slower reloading time of .vimrc
     " http://stackoverflow.com/q/15353988
     autocmd!
     autocmd bufwritepost .vimrc source $MYVIMRC
-    autocmd FileType c,cpp,h,java,python,ruby,sql,sh,yaml,Dockerfile,Vagrantfile,Jenkinsfile
+    autocmd FileType c,cpp,h,java,md,python,ruby,sql,sh,yaml,Dockerfile,Vagrantfile,Jenkinsfile
         \ autocmd BufWritePre <buffer> :%s/\s\+$//e
     autocmd BufNewFile,BufReadPost *.conf set filetype=toml
     autocmd BufNewFile,BufReadPost *.md set filetype=markdown
