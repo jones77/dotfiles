@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ce Green running .aliases
 function _info() {
-    ce Yellow "  $@"
+    ce Yellow "  $*"
 }
 
 alias cp="cp -i"
