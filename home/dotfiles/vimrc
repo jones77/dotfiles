@@ -31,6 +31,7 @@ Plugin 'hashivim/vim-vagrant'
 Plugin 'heavenshell/vim-pydocstring'
 Plugin 'itchyny/lightline.vim'
 Plugin 'jlanzarotta/bufexplorer'
+Plugin 'jparise/vim-graphql'
 Plugin 'maralla/completor.vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'mkitt/tabline.vim'
@@ -50,6 +51,8 @@ Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-fugitive'  " https://github.com/tpope/vim-fugitive
 Plugin 'tpope/vim-obsession'
 Plugin 'tpope/vim-repeat'
+Plugin 'vim-pandoc/vim-pandoc'
+Plugin 'vim-pandoc/vim-pandoc-syntax'
 Plugin 'vim-scripts/burnttoast256'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'ynkdir/vim-vimlparser'
@@ -185,13 +188,15 @@ augroup LoadOnce
     " http://stackoverflow.com/q/15353988
     autocmd!
     autocmd bufwritepost .vimrc source $MYVIMRC
-    autocmd FileType c,cpp,h,java,md,python,ruby,sql,sh,yaml,Dockerfile,Vagrantfile,Jenkinsfile
+    " Trim trailing whitespace from the following filetypes.
+    autocmd FileType c,cpp,graphql,h,java,md,python,ruby,sql,sh,yaml,Dockerfile,Vagrantfile,Jenkinsfile
         \ autocmd BufWritePre <buffer> :%s/\s\+$//e
     autocmd BufNewFile,BufReadPost *.conf set filetype=toml
     autocmd BufNewFile,BufReadPost *.md set filetype=markdown
     autocmd BufNewFile,BufReadPost Jenkinsfile set filetype=groovy
     autocmd Filetype gitcommit setlocal spell textwidth=72
     autocmd Filetype yaml set shiftwidth=2 softtabstop=2
+    autocmd Filetype graphql set shiftwidth=4 softtabstop=4
     autocmd FileType python setlocal textwidth=79
 augroup END
 
