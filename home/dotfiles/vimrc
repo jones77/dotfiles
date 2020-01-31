@@ -1,5 +1,5 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+set nocompatible
+filetype off
 set encoding=utf-8
 scriptencoding utf-8
 
@@ -33,6 +33,7 @@ Plugin 'itchyny/lightline.vim'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'jparise/vim-graphql'
 Plugin 'maralla/completor.vim'
+Plugin 'mengelbrecht/lightline-bufferline'
 Plugin 'mileszs/ack.vim'
 Plugin 'mkitt/tabline.vim'
 Plugin 'niklaas/lightline-gitdiff'
@@ -57,21 +58,17 @@ Plugin 'vim-scripts/burnttoast256'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'ynkdir/vim-vimlparser'
 Plugin 'zhou13/vim-easyescape'
-
-""
 " All of your Plugins must be added before the following line
-call vundle#end()         " required
-filetype plugin indent on " required
+call vundle#end()
+filetype plugin indent on
 " To ignore plugin indent changes, instead use:
 "   filetype plugin on
 " :PluginUpdate, :PluginList, :PluginInstall - `!` also update
 " :PluginSearch foo - searches for foo, `!` refresh local cache
-" :PluginClean - `!` auto-approve
-"   see :h vundle for more details or wiki for FAQ
-"" EndVundle
+" :PluginClean - `!` auto-approve, :h vundle - help
 
 filetype plugin on
-let &runtimepath.=',~/.vim/bundle/ale'
+" let &runtimepath.=',~/.vim/bundle/ale'
 set term=xterm
 set t_Co=256
 set background=dark
@@ -85,8 +82,8 @@ let g:lightline = {
 \   'separator': { 'left': '', 'right': '' },
 \   'subseparator': { 'left': '', 'right': '' },
 \   'tabline': {
-\       'left': [ [ 'tabs' ] ],
-\       'right': [ [ 'charvaluehex', 'obsess' ] ]
+\       'left': [['tabs']],
+\       'right': [['charvaluehex', 'obsess']]
 \   },
 \   'active': {
 \       'left': [
@@ -96,10 +93,17 @@ let g:lightline = {
 \       'right': [
 \           [ 'lineinfo' ],
 \           [ 'percent' ],
+\           [ 'buffers' ],
 \       ]
 \   },
 \   'component': {
 \       'charvaluehex': '0x%B',
+\   },
+\   'component_expand': {
+\       'buffers': 'lightline#bufferline#buffers'
+\   },
+\   'component_type': {
+\       'buffers': 'tabsel'
 \   },
 \   'component_function': {
 \       'obsess': 'MyObsession',
@@ -108,15 +112,21 @@ let g:lightline = {
 \}
 function! MyObsession()
   if exists("*ObsessionStatus")
-    return ObsessionStatus('ଭ', '𑁍') 
+    return ObsessionStatus('𑁍', 'ଭ')
   endif
+endfunction
+command! LightlineReload call LightlineReload()
+function! LightlineReload()
+  call lightline#init()
+  call lightline#colorscheme()
+  call lightline#update()
 endfunction
 let g:gitgutter_override_sign_column_highlight = 0
 
 set showtabline=2  " Make lightline work
 set laststatus=2  " Make the above work
 set noshowmode  " Unnecessary with lightline
- 
+
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -189,15 +199,16 @@ augroup LoadOnce
     autocmd!
     autocmd bufwritepost .vimrc source $MYVIMRC
     " Trim trailing whitespace from the following filetypes.
-    autocmd FileType c,cpp,graphql,h,java,md,python,ruby,sql,sh,yaml,Dockerfile,Vagrantfile,Jenkinsfile
+    autocmd FileType c,cpp,graphql,h,java,md,python,ruby,sql,sh,vim,yaml,Dockerfile,Vagrantfile,Jenkinsfile
         \ autocmd BufWritePre <buffer> :%s/\s\+$//e
     autocmd BufNewFile,BufReadPost *.conf set filetype=toml
     autocmd BufNewFile,BufReadPost *.md set filetype=markdown
     autocmd BufNewFile,BufReadPost Jenkinsfile set filetype=groovy
-    autocmd Filetype gitcommit setlocal spell textwidth=72
-    autocmd Filetype yaml set shiftwidth=2 softtabstop=2
-    autocmd Filetype graphql set shiftwidth=4 softtabstop=4
     autocmd FileType python setlocal textwidth=79
+    autocmd FileType gitcommit setlocal spell textwidth=72
+    autocmd FileType go set shiftwidth=4 softtabstop=4
+    autocmd Filetype graphql set shiftwidth=4 softtabstop=4
+    autocmd Filetype yaml set shiftwidth=2 softtabstop=2
 augroup END
 
 hi SignColumn ctermbg=232

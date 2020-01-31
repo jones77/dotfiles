@@ -1,101 +1,73 @@
+xterm*allowSendEvents: true
+xterm*dynamicColrs: true
 xterm*faceName: DejaVu Sans Mono for Powerline
 xterm*faceSize: 16
-xterm*loginShell: true
-xterm*savelines: 65536
-xterm*toolBar: off
 xterm*geometry: 80x50
-xterm*termName: xterm-256color
-xterm*dynamicColrs: true
-
-xterm*allowSendEvents: true
+xterm*loginShell: true
+xterm*rightScrollBar: false
+xterm*savelines: 65536
+xterm*scrollBar: false
+xterm*termName: xterm-color
+xterm*toolBar: off
+xterm*eightBitInput: false
 
 ! http://www.humbug.in/2010/enable-alt-ky-in-xterm/
 xterm*metaSendsEscape: true
-xterm*eightBitInput: false
-
 ! double-click to select URLs
 xterm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
-
-! right hand side scrollbar
-xterm*rightScrollBar: false
-xterm*scrollBar: false
-
 ! stop output to terminal from jumping down to bottom of scroll again
 xterm*scrollTtyOutput: false
 ! http://askubuntu.com/questions/237942/how-does-copy-paste-work-with-xterm
 xterm*selectToClipboard: true
 
-! From https://unix4lyfe.org/xterm/
-! DOS-box colours
-xterm*foreground: rgb:a8/a8/a8
-xterm*background: rgb:00/00/00
-xterm*color0: rgb:00/00/00
-xterm*color1: rgb:a8/00/00
-xterm*color2: rgb:00/a8/00
-xterm*color3: rgb:a8/54/00
-xterm*color4: rgb:00/00/a8
-xterm*color5: rgb:a8/00/a8
-xterm*color6: rgb:00/a8/a8
-xterm*color7: rgb:a8/a8/a8
-xterm*color8: rgb:54/54/54
-xterm*color9: rgb:fc/54/54
-xterm*color10: rgb:54/fc/54
-xterm*color11: rgb:fc/fc/54
-xterm*color12: rgb:54/54/fc
-xterm*color13: rgb:fc/54/fc
-xterm*color14: rgb:54/fc/fc
-xterm*color15: rgb:fc/fc/fc
-xterm*color52: rgb:5f/00/00
-! Use the bold attribute to make the text bright, like it did in DOS, by
-! disabling boldMode
-xterm*boldMode: false
-! Sometimes this isnt enough and you still get unreadable text. You can work
-! around it by setting xterm*boldFont to the same value as xterm*font above.
-! boldMode makes color+bold = lightcolor, but bold foreground (color7) stays
-! color7. As in, bold now has no effect on uncolored text.
-! I want lightgray+bold = white, so I add:
-xterm*colorBDMode: true
-xterm*colorBD: rgb:fc/fc/fc
-! ^^ From https://unix4lyfe.org/xterm/
-
-
-
-! Hybrid Terminal Colours. Uses the palette from Tomorrow-Night:
+! github.com/mbadolato/iTerm2-Color-Schemes
+! Generated with :
+! XRDB2Xreources.py
 !
-! https://github.com/chriskempson/tomorrow-theme/blob/master/vim/colors/Tomorrow-Night.vim
-! vim: ft=xdefaults
+*.foreground:  #f2f2f2
+*.background:  #000000
+*.cursorColor: #4d4d4d
 !
-*background: #1D1F21
-*foreground: #C5C8C6
-! black
-*color0: #282A2E
-*color8: #373B41
-! red
-*color1: #A54242
-*color9: #CC6666
-! green
-*color2: #8C9440
-*color10: #B5BD68
-! yellow
-*color3: #DE935F
-*color11: #F0C674
-! blue
-*color4: #5F819D
-*color12: #81A2BE
-! magenta
-*color5: #85678F
-*color13: #B294BB
-! cyan
-*color6: #5E8D87
-*color14: #8ABEB7
-! white
-*color7: #707880
-*color15: #C5C8C6
+! Black
+*.color0:      #2a2a2a
+*.color8:      #666666
+!
+! Red
+*.color1:      #ff0000
+*.color9:      #ff0080
+!
+! Green
+*.color2:      #79ff0f
+*.color10:     #66ff66
+!
+! Yellow
+*.color3:      #e7bf00
+*.color11:     #f3d64e
+!
+! Blue
+*.color4:      #396bd7
+*.color12:     #709aed
+!
+! Magenta
+*.color5:      #b449be
+*.color13:     #db67e6
+!
+! Cyan
+*.color6:      #66ccff
+*.color14:     #7adff2
+!
+! White
+*.color7:      #bbbbbb
+*.color15:     #ffffff
+!
+! Bold, Italic, Underline
+*.colorBD:     #ffffff
+!*.colorIT:
+!*.colorUL:
+!
+! Previous contenders:
+! - https://unix4lyfe.org/xterm/
+! - https://github.com/chriskempson/tomorrow-theme/blob/master/vim/colors/Tomorrow-Night.vim
 
-! -- NOTES --
-! Run, to reload:
+! To reload run:
 !   xrdb -merge ~/.Xresources
-
-
-
-

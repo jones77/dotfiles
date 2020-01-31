@@ -7,17 +7,18 @@ import psutil
 
 DEBUG = False
 
-BACKGROUND = 'colour17'
-RED = f'#[fg=red,bg={BACKGROUND},noreverse]'
-RED_REVERSE = f'#[fg=red,bg={BACKGROUND},reverse]'
-MAGENTA = f'#[fg=magenta,bg={BACKGROUND},noreverse]'
-EMERGENCY = f'#[fg=cyan,bg={BACKGROUND},noreverse]'
-GREEN = f'#[fg=colour46,bg={BACKGROUND},noreverse]'
-GREEN_REVERSE = f'#[fg=colour46,bg={BACKGROUND},reverse]'
-YELLOW = f'#[fg=yellow,bg={BACKGROUND},noreverse]'
-YELLOW_REVERSE = f'#[fg=yellow,bg={BACKGROUND},reverse]'
-GREY = f'#[fg=colour243,bg={BACKGROUND},noreverse]'
-INTRO = f'#[fg=colour243,bg={BACKGROUND},noreverse]#'
+# BACKGROUND = ',bg=colour17'
+BACKGROUND = ''
+RED = f'#[fg=red{BACKGROUND},noreverse]'
+RED_REVERSE = f'#[fg=red{BACKGROUND},reverse]'
+MAGENTA = f'#[fg=magenta{BACKGROUND},noreverse]'
+EMERGENCY = f'#[fg=cyan{BACKGROUND},noreverse]'
+GREEN = f'#[fg=colour46{BACKGROUND},noreverse]'
+GREEN_REVERSE = f'#[fg=colour46{BACKGROUND},reverse]'
+YELLOW = f'#[fg=yellow{BACKGROUND},noreverse]'
+YELLOW_REVERSE = f'#[fg=yellow{BACKGROUND},reverse]'
+GREY = f'#[fg=colour243{BACKGROUND},noreverse]'
+INTRO = f'#[fg=colour243{BACKGROUND},noreverse]#'
 
 CPU_LOW = GREEN
 CPU_HIGH = YELLOW
