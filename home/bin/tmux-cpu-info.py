@@ -59,7 +59,7 @@ if __name__ == '__main__':
         display += fmts[i]
         display += decile
 
-    memory_used = vm.available / vm.total
+    memory_used = 1 - (vm.available / vm.total)
     mem_digit = '{0:.0}'.format(memory_used)
     if mem_digit.startswith('0.'):
         mem_digit = mem_digit[2:]
