@@ -43,7 +43,7 @@ do
 
     for filename in "$dir"/*
     do
-	if [[ "$filename" =~ '.swp'$ ]]
+        if [[ $filename =~ .swp$ || $filename =~ ^Session.vim$ ]]
         then
             ce Red "Skipping VIM swapfile: $filename"
             continue
