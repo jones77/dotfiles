@@ -5,6 +5,7 @@
 cd "$(dirname "${BASH_SOURCE[0]}")"  # Note: Always Be Local
 source ./home/dotfiles/shelllib.sh
 
+# TODO: status bar has dependency on python3.7-psutil
 # TODO: Add options, eg disable installing vim plugins
 
 # VUNDLE
