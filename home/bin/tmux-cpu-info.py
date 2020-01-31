@@ -12,18 +12,21 @@ BACKGROUND = ''
 RED = f'#[fg=red{BACKGROUND},noreverse]'
 RED_REVERSE = f'#[fg=red{BACKGROUND},reverse]'
 MAGENTA = f'#[fg=magenta{BACKGROUND},noreverse]'
+CYAN = f'#[fg=cyan{BACKGROUND},noreverse]'
 EMERGENCY = f'#[fg=cyan{BACKGROUND},noreverse]'
 GREEN = f'#[fg=colour46{BACKGROUND},noreverse]'
 GREEN_REVERSE = f'#[fg=colour46{BACKGROUND},reverse]'
 YELLOW = f'#[fg=yellow{BACKGROUND},noreverse]'
 YELLOW_REVERSE = f'#[fg=yellow{BACKGROUND},reverse]'
 GREY = f'#[fg=colour243{BACKGROUND},noreverse]'
+GREY_REVERSE = f'#[fg=colour243{BACKGROUND},reverse]'
 INTRO = f'#[fg=colour243{BACKGROUND},noreverse]#'
 
 CPU_LOW = GREEN
 CPU_HIGH = YELLOW
 CPU_110 = RED
 CPU_CRAZY = EMERGENCY
+
 
 if __name__ == '__main__':
     cpu_list = sorted(psutil.cpu_percent(interval=0.1, percpu=True))
@@ -75,8 +78,8 @@ if __name__ == '__main__':
 
     print(
         f'{GREEN}{cwd[-30:]}'
-        f'{GREEN_REVERSE}{du_used}'
-        f'{GREY}{ram_gb}G'
-        f'{GREEN_REVERSE}{mem_digit}'
+        f'{YELLOW}{du_used}'
+        f'{GREY}{ram_gb}'
+        f'{CYAN}{mem_digit}'
         f'{display}'
-      )
+    )
