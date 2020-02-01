@@ -82,8 +82,8 @@ let g:lightline = {
 \   'separator': { 'left': '', 'right': '' },
 \   'subseparator': { 'left': '', 'right': '' },
 \   'tabline': {
-\       'left': [['tabs']],
-\       'right': [['charvaluehex', 'obsess']]
+\       'left': [ [ 'tabs' ] ],
+\       'right': [ [ 'charvaluehex', 'obsess'] ]
 \   },
 \   'active': {
 \       'left': [

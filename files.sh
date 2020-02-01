@@ -18,7 +18,7 @@ then
     ~/src/github/fonts/install.sh
 
     git clone https://github.com/mbadolato/iTerm2-Color-Schemes.git \
-        ~/src/github/iTerm2-Color-Schemes.git
+        ~/src/github/iTerm2-Color-Schemes
 fi
 
 # DOTFILES
