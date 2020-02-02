@@ -45,6 +45,7 @@ Plugin 'sinetoami/lightline-hunks'
 Plugin 'syngan/vim-vimlint'
 Plugin 'thiderman/vim-supervisor'
 Plugin 'tmux-plugins/vim-tmux'
+Plugin 'yuratomo/w3m.vim'
 Plugin 'tpope/vim-abolish'  " https://stackoverflow.com/a/8783131/469045
 Plugin 'tpope/vim-capslock'
 Plugin 'tpope/vim-commentary'
@@ -67,9 +68,7 @@ filetype plugin indent on
 " :PluginSearch foo - searches for foo, `!` refresh local cache
 " :PluginClean - `!` auto-approve, :h vundle - help
 
-filetype plugin on
-" let &runtimepath.=',~/.vim/bundle/ale'
-set term=xterm
+" set term=xterm  # FIXME: Delete this, feel like it's unnecessary.
 set t_Co=256
 set background=dark
 colorscheme burnttoast256
@@ -83,16 +82,14 @@ let g:lightline = {
 \   'subseparator': { 'left': '', 'right': '' },
 \   'tabline': {
 \       'left': [ [ 'tabs' ] ],
-\       'right': [ [ 'charvaluehex', 'obsess'] ]
+\       'right': [ [ 'obsess' ] ]
 \   },
 \   'active': {
 \       'left': [
-\           [ 'mode', 'paste' ],
-\           [ 'lightline_hunks', 'readonly', 'filename', 'modified' ],
+\           [ 'lightline_hunks', 'mode', 'paste' ],
+\           [ 'lineinfo', 'percent', 'charvaluehex', 'readonly', 'modified', 'filename' ],
 \       ],
 \       'right': [
-\           [ 'lineinfo' ],
-\           [ 'percent' ],
 \           [ 'buffers' ],
 \       ]
 \   },
@@ -102,13 +99,13 @@ let g:lightline = {
 \   'component_expand': {
 \       'buffers': 'lightline#bufferline#buffers'
 \   },
-\   'component_type': {
-\       'buffers': 'tabsel'
-\   },
 \   'component_function': {
 \       'obsess': 'MyObsession',
 \       'lightline_hunks': 'lightline#hunks#composer',
-\   }
+\   },
+\   'component_type': {
+\       'buffers': 'tabsel'
+\   },
 \}
 function! MyObsession()
   if exists("*ObsessionStatus")
@@ -121,7 +118,12 @@ function! LightlineReload()
   call lightline#colorscheme()
   call lightline#update()
 endfunction
-let g:gitgutter_override_sign_column_highlight = 0
+let g:lightline#bufferline#filename_modifier = ':t'
+let g:lightline#bufferline#show_number = '2'
+let g:lightline#bufferline#number_separator = ''
+let g:lightline#bufferline#number_map = { 0: '₀', 1: '₁', 2: '₂', 3: '₃', 4: '₄', 5: '₅', 6: '₆', 7: '₇', 8: '₈', 9: '₉'}
+
+autocmd BufWritePost,TextChanged,TextChangedI * call lightline#update()
 
 set showtabline=2  " Make lightline work
 set laststatus=2  " Make the above work
@@ -139,6 +141,7 @@ let g:syntastic_style_error_symbol = '✘'
 let g:syntastic_warning_symbol = '⁈'
 let g:syntastic_style_warning_symbol = '⁈'
 let g:syntastic_python_checkers=['flake8']
+let g:syntastic_sh_shellcheck_args = "-x"  " Follow source files!
 
 let g:terraform_align=1
 let g:terraform_fmt_on_save=1
@@ -152,31 +155,34 @@ let g:sql_type_default = 'pgsql'
 
 " vim options circa 2003
 syntax on
-set nofoldenable
 nmap <silent> <Leader>l <Plug>(pydocstring)
 set autochdir
 set autoindent
+set clipboard^=unnamed  " FIXME: Document this
 set expandtab
+set fileformat=unix
 set hlsearch
 set ignorecase
+set nofoldenable
+set number
 set ruler               " show cursor position in status line
+set scrolloff=4
+set shiftwidth=4
 set showcmd             " show partial command in status line
 set showmatch           " show matching bracket
 set smarttab
-set shiftwidth=4
 set softtabstop=4       " no hard tabs
+set t_te= "stops vim clearing the screen
+set t_vb= "who needs a visual bell anyway?
 set textwidth=80
+set ttyfast
+set wildmode=longest,list,full
 set whichwrap=b,s,,>,h,l
 set wrap                " wrap lines
-set scrolloff=4
-set fileformat=unix
-set t_vb= "who needs a visual bell anyway?
-set t_te= "stops vim clearing the screen
-set number
-set ttyfast
-set clipboard^=unnamed  " FIXME: Document this
 " :T is New Tab, Tab Left is H, Tab Right is L, Space is page down (like less)
-command!  -nargs=? T :tabnew
+" :B bufname<tab-complete> is open buffer in a new tab.
+command! -complete=buffer -nargs=1 B :tabnew | :buffer <args>
+command! -nargs=? T :tabnew
 map H :tabprev<return>
 map L :tabnext<return>
 map <space> 
@@ -188,8 +194,9 @@ map <ScrollWheelDown> <C-D>
 augroup tmux
   autocmd!
   if exists('$TMUX')
-    autocmd BufReadPost,FileReadPost,BufNewFile,FocusGained * call system("tmux rename-window " . expand("%:t"))
+    autocmd TabEnter,BufReadPost,FileReadPost,BufNewFile,FocusGained * call system("tmux rename-window " . expand("%:t"))
     autocmd VimLeave,FocusLost * call system("tmux set-window-option automatic-rename")
+    LightlineReload
   endif
 augroup END
 
@@ -209,12 +216,16 @@ augroup LoadOnce
     autocmd FileType go set shiftwidth=4 softtabstop=4
     autocmd Filetype graphql set shiftwidth=4 softtabstop=4
     autocmd Filetype yaml set shiftwidth=2 softtabstop=2
+    LightlineReload
 augroup END
 
-hi SignColumn ctermbg=232
+let g:gitgutter_override_sign_column_highlight = 0
 hi GitGutterAdd    ctermfg=2 ctermbg=232
 hi GitGutterChange ctermfg=3 ctermbg=232
 hi GitGutterDelete ctermfg=1 ctermbg=232
+
+hi SignColumn ctermbg=232
 hi ColorColumn ctermbg=233
-hi LineNr term=bold ctermfg=239 ctermbg=232
+hi LineNr ctermfg=239 ctermbg=232
 set colorcolumn=40,80,120,160,200,240,280,320
+LightlineReload

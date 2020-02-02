@@ -3,13 +3,17 @@
 
 if (( $# != 1 ))
 then
-    echo "Usage:    `basename $0` file"
+    echo "Usage:    $(basename "$0") file"
     exit 1
 fi
 
 set -e
-my_temp_file=$( tempfile -s "`basename $0`" )
-trap "rm -f '$my_temp_file'" exit  # clean up my_temp_file on exit
+my_temp_file="$(mktemp)"
+rm_tmpfile() {
+    rm -f "$my_temp_file"
+}
+trap rm_tmpfile EXIT
+
 local_file="$1"
 unique_length=5  # Number of unique characters
 string_limit=5  # Number of unique characters
@@ -18,10 +22,9 @@ string_limit=5  # Number of unique characters
 # strip trailing space
 # reduce multiple spaces to a single space
 # and then do the same for 3-or more repeated letters
-# 
+#
 # delete blank lines
-cat ${local_file} | sed \
-    -e 's/[^a-z A-Z]*//g' \
+sed -e 's/[^a-z A-Z]*//g' \
     -e 's/^\s*//g' \
     -e 's/\s*$//g' \
     -e 's/\s\s*/ /g' \
@@ -36,16 +39,16 @@ cat ${local_file} | sed \
     -e '/^..$/d' \
     -e '/^...$/d' \
     \
-    >"${my_temp_file}"
+    >"${my_temp_file}" \
+    <"$local_file"
 
-cat ${my_temp_file} | while read line
+while read -r line
 do
-    num_chars=`echo "$line" | wc -c`
-    num_unique_chars=`echo "$line" \
-        | sed -e 's/\(.\)/\1\n/g' | sort | uniq -c | sort -n | wc -l`
+    num_unique_chars="$(echo "$line" \
+        | sed -e 's/\(.\)/\1\n/g' | sort | uniq -c | sort -n | wc -l)"
 
-    if (( num_unique_chars > unique_length && num_chars > string_limit ))
+    if (( num_unique_chars > unique_length && ${#line} > string_limit ))
     then
         echo "$line"
     fi
-done
+done <"$my_temp_file"

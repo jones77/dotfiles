@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+# requires source shelllib.sh
 ce Green running .aliases
 function _info() {
     ce Yellow "  $*"
@@ -9,8 +9,6 @@ alias cp="cp -i"
 alias mv="mv -i"
 alias rm="rm -i"
 alias less="less -i"  # Make search case-insensitive
-# FIXME: If this is centos only check for centos?
-unalias which 2>/dev/null  # Stupid centos: https://superuser.com/q/115356311
 
 # Configure an ASCIIbetical gnu ls for any platforms.
 the_ls=$(type -P gls 2>/dev/null)  # Use gls, gnu ls if it exists
@@ -28,9 +26,8 @@ else
 fi
 
 alias bb="curl -Ss http://169.254.169.254/openstack/latest/meta_data.json | python -m json.tool"
-#alias f='find' or alias f='fortune', see .profile.extra
 alias fx="ag '(TODO:|FIXME:)'"
-alias  g='grep'
+alias fx0="ag --depth 0 '(TODO:|FIXME:)'"
 alias ga="git add"
 alias gc="git commit"
 alias gd="git diff"
@@ -38,10 +35,10 @@ alias gdc="git diff --cached"
 alias gg="git log --graph --pretty=format:'%Cred%h%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%C(yellow)%d' --abbrev-commit"
 alias gp='git pull'
 alias gs='git st'
-alias jr='cd ~/src/scratch; ls'
-alias js='cd ~/src/bitbucket/scripts; ls'
-alias jv='cd ~/src/bitbucket/vagrants; ls'
-alias  l="ls -latr"
+alias jr='cd ~/src/bitbucket/scratch && ls'
+alias js='cd ~/src/bitbucket/scripts && ls'
+alias jv='cd ~/src/bitbucket/vagrants && ls'
+alias ll="ls -latr"
 alias lz="ls -laShr"
 alias pp="ps aux"
 alias st="sed 's/\x1b\[[0-9;]*m//g'"  # strip color, https://superuser.com/a/380778

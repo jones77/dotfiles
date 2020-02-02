@@ -1,8 +1,15 @@
 #!/usr/bin/env bash
-
+# Useful script library functions, ie `source shelllib.sh`
+#
 # TODO: Improve the quality of this script, maybe a library?
 
-# Useful script library functions, ie `source shelllib.sh`
+function __basename {
+    echo "${1##*/}"
+}
+function __pathname {
+    echo "${1%/*}"
+}
+
 # http://wiki.bash-hackers.org/scripting/terminalcodes
 # http://stackoverflow.com/a/5947802
 __fg_Black="0;30"
@@ -43,4 +50,30 @@ function ce {  # color echo, eg ce Green string [...]
         set "$color_name $*"
         echo "$@"
     fi
+}
+
+function celist {
+    for i in \
+        $__fg_Black \
+        $__fg_Blue \
+        $__fg_BrownOrange \
+        $__fg_Cyan \
+        $__fg_DarkGray \
+        $__fg_Green \
+        $__fg_BoldBlue \
+        $__fg_BoldCyan \
+        $__fg_BoldGray \
+        $__fg_BoldGreen \
+        $__fg_BoldPurple \
+        $__fg_BoldRed \
+        $__fg_Purple \
+        $__fg_Red \
+        $__fg_White \
+        $__fg_Yellow \
+    \
+        $__fg_bgRed \
+        $__fg_bgGreen
+    do
+        echo -e "\001\033[${i}m\002A crazy brown fox jumps over a 0123456789z\001\033[0m\002"
+    done
 }

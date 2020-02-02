@@ -7,20 +7,21 @@ import psutil
 
 DEBUG = False
 
-# BACKGROUND = ',bg=colour17'
-BACKGROUND = ''
-RED = f'#[fg=red{BACKGROUND},noreverse]'
+BACKGROUND = ',bg=colour17'
+RED = f'#[fg=red]'
 RED_REVERSE = f'#[fg=red{BACKGROUND},reverse]'
-MAGENTA = f'#[fg=magenta{BACKGROUND},noreverse]'
-CYAN = f'#[fg=colour75{BACKGROUND},noreverse]'
+MAGENTA = f'#[fg=magenta]'
+PINK = f'#[fg=colour217]'
+CYAN = f'#[fg=colour75]'
 EMERGENCY = f'#[fg=cyan{BACKGROUND},noreverse]'
-GREEN = f'#[fg=colour36{BACKGROUND},noreverse]'
+GREEN = f'#[fg=colour36]'
 GREEN_REVERSE = f'#[fg=colour36{BACKGROUND},reverse]'
-YELLOW = f'#[fg=colour227{BACKGROUND},noreverse]'
+YELLOW = f'#[fg=colour227]'
 YELLOW_REVERSE = f'#[fg=colour227{BACKGROUND},reverse]'
-GREY = f'#[fg=colour243{BACKGROUND},noreverse]'
+GREY = f'#[fg=colour243]'
 GREY_REVERSE = f'#[fg=colour243{BACKGROUND},reverse]'
-INTRO = f'#[fg=colour243{BACKGROUND},noreverse]#'
+# FIXME: What's intro?
+INTRO = f'#[fg=colour243,noreverse]#'
 
 CPU_LOW = GREEN
 CPU_HIGH = YELLOW
@@ -78,8 +79,8 @@ if __name__ == '__main__':
 
     print(
         f'{GREEN}{cwd[-30:]}'
-        f'{YELLOW}{du_used}'
-        f'{GREY}{ram_gb}'
-        f'{CYAN}{mem_digit}'
+        f'{PINK}{du_used}'
+        f'{GREEN}{ram_gb}'
+        f'{PINK}{mem_digit}'
         f'{display}'
     )
