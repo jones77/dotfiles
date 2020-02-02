@@ -87,10 +87,10 @@ let g:lightline = {
 \   'active': {
 \       'left': [
 \           [ 'lightline_hunks', 'mode', 'paste' ],
-\           [ 'lineinfo', 'percent', 'charvaluehex', 'readonly', 'modified', 'filename' ],
+\           [ 'lineinfo', 'percent', 'readonly', 'modified', 'filename' ],
 \       ],
 \       'right': [
-\           [ 'buffers' ],
+\           [ 'charvaluehex', 'buffers' ],
 \       ]
 \   },
 \   'component': {
@@ -183,6 +183,7 @@ set wrap                " wrap lines
 " :B bufname<tab-complete> is open buffer in a new tab.
 command! -complete=buffer -nargs=1 B :tabnew | :buffer <args>
 command! -nargs=? T :tabnew
+command! -nargs=0 L :LightlineReload  " FIXME: Fix Lightline so it reloads properly
 map H :tabprev<return>
 map L :tabnext<return>
 map <space> 
