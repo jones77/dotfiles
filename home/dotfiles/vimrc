@@ -163,7 +163,6 @@ let g:ctrlp_working_path_mode = 'ra'
 
 let g:NERDTreeDirArrows=0
 let g:NERDTreeShowHidden=1
-nmap <silent> <Leader>n :NERDTreeToggle<CR>
 
 let g:terraform_align=1
 let g:terraform_fmt_on_save=1
@@ -208,6 +207,7 @@ set mouse=a
 map <ScrollWheelUp> <C-U>
 map <ScrollWheelDown> <C-D>
 map <C-J> :BufExplorer<CR>
+map <C-K> :NERDTreeToggle<CR>
 
 " Custom Git Gutter colors.
 let g:gitgutter_override_sign_column_highlight = 0
