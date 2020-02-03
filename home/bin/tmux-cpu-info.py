@@ -14,7 +14,8 @@ MAGENTA = f'#[fg=magenta]'
 PINK = f'#[fg=colour217]'
 CYAN = f'#[fg=colour75]'
 EMERGENCY = f'#[fg=cyan{BACKGROUND},noreverse]'
-GREEN = f'#[fg=colour36]'
+GREEN = f'#[fg=colour36,nobold]'
+GREEN_BOLD = f'#[fg=colour36,bold]'
 GREEN_REVERSE = f'#[fg=colour36{BACKGROUND},reverse]'
 YELLOW = f'#[fg=colour227]'
 YELLOW_REVERSE = f'#[fg=colour227{BACKGROUND},reverse]'
@@ -78,7 +79,7 @@ if __name__ == '__main__':
     ram_gb=int(round(vm.total/1024/1024/1024))
 
     print(
-        f'{GREEN}{cwd[-30:]}'
+        f'{GREEN_BOLD}{cwd[-30:]}'
         f'{PINK}{du_used}'
         f'{GREEN}{ram_gb}'
         f'{PINK}{mem_digit}'

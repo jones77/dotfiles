@@ -8,14 +8,13 @@ __symbolic_links=""
 # TODO: status bar has dependency on python3.7-psutil, vim on Go
 # TODO: Add options, eg disable installing vim plugins
 
-
 fear_the_repos() {
     git_clone() {
         repo="$1" dir="$2"
         [[ -d $dir ]] || git clone "$repo" "$dir"  # clone if it ain't.
     }
     git_clone "git clone https://github.com/VundleVim/Vundle.vim.git" \
-        ~/.vim/bundle/Vundle.vim  # Note: Don't "~", otherwise you get the literal.
+       ~/.vim/bundle/Vundle.vim  # Note: Don't "~", otherwise you get the literal.
     git_clone "https://github.com/powerline/fonts.git" ~/src/github/fonts
     git_clone "https://github.com/mbadolato/iTerm2-Color-Schemes.git" \
         ~/src/github/iTerm2-Color-Schemes

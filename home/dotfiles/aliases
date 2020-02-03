@@ -60,6 +60,7 @@ alias va="vagrant"
 alias vp="vagrant"
 alias vu="vim '+PluginInstall!' +qall"
 alias  v='_vi'
+alias vn='_vi _vi__RECREATE__ _vi__RECREATE__'
 alias wf='python -m pyftpdlib -w'  # sudo pip install pyftpdlib
 alias ws='python -m SimpleHTTPServer 8000'
 #############
@@ -67,9 +68,14 @@ alias ws='python -m SimpleHTTPServer 8000'
 #############
 jj_vim_options="-X"
 function _vi {
-    if (( $# == 0 )) && [[ -f "Session.vim" ]]
+    if (( $# == 0 )) && [[ -f Session.vim ]]
     then
         vim $jj_vim_options -S Session.vim
+    elif [[ $1 == _vi__RECREATE__ && $2 == _vi__RECREATE__ ]]
+    then
+        shift 2
+        true >Session.vim  # force create empty session
+        vim $jj_vim_options -c Obsess -S Session.vim "$@"
     else
         vim $jj_vim_options "$@"
     fi
