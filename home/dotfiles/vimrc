@@ -207,7 +207,7 @@ map <space> 
 set mouse=a
 map <ScrollWheelUp> <C-U>
 map <ScrollWheelDown> <C-D>
-map <C-J> :BufExplorerHorizontalSplit<CR>
+map <C-J> :BufExplorer<CR>
 
 " Custom Git Gutter colors.
 let g:gitgutter_override_sign_column_highlight = 0
