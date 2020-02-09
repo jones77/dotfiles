@@ -38,18 +38,19 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'syngan/vim-vimlint'
 Plugin 'thiderman/vim-supervisor'
 Plugin 'tmux-plugins/vim-tmux'
-Plugin 'yuratomo/w3m.vim'
 Plugin 'tpope/vim-abolish'  " https://stackoverflow.com/a/8783131/469045
 Plugin 'tpope/vim-capslock'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-obsession'
 Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-sensible'
 Plugin 'vim-pandoc/vim-pandoc'
 Plugin 'vim-pandoc/vim-pandoc-syntax'
 Plugin 'vim-scripts/burnttoast256'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'ynkdir/vim-vimlparser'
+Plugin 'yuratomo/w3m.vim'
 Plugin 'zhou13/vim-easyescape'
 " Lightline
 Plugin 'tpope/vim-fugitive'  " https://github.com/tpope/vim-fugitive
@@ -97,6 +98,7 @@ let g:lightline = {'colorscheme': 'one',
 \   'component_type': {
 \       'lightline_hunks': 'middle',
 \}}
+
 function! MyObsession()
   if exists("*ObsessionStatus")
     return ObsessionStatus('𑁍', 'ଭ')

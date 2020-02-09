@@ -11,9 +11,10 @@ BACKGROUND = ',bg=colour17'
 RED = f'#[fg=red]'
 RED_REVERSE = f'#[fg=red{BACKGROUND},reverse]'
 MAGENTA = f'#[fg=magenta]'
-PINK = f'#[fg=colour217]'
+PINK = f'#[fg=colour217,nobold]'
 CYAN = f'#[fg=colour75]'
 EMERGENCY = f'#[fg=cyan{BACKGROUND},noreverse]'
+GREEN = f'#[fg=colour36,nobold]'
 GREEN = f'#[fg=colour36,nobold]'
 GREEN_BOLD = f'#[fg=colour36,bold]'
 GREEN_REVERSE = f'#[fg=colour36{BACKGROUND},reverse]'
@@ -24,7 +25,7 @@ GREY_REVERSE = f'#[fg=colour243{BACKGROUND},reverse]'
 # FIXME: What's intro?
 INTRO = f'#[fg=colour243,noreverse]#'
 
-CPU_LOW = GREEN
+CPU_LOW = CYAN
 CPU_HIGH = YELLOW
 CPU_110 = RED
 CPU_CRAZY = EMERGENCY
@@ -79,7 +80,7 @@ if __name__ == '__main__':
     ram_gb=int(round(vm.total/1024/1024/1024))
 
     print(
-        f'{GREEN_BOLD}{cwd[-30:]}'
+        f'{YELLOW}{cwd[-30:]}'
         f'{PINK}{du_used}'
         f'{GREEN}{ram_gb}'
         f'{PINK}{mem_digit}'
