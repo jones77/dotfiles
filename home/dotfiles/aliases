@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# requires source shelllib.sh
 ce Green running .aliases
 function _info() {
     ce Yellow "  $*"
@@ -26,6 +25,7 @@ else
 fi
 
 alias bb="curl -Ss http://169.254.169.254/openstack/latest/meta_data.json | python -m json.tool"
+alias  c="calc"
 alias ff="find $(pwd) -type f -name"
 alias fx="ag '(TODO:|FIXME:)'"
 alias fx0="ag --depth 0 '(TODO:|FIXME:)'"
