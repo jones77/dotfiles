@@ -26,6 +26,7 @@ else
 fi
 
 alias bb="curl -Ss http://169.254.169.254/openstack/latest/meta_data.json | python -m json.tool"
+alias ff="find . -type f -name"
 alias fx="ag '(TODO:|FIXME:)'"
 alias fx0="ag --depth 0 '(TODO:|FIXME:)'"
 alias ga="git add"
@@ -43,9 +44,21 @@ alias ll="ls -latr"
 alias lz="ls -laShr"
 alias pp="ps aux"
 alias st="sed 's/\x1b\[[0-9;]*m//g'"  # strip color, https://superuser.com/a/380778
+alias  t='_t'
+alias tt='tmux attach -d'
+alias va="vagrant"
+alias vc="vim '+PluginClean!' +qall"
+alias vu="vim '+PluginInstall!' +qall"
+alias  v='_vi'
+alias vn='_vi _vi__RECREATE__ _vi__RECREATE__'  # Magic vars for a new session.
+alias wf='python -m pyftpdlib -w'  # sudo pip install pyftpdlib
+alias ws='python -m SimpleHTTPServer 8000'
+#############
+# FUNCTIONS #
+#############
 # TODO: Make this a function.
 # TODO: Use bitbucket.
-function t() {
+function _t() {
     (
         cd ~/src/scratch || return
         git pull -q
@@ -56,17 +69,6 @@ function t() {
     )
     python ~/src/github/t/t.py --task-dir ~/src/scratch/tasks --list tasks
 }
-alias tt='tmux attach -d'
-alias va="vagrant"
-alias vp="vagrant"
-alias vu="vim '+PluginInstall!' +qall"
-alias  v='_vi'
-alias vn='_vi _vi__RECREATE__ _vi__RECREATE__'
-alias wf='python -m pyftpdlib -w'  # sudo pip install pyftpdlib
-alias ws='python -m SimpleHTTPServer 8000'
-#############
-# FUNCTIONS #
-#############
 jj_vim_options="-X"
 function _vi {
     if (( $# == 0 )) && [[ -f Session.vim ]]
