@@ -1,27 +1,13 @@
-# dotfiles and **scripts** for quick environment configuration
+# **scripts** and dotfiles for quick environment configuration
 
-*Dotfiles and more.*
+## `files.sh`
 
-    FIXME: Name this something more compelling
+Creates symbolic links in `$HOME/*` for files in `./home/*`.
 
-## `./files.sh`
+eg
 
-Creates symbolic links for `./dotfiles/*` in `"$HOME"`.
-
-    FIXME: Usage, what to run next
-    FIXME: configuration based
-
-## `./autosrc.sh [repo.cfg]`
-
-Checks out your favourite repos.
-
-## nixit.sh -- Work In Progress
-
-Installs the latest [Nix packages](https://nixos.org/nix/) of your favourite
-applications.
-
-    FIXME: The portability of this rhymed with xit
-
+    $HOME/.vimrc -> home/dotfiles/vimrc
+    $HOME/bin/mandelbrot.sh -> home/bin/mandelbrot
 
 # Tips
 

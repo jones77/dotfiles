@@ -1,25 +1,22 @@
 #!/usr/bin/env bash
 ce Green running .aliases
-function _info() {
-    ce Yellow "  $*"
-}
 
 alias cp="cp -i"
 alias mv="mv -i"
 alias rm="rm -i"
 alias less="less -i"  # Make search case-insensitive
 
-# Configure an ASCIIbetical gnu ls for any platforms.
-the_ls=$(type -P gls 2>/dev/null)  # Use gls, gnu ls if it exists
-[[ -z "$the_ls" ]] && the_ls=$(type -P ls)  # Otherwise default ls
-# gnu ls is `gls` on FreeBSD, if it exists just use that as per usual
-__uname=$(uname -a | grep FreeBSD >/dev/null 2>&1)
-if [[ -n "$__uname" ]] && [[ "$the_ls" == "ls" ]]
+# Configure ASCIIbetical gnu ls using LC_COLLATE=C, if it exists
+the_ls=$(type -P gls 2>/dev/null)           # Does gls (gnu ls) exist?
+[[ -z "$the_ls" ]] && the_ls=$(type -P ls)  # If not, use default ls.
+__uname_freebsd=$(uname -a | grep FreeBSD >/dev/null 2>&1)  # TODO: Use FreeBSD.
+if [[ -n "$__uname_freebsd" ]] && [[ "$the_ls" == "ls" ]]
 then
-    _info "ls is ls -G"
-    alias ls="ls -G"  # MacOS
+    # Non-gnu ls.
+    ce Red "ls is ls -G"
+    alias ls="ls -G"
 else
-    _info "ls is ASCIIbetical"
+    ce Yellow "ls is ASCIIbetical"
     alias ls="LC_COLLATE=C $the_ls --color --group-directories-first"
     # ^^ ASCIIbetical! https://ubuntuforums.org/showthread.php?t=816753
 fi
