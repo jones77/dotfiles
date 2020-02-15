@@ -26,12 +26,13 @@ else
 fi
 
 alias bb="curl -Ss http://169.254.169.254/openstack/latest/meta_data.json | python -m json.tool"
-alias ff="find . -type f -name"
+alias ff="find $(pwd) -type f -name"
 alias fx="ag '(TODO:|FIXME:)'"
 alias fx0="ag --depth 0 '(TODO:|FIXME:)'"
 alias ga="git add"
 alias gb="git branch -vv"
 alias gc="git commit"
+alias gcm="_gcm"
 alias gd="git diff"
 alias gdc="git diff --cached"
 alias gg="git log --graph --pretty=format:'%Cred%h%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%C(yellow)%d' --abbrev-commit"
@@ -58,6 +59,9 @@ alias ws='python -m SimpleHTTPServer 8000'
 #############
 # TODO: Make this a function.
 # TODO: Use bitbucket.
+function _gcm() {
+    git commit -m"$*"
+}
 function _t() {
     (
         cd ~/src/scratch || return
