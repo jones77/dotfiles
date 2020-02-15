@@ -32,10 +32,29 @@ __gasbgone() {
     ./gasbgone.sh "$__tmpfile"
 }
 
+# __fortune only prints fortunes that fit the current screen height.
+__fortune() {
+    file="$1"
+    tmpfile=
+    height=$(($(tput lines) - 1))
+    num_lines=$(( height + 9999 ))  # MAX_INTish
+
+    while (( num_lines > height ))
+    do
+        tmpfile="$(mktemp /tmp/.aafXXXX)"
+        fortune "$file" >"$tmpfile"
+        num_lines="$(wc -l "$tmpfile" | awk '{ print $1 }')"
+        # Note: This loop leaves behind fortunes that were too big to print!
+    done
+
+    cat "$tmpfile"
+    rm -f "$tmpfile"
+}
+
 # MAIN
 case "$1" in
-    u*) __update "$__fortune_file" ;;
-    f*) fortune  "$__fortune_file" ;;
+    u*) __update  "$__fortune_file" ;;
+    f*) __fortune "$__fortune_file" ;;
     s*) __gasbgone ;;
     *)  __usage_exit ;;
 esac
