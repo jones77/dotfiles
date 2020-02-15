@@ -29,6 +29,7 @@ alias bb="curl -Ss http://169.254.169.254/openstack/latest/meta_data.json | pyth
 alias fx="ag '(TODO:|FIXME:)'"
 alias fx0="ag --depth 0 '(TODO:|FIXME:)'"
 alias ga="git add"
+alias gb="git branch -vv"
 alias gc="git commit"
 alias gd="git diff"
 alias gdc="git diff --cached"

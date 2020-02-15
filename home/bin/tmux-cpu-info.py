@@ -25,8 +25,8 @@ GREY_REVERSE = f'#[fg=colour243{BACKGROUND},reverse]'
 # FIXME: What's intro?
 INTRO = f'#[fg=colour243,noreverse]#'
 
-CPU_LOW = CYAN
-CPU_HIGH = YELLOW
+CPU_LOW = GREEN
+CPU_HIGH = MAGENTA
 CPU_110 = RED
 CPU_CRAZY = EMERGENCY
 
@@ -54,7 +54,7 @@ if __name__ == '__main__':
         if len(decile_cpu) == 1:
             deciles.append('{}'.format(decile_cpu))
         elif decile_cpu == '10':
-            deciles.append('*')
+            deciles.append('♨')
         elif decile_cpu == '11':
             deciles.append('!')
         else:
