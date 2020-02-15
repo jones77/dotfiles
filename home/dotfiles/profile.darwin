@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 source ~/.shelllib.sh
-ce Green running .profile.general
+ce Green running .profile.darwin
 
 # source this file from your favourite login shell
 # ce Red updating brew && brew update
