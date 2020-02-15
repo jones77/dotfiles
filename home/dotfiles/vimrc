@@ -29,6 +29,7 @@ Plugin 'heavenshell/vim-pydocstring'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'jparise/vim-graphql'
 Plugin 'maralla/completor.vim'
+Plugin 'mengelbrecht/lightline-bufferline'
 Plugin 'mileszs/ack.vim'
 Plugin 'mkitt/tabline.vim'
 Plugin 'nvie/vim-flake8'
@@ -98,7 +99,6 @@ let g:lightline = {'colorscheme': 'one',
 \   'component_type': {
 \       'lightline_hunks': 'middle',
 \}}
-
 function! MyObsession()
   if exists("*ObsessionStatus")
     return ObsessionStatus('𑁍', 'ଭ')

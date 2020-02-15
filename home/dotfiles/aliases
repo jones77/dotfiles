@@ -64,7 +64,7 @@ function _gcm() {
 }
 function _t() {
     (
-        cd ~/src/scratch || return
+        cd ~/src/github/scratch || return
         git pull -q
         [[ "$(git diff -- tasks/tasks | wc -l)" != "0" ]] \
             && git add -- tasks/tasks \
