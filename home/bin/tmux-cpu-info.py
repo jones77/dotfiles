@@ -16,11 +16,11 @@ GREEN = f'#[fg=colour36,nobold]'
 GREEN = f'#[fg=colour36,nobold]'
 GREEN_BOLD = f'#[fg=colour36,bold]'
 GREEN_REVERSE = f'#[fg=colour36,reverse]'
-YELLOW = f'#[fg=colour227,noreverse]'
+YELLOW = f'#[fg=colour227,noreverse,nobold]'
 YELLOW_REVERSE = f'#[fg=colour227,reverse]'
 GREY = f'#[fg=colour243]'
 GREY_REVERSE = f'#[fg=colour243,reverse]'
-EMERGENCY = f'#[fg=red,bold]'
+MAX_CPU = f'#[fg=red,bold]'
 CWD_LEN = 30
 
 
@@ -36,7 +36,7 @@ def cpu_viz():
             # Coerce to last element, cpu_usage can be >= 100.0
             cpu_usage_index = len(cpu_usage) - 1
         if cpu_usage_index == len(cpu_usage) - 1:
-            cpu_string += EMERGENCY
+            cpu_string += MAX_CPU
         elif cpu_usage_index > (len(cpu_usage) // 2):
             cpu_string += PINK
         else:
@@ -72,5 +72,6 @@ if __name__ == '__main__':
         f'{PINK}{du_used}'
         f'{GREEN}{ram_gb}'
         f'{YELLOW}{mem_digit}'
+        # Trailing YELLOW prevents MAX_CPU format bleeding.
         f'{cpu_string}{YELLOW}'
     )
