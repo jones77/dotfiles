@@ -181,6 +181,7 @@ set expandtab
 set fileformat=unix
 set hlsearch
 set ignorecase
+set modelines=1
 set nofoldenable
 set number
 set ruler               " show cursor position in status line
