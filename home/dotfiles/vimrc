@@ -67,9 +67,12 @@ filetype plugin indent on
 " :PluginSearch foo - searches for foo, `!` refresh local cache
 " :PluginClean - `!` auto-approve, :h vundle - help
 
+" Colors
 set t_Co=256
-set background=dark
+set termguicolors
 colorscheme burnttoast256
+
+set background=dark
 
 let g:lightline = {'colorscheme': 'one',
 \   'separator': { 'left': '', 'right': '' },
@@ -89,7 +92,7 @@ let g:lightline = {'colorscheme': 'one',
 \       ]
 \   },
 \   'component': {
-\       'charvaluehex': '%B',
+\       'charvaluehex': '0x%B',
 \   },
 \   'component_function': {
 \       'lightline_hunks': 'lightline#hunks#composer',
@@ -100,15 +103,15 @@ let g:lightline = {'colorscheme': 'one',
 \       'lightline_hunks': 'middle',
 \}}
 function! MyObsession()
-  if exists("*ObsessionStatus")
-    return ObsessionStatus('𑁍', 'ଭ')
-  endif
+    if exists("*ObsessionStatus")
+        return ObsessionStatus('𑁍', 'ଭ')
+    endif
 endfunction
 command! LightlineReload call LightlineReload()
 function! LightlineReload()
-  call lightline#init()
-  call lightline#colorscheme()
-  call lightline#update()
+    call lightline#init()
+    call lightline#colorscheme()
+    call lightline#update()
 endfunction
 
 augroup LoadOnce
@@ -209,16 +212,17 @@ map <space> 
 set mouse=a
 map <ScrollWheelUp> <C-U>
 map <ScrollWheelDown> <C-D>
-map <C-J> :BufExplorer<CR>
+map <C-J> :ToggleBufExplorer<CR>
 map <C-K> :NERDTreeToggle<CR>
 
 " Custom Git Gutter colors.
 let g:gitgutter_override_sign_column_highlight = 0
-hi GitGutterAdd    ctermfg=36  ctermbg=232
-hi GitGutterChange ctermfg=227 ctermbg=232
-hi GitGutterDelete ctermfg=1   ctermbg=232
+hi GitGutterAdd    ctermfg=36  ctermbg=black
+hi GitGutterChange ctermfg=227 ctermbg=black
+hi GitGutterDelete ctermfg=1   ctermbg=black
 
-hi SignColumn              ctermbg=232
-hi LineNr      ctermfg=239 ctermbg=232
-hi ColorColumn             ctermbg=233
+hi SignColumn              ctermbg=black
+hi LineNr      ctermfg=239 ctermbg=black
+hi ColorColumn             ctermbg=232
 set colorcolumn=40,80,120,160,200,240,280,320
+" vim: ts=4 sw=4:

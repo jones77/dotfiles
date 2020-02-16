@@ -4,9 +4,43 @@ ce Green running .aliases
 alias cp="cp -i"
 alias mv="mv -i"
 alias rm="rm -i"
-alias less="less -i"  # Make search case-insensitive
+alias less="less -ir"  # Make search case-insensitive, use colors.
 
-# Configure ASCIIbetical gnu ls using LC_COLLATE=C, if it exists
+alias  b="bat"
+alias bb="curl -Ss http://169.254.169.254/openstack/latest/meta_data.json | python -m json.tool"
+alias  c="calc"
+alias  f="fzf -m --no-height --preview 'bat {}'"
+alias fx="ag '(TODO:|FIXME:)'"
+alias fx0="_agd '(TODO:|FIXME:)' 0"
+alias ga="git add"
+alias gb="git branch -vv"
+alias gc="git commit"
+alias gcm="_gcm"  # git commit -m "$*"
+alias gd="git diff"
+alias gdc="git diff --cached"
+alias gg="git log --graph --pretty=format:'%Cred%h%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%C(yellow)%d' --abbrev-commit"
+alias gp='git pull'
+alias gs='git st'
+alias jr='cd ~/src/bitbucket/scratch && ls'
+alias js='cd ~/src/bitbucket/scripts && ls'
+alias jv='cd ~/src/bitbucket/vagrants && ls'
+alias ll="ls -latr"
+alias lz="ls -laShr"
+alias pp="ps aux"
+alias st="sed 's/\x1b\[[0-9;]*m//g'"  # strip color, https://superuser.com/a/380778
+alias  t='_t'  # FIXME: Make this work again.
+alias tt='tmux attach -d'
+alias va="vagrant"
+alias vc="vim '+PluginClean!' +qall"
+alias vf='v $(f)'
+alias vu="vim '+PluginInstall!' +qall"
+alias  v='_vi'
+alias vn='_vi _vi__RECREATE__ _vi__RECREATE__'  # Magic vars for a new session.
+alias wf='python -m pyftpdlib -w'  # sudo pip install pyftpdlib
+alias ws='python -m SimpleHTTPServer 8000'
+######
+# ls # Configure ASCIIbetical gnu ls using LC_COLLATE=C, if it exists
+######
 the_ls=$(type -P gls 2>/dev/null)           # Does gls (gnu ls) exist?
 [[ -z "$the_ls" ]] && the_ls=$(type -P ls)  # If not, use default ls.
 __uname_freebsd=$(uname -a | grep FreeBSD >/dev/null 2>&1)  # TODO: Use FreeBSD.
@@ -20,42 +54,14 @@ else
     alias ls="LC_COLLATE=C $the_ls --color --group-directories-first"
     # ^^ ASCIIbetical! https://ubuntuforums.org/showthread.php?t=816753
 fi
-
-alias bb="curl -Ss http://169.254.169.254/openstack/latest/meta_data.json | python -m json.tool"
-alias  c="calc"
-alias ff="find $(pwd) -type f -name"
-alias fx="ag '(TODO:|FIXME:)'"
-alias fx0="ag --depth 0 '(TODO:|FIXME:)'"
-alias ga="git add"
-alias gb="git branch -vv"
-alias gc="git commit"
-alias gcm="_gcm"
-alias gd="git diff"
-alias gdc="git diff --cached"
-alias gg="git log --graph --pretty=format:'%Cred%h%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%C(yellow)%d' --abbrev-commit"
-alias gp='git pull'
-alias gs='git st'
-alias jr='cd ~/src/bitbucket/scratch && ls'
-alias js='cd ~/src/bitbucket/scripts && ls'
-alias jv='cd ~/src/bitbucket/vagrants && ls'
-alias ll="ls -latr"
-alias lz="ls -laShr"
-alias pp="ps aux"
-alias st="sed 's/\x1b\[[0-9;]*m//g'"  # strip color, https://superuser.com/a/380778
-alias  t='_t'
-alias tt='tmux attach -d'
-alias va="vagrant"
-alias vc="vim '+PluginClean!' +qall"
-alias vu="vim '+PluginInstall!' +qall"
-alias  v='_vi'
-alias vn='_vi _vi__RECREATE__ _vi__RECREATE__'  # Magic vars for a new session.
-alias wf='python -m pyftpdlib -w'  # sudo pip install pyftpdlib
-alias ws='python -m SimpleHTTPServer 8000'
 #############
-# FUNCTIONS #
+# Functions #
 #############
-# TODO: Make this a function.
-# TODO: Use bitbucket.
+function _agd() {  # _agd pattern depth
+    pattern="$1"
+    depth="$2"
+    ag --depth "$depth" "$pattern"
+}
 function _gcm() {
     git commit -m"$*"
 }
