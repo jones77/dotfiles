@@ -20,10 +20,10 @@ export JJ77_PYTHON='$(command -v python3.7)'
 ce Green running .profile.custom
 EOF
     source ~/.profile.custom
-    echo "$JJ77_PYTHON"
+    echo "JJ77_PYTHON=$JJ77_PYTHON"
 }
 pip_it() {
-    sudo pip3.7 install jedi psutil
+    sudo pip3.7 install jedi psutil || :  # Forgive this failure.
 }
 configure_vim() {
     vim '+PluginInstall' +qall 2>&1

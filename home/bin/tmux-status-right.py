@@ -53,26 +53,18 @@ if __name__ == '__main__':
     # TODO: Make last path be yellow, make prefix paths be green.
     # cwd = cwd.replace('/', f'{YELLOW}/{GREEN}') + YELLOW + '/'
 
-    vm = psutil.virtual_memory()
-    memory_used = 1 - (vm.available / vm.total)
-    mem_digit = '{0:.0}'.format(memory_used)
-    if mem_digit.startswith('0.'):
-        mem_digit = mem_digit[2:]
-    else:
-        mem_digit = '!' + mem_digit + '!'
-
     stat = os.statvfs('.')
-    du_used = int(round((1 - stat.f_bavail / stat.f_blocks) * 100))
+    disk_used = round((1 - stat.f_bavail / stat.f_blocks) * 100)
 
-    ram_gb=int(round(vm.total/1024/1024/1024))
-
-    cpu_string = cpu_viz()
+    vm = psutil.virtual_memory()
+    total_mem_gb=round(vm.total/1024/1024/1024)
+    mem_used_decile = round((1 - (vm.available / vm.total)) * 10)
 
     print(
         f'{YELLOW}{cwd}'
-        f'{PINK}{du_used}'
-        f'{GREEN}{ram_gb}'
-        f'{YELLOW}{mem_digit}'
+        f'{PINK}{disk_used}'
+        f'{GREEN}{total_mem_gb}'
+        f'{YELLOW}{mem_used_decile}'
         # Trailing YELLOW prevents MAX_CPU format bleeding.
-        f'{cpu_string}{YELLOW}'
+        f'{cpu_viz()}{YELLOW}'
     )
