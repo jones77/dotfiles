@@ -23,7 +23,7 @@ EOF
     echo "$JJ77_PYTHON"
 }
 pip_it() {
-    pip3.7 install jedi psutil
+    sudo pip3.7 install jedi psutil
 }
 configure_vim() {
     vim '+PluginInstall' +qall 2>&1
@@ -112,7 +112,6 @@ configure_profile() {
         ce Red "Warning: Neither .bash_profile nor .profile exist in $HOME"
     fi
     __add_line_once "$profile_file" "source ~/.profile.general"
-    source "$profile_file"
     ce Yellow "Source it:" && ce Green "    source $profile_file"
 }
 print_links() {
@@ -133,10 +132,10 @@ print_links() {
 # MAIN #
 ########
 recreate_custom_profile
+configure_dotfiles
 pip_it
 configure_vim
 fear_the_repos
-configure_dotfiles
 print_links  # FIXME: Fold into configure_dotfiles.
 configure_git_config
 configure_profile

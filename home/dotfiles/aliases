@@ -20,7 +20,7 @@ alias gd="git diff"
 alias gdc="git diff --cached"
 alias gg="git log --graph --pretty=format:'%Cred%h%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%C(yellow)%d' --abbrev-commit"
 alias gp='git pull'
-alias gs='git st'
+alias gs='git status -s'
 alias jr='cd ~/src/bitbucket/scratch && ls'
 alias js='cd ~/src/bitbucket/scripts && ls'
 alias jv='cd ~/src/bitbucket/vagrants && ls'
