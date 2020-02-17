@@ -9,12 +9,27 @@ function __basename {
 function __pathname {
     echo "${1%/*}"
 }
+function __add_line_once() {
+    file="$1"
+    shift
+    line="$*"
+    if [[ ! -f $file ]]
+    then
+        echo "error: add_line_once: No such file: $file"
+        exit 1
+    fi
+
+    grep "$line" "$file" 1>/dev/null 2>&1 || (
+        echo "$line" >> "$file"
+        echo "$(ce Yellow "$line") $(ce Green "added to") $(ce Yellow "$file")"
+    )
+}
 
 # http://wiki.bash-hackers.org/scripting/terminalcodes
 # http://stackoverflow.com/a/5947802
 __fg_Black="0;30"
 __fg_Blue="0;34"
-__fg_BrownOrange="0;33"
+__fg_Yellow="0;33"
 __fg_Cyan="0;36"
 __fg_DarkGray="1;30"
 __fg_Green="0;32"
@@ -27,7 +42,7 @@ __fg_BoldRed="1;31"
 __fg_Purple="0;35"
 __fg_Red="0;31"
 __fg_White="1;37"
-__fg_Yellow="1;33"
+__fg_BoldYellow="1;33"
 
 __fg_bgRed="\e[41"
 __fg_bgGreen="\e[42"
@@ -53,10 +68,11 @@ function ce {  # color echo, eg ce Green string [...]
 }
 
 function celist {
+    # FIXME: Use a hash so we can list the names.
     for i in \
         $__fg_Black \
         $__fg_Blue \
-        $__fg_BrownOrange \
+        $__fg_Yellow \
         $__fg_Cyan \
         $__fg_DarkGray \
         $__fg_Green \
@@ -69,7 +85,7 @@ function celist {
         $__fg_Purple \
         $__fg_Red \
         $__fg_White \
-        $__fg_Yellow \
+        $__fg_BoldYellow \
     \
         $__fg_bgRed \
         $__fg_bgGreen

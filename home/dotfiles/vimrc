@@ -2,6 +2,7 @@ scriptencoding utf-8
 set nocompatible
 set encoding=utf-8
 filetype off
+" TODO: Use https://github.com/junegunn/vim-plug
 "" VundleBegin
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -15,19 +16,21 @@ Plugin 'cespare/vim-toml'
 Plugin 'chr4/nginx.vim'
 Plugin 'chrisbra/Recover.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'davidhalter/jedi'
 Plugin 'dkprice/vim-easygrep'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'exu/pgsql.vim'
 Plugin 'fatih/vim-go'
 Plugin 'flazz/vim-colorschemes'
-Plugin 'gregsexton/gitv'
+Plugin 'gilsondev/searchtasks.vim'
 Plugin 'guns/xterm-color-table.vim'
 Plugin 'hashivim/vim-terraform'
 Plugin 'hashivim/vim-vagrant'
 Plugin 'heavenshell/vim-pydocstring'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'jparise/vim-graphql'
+Plugin 'junegunn/gv.vim'
 Plugin 'maralla/completor.vim'
 Plugin 'mengelbrecht/lightline-bufferline'
 Plugin 'mileszs/ack.vim'
@@ -48,7 +51,7 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-sensible'
 Plugin 'vim-pandoc/vim-pandoc'
 Plugin 'vim-pandoc/vim-pandoc-syntax'
-Plugin 'vim-scripts/burnttoast256'
+Plugin 'jones77/burnttoast256'  " fork of Plugin 'vim-scripts/burnttoast256'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'ynkdir/vim-vimlparser'
 Plugin 'yuratomo/w3m.vim'
@@ -71,9 +74,8 @@ filetype plugin indent on
 set t_Co=256
 set termguicolors
 colorscheme burnttoast256
-
 set background=dark
-
+" Lightline
 let g:lightline = {'colorscheme': 'one',
 \   'separator': { 'left': '', 'right': '' },
 \   'subseparator': { 'left': '', 'right': '' },
@@ -143,6 +145,9 @@ augroup END
 set showtabline=2  " Make lightline work
 set laststatus=2  " Make the above work
 set noshowmode  " hide old-school --INSERT-- / --VISUAL-- from the command line
+
+let g:completor_python_binary = $JJ77_PYTHON
+" FIXME: J77ENV_PYTHON
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}

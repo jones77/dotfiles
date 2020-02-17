@@ -10,8 +10,8 @@ ln -fs "$(pwd)/gasbgone.sh" ~/bin/gasbgone.sh
 cd ~/bin
 ./fortune.sh update
 
-if grep -Fxq fortune ~/.profile.extra
+if grep -Fxq fortune ~/.profile.custom
 then
-    echo "alias f=fortune.sh" >> ~/.profile.extra
+    echo "alias ff=fortune.sh f" >> ~/.profile.extra
     echo "fortune.sh f"       >> ~/.profile.extra
 fi

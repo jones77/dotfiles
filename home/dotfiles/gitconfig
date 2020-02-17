@@ -19,7 +19,7 @@
 [color "diff"]
     meta = yellow
     frag = magenta
-    old = red bold
+    old = red
     new = green
     plain = white
 

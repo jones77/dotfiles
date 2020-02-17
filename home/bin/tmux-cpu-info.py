@@ -50,6 +50,7 @@ if __name__ == '__main__':
     cwd = sys.argv[1] if len(sys.argv) > 1 else os.getcwd()
     if len(cwd) > CWD_LEN:
         cwd = '…' + cwd[-CWD_LEN-1:]
+    # TODO: Make last path be yellow, make prefix paths be green.
     # cwd = cwd.replace('/', f'{YELLOW}/{GREEN}') + YELLOW + '/'
 
     vm = psutil.virtual_memory()

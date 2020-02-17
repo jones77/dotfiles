@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # source this file from your favourite login shell
 source ~/.shelllib.sh
+[[ -f ~/.profile.custom ]] && source ~/.profile.custom  # per env overrides
 ce Green running .profile.general
 source ~/.aliases  # azify
 
@@ -48,7 +49,7 @@ fi
 
 # Run the per os profiles and the extra profile if they exist.
 os=$(azify "$(uname -s)")
-for __p in "${os}" "extra" "fortune" "work"
+for __p in "${os}" "work" "extra"  # .profile.extra is the last thing to run.
 do
     if [[ -f "${HOME}/.profile.${__p}" ]]
     then

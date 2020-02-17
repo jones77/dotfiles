@@ -1,8 +1,9 @@
-# **scripts** and dotfiles for quick environment configuration
+# My dotfiles & more for quick environment configuration
 
-## `files.sh`
+## `configure_env.sh`
 
-Creates symbolic links in `$HOME/*` for files in `./home/*`.
+Creates symbolic links in `$HOME/*` for files in `./home/bin` and
+`./home/dotfiles`.
 
 eg
 
@@ -41,38 +42,12 @@ https://hyperv.veeam.com/blog/how-to-configure-hyper-v-virtual-switch/
 [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/)
 [xmonad](https://wiki.haskell.org/wikiupload/b/b8/Xmbindings.png)
 
-## General
+## Change Timezone
 
-    # Fix timezone
     sudo timedatectl set-timezone America/New_York
+
+## Powerline Fonts
 
 You want [**powerline fonts**](https://github.com/powerline/fonts) for `vim` and
 `tmux`.  [This is where **Deja Vu Sans Mono** lives, the world's greatest
 programmer font.](https://github.com/powerline/fonts/tree/master/DejaVuSansMono)
-
-
-# Building vim
-
-## Debian
-
-    ./configure --with-features=huge \
-        --enable-multibyte=yes \
-        --enable-python3interp=yes \
-        --enable-pythoninterp=yes \
-        --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu
-
-<!--
-
-Deprecated documentation
-
-> # `packages.sh`
-
-> Install some basic apt/yum packages.  eg `ruby`, needed by
-> linuxbrew, `sudo` in case I'm on a Debian machine, `strace` just because.  Then
-> installs [Linuxbrew](http://linuxbrew.sh/) and more packages (eg the latest
-> versions of tmux and go).
-
-> Have a look in the [`_packages/`](_packages/) directory and modify to your
-> heart's content.
-
--->
