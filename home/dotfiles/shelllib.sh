@@ -19,7 +19,7 @@ function __add_line_once() {
         exit 1
     fi
 
-    grep "$line" "$file" 1>/dev/null 2>&1 || (
+    grep -qxF "$line" "$file" || (
         echo "$line" >> "$file"
         echo "$(ce Yellow "$line") $(ce Green "added to") $(ce Yellow "$file")"
     )

@@ -2,6 +2,8 @@
 # fortune.sh installer
 set -o errexit
 
+source ~/.shelllib.sh
+
 # Configure symbolic links
 ln -fs "$(pwd)/fortune.sh" ~/bin/fortune.sh
 ln -fs "$(pwd)/gasbgone.sh" ~/bin/gasbgone.sh
@@ -10,8 +12,5 @@ ln -fs "$(pwd)/gasbgone.sh" ~/bin/gasbgone.sh
 cd ~/bin
 ./fortune.sh update
 
-if grep -Fxq fortune ~/.profile.custom
-then
-    echo "alias ff=fortune.sh f" >> ~/.profile.extra
-    echo "fortune.sh f"       >> ~/.profile.extra
-fi
+__add_line_once ~/.profile.extra 'alias ff="fortune.sh f"'
+__add_line_once ~/.profile.extra 'fortune.sh f'
