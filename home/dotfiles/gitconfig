@@ -2,10 +2,6 @@
 
 # [core]
     # excludesfile = /Users/np/.gitignore_global
-[user]
-	email = james@jones77.come
-	name = James Jones
-
 [color]
     branch = auto
     diff = auto

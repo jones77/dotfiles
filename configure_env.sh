@@ -10,14 +10,29 @@ __symbolic_links=""                  # Symbolic links we created.
 # - python3.7-psutil (tmux-cpu-info.py)
 
 # TODO: Add options, eg disable installing vim plugins
-
+fail() {
+    echo "$(__basename ${BASH_SOURCE[0]}) work|play"
+    exit 1
+}
 recreate_custom_profile() {
+    j18=$(echo -n 'ampvbmVzMThAYmxvbWJlcmcubmV0' | base64 -d)
+    j77=$(echo -n 'amFtZXNAam9uZXM3Ny5jb20='     | base64 -d)
+    case $1 in
+        play) export GIT_COMMITTER_EMAIL="$j77" ;;
+        work) export GIT_COMMITTER_EMAIL="$j18" ;;
+           *) fail ;;
+    esac
     touch ~/.profile.custom
     cat <<EOF >~/.profile.custom
 #!/usr/bin/env bash
 source ~/.shelllib.sh
 export JJ77_PYTHON='$(command -v python3.7)'
 export JJ77_GOCODE='$(command -v gocode)'
+export GIT_COMMITTER_NAME="James Jones"
+export GIT_AUTHOR_NAME="James Jones"
+export GIT_COMMITTER_EMAIL="$GIT_COMMITTER_EMAIL"
+export GIT_AUTHOR_EMAIL="$GIT_COMMITTER_EMAIL"
+
 ce Green running .profile.custom
 EOF
     source ~/.profile.custom
@@ -87,24 +102,6 @@ configure_dotfiles() {  # Symlinks ./home/... files to eg, $HOME/. and $HOME/bin
         done
     done
 }
-
-configure_git_config() {
-    j18=$(echo -n 'ampvbmVzMThAYmxsb21iZXJnLm5ldA==' | base64 -d)
-    j77=$(echo -n 'amFtZXNAam9uZXM3Ny5jb21l' | base64 -d)
-    if [[ $(whoami) == jjones ]]
-    then
-        git config --global http.sslVerify false
-        git config --global user.name "James Jones"
-        git config --global user.email "$j18"
-        git config --global credential.helper 'cache --timeout 604800'
-    elif [[ $(whoami) == jones ]] || [[ $(whoami) == root ]]
-    then
-        git config --global http.sslVerify true
-        git config --global user.name "James Jones"
-        git config --global user.email "$j77"
-        git config --global credential.helper 'cache --timeout 604800'
-    fi
-}
 configure_profile() {
     # Add to .bash_profile or .profile?
     if [[ -f "$HOME/.bash_profile" ]] && [[ -f "$HOME/.profile" ]]
@@ -135,16 +132,17 @@ print_links() {
         printf "%-44s%s\n" "$(ce Cyan "$__b")" "$(ce Green "$actual")"
     done
 }
-
 ########
 # MAIN #
 ########
+(( $# == 1 )) || fail
+declare -r environment="$1"
+
 configure_golang
-recreate_custom_profile
+recreate_custom_profile "$environment"
 configure_dotfiles
 pip_it
 fear_the_repos
 configure_vim
 print_links  # FIXME: Fold into configure_dotfiles.
-configure_git_config
 configure_profile
