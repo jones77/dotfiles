@@ -17,6 +17,7 @@ recreate_custom_profile() {
 #!/usr/bin/env bash
 source ~/.shelllib.sh
 export JJ77_PYTHON='$(command -v python3.7)'
+export JJ77_GOCODE='$(command -v gocode)'
 ce Green running .profile.custom
 EOF
     source ~/.profile.custom
@@ -25,10 +26,16 @@ EOF
 pip_it() {
     sudo pip3.7 install jedi psutil || :  # Forgive this failure.
 }
-configure_vim() {
-    vim '+PluginInstall' +qall 2>&1
+configure_golang() {
     mkdir -p ~/go/bin
     go get -u github.com/nsf/gocode  # needed by maralla/completor
+
+    go get   golang.org/x/tools/cmd/guru
+    go build golang.org/x/tools/cmd/guru
+    mv guru ~/go/bin
+}
+configure_vim() {
+    vim '+PluginInstall' +qall 2>&1
 }
 fear_the_repos() {  # FIXME: Use WIPs/autosrc.
     git_clone() {
@@ -130,6 +137,7 @@ print_links() {
 ########
 # MAIN #
 ########
+configure_golang
 recreate_custom_profile
 configure_dotfiles
 pip_it
