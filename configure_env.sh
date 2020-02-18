@@ -22,11 +22,13 @@ ce Green running .profile.custom
 EOF
     source ~/.profile.custom
     echo "JJ77_PYTHON=$JJ77_PYTHON"
+    echo "JJ77_GOCODE=$JJ77_GOCODE"
 }
 pip_it() {
     sudo pip3.7 install jedi psutil || :  # Forgive this failure.
 }
 configure_golang() {
+    ce Green configuring golang
     mkdir -p ~/go/bin
     go get -u github.com/nsf/gocode  # needed by maralla/completor
 
