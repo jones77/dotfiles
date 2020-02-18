@@ -11,7 +11,7 @@ __symbolic_links=""                  # Symbolic links we created.
 
 # TODO: Add options, eg disable installing vim plugins
 fail() {
-    echo "$(__basename ${BASH_SOURCE[0]}) work|play"
+    echo "$(__basename "${BASH_SOURCE[0]}") work|play"
     exit 1
 }
 recreate_custom_profile() {

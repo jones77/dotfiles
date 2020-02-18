@@ -10,6 +10,9 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 " http://liuchengxu.org/posts/use-vim-as-a-python-ide/
+" First
+Plugin 'tpope/vim-fugitive'  " https://github.com/tpope/vim-fugitive
+" Middle
 Plugin 'Vimjas/vim-python-pep8-indent'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'cespare/vim-toml'
@@ -29,7 +32,6 @@ Plugin 'hashivim/vim-vagrant'
 Plugin 'heavenshell/vim-pydocstring'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'jparise/vim-graphql'
-Plugin 'junegunn/gv.vim'
 Plugin 'maralla/completor.vim'
 Plugin 'mengelbrecht/lightline-bufferline'
 Plugin 'mileszs/ack.vim'
@@ -54,10 +56,11 @@ Plugin 'ynkdir/vim-vimlparser'
 Plugin 'yuratomo/w3m.vim'
 Plugin 'zhou13/vim-easyescape'
 " Lightline
-Plugin 'tpope/vim-fugitive'  " https://github.com/tpope/vim-fugitive
 Plugin 'airblade/vim-gitgutter'
 Plugin 'itchyny/lightline.vim'
 Plugin 'sinetoami/lightline-hunks'
+" Last
+Plugin 'junegunn/gv.vim'
 " All of your Plugins must be added before the following line
 call vundle#end()
 filetype plugin indent on
