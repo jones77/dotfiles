@@ -35,12 +35,11 @@ fear_the_repos() {  # FIXME: Use WIPs/autosrc.
         repo="$1" dir="$2"
         [[ -d $dir ]] || git clone "$repo" "$dir"  # clone if it ain't.
     }
-    git_clone "git clone https://github.com/VundleVim/Vundle.vim.git" \
+    git_clone "https://github.com/VundleVim/Vundle.vim.git" \
        ~/.vim/bundle/Vundle.vim  # Note: Don't "~", you'll get a literal "~".
     git_clone "https://github.com/powerline/fonts.git" ~/src/github/fonts
     git_clone "https://github.com/mbadolato/iTerm2-Color-Schemes.git" \
         ~/src/github/iTerm2-Color-Schemes
-
 }
 configure_dotfiles() {  # Symlinks ./home/... files to eg, $HOME/. and $HOME/bin
     for dir in home/*
@@ -134,8 +133,8 @@ print_links() {
 recreate_custom_profile
 configure_dotfiles
 pip_it
-configure_vim
 fear_the_repos
+configure_vim
 print_links  # FIXME: Fold into configure_dotfiles.
 configure_git_config
 configure_profile

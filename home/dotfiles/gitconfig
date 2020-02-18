@@ -3,7 +3,7 @@
 # [core]
     # excludesfile = /Users/np/.gitignore_global
 [user]
-	email = james@jones77.com
+	email = jjones18@bllomberg.net
 	name = James Jones
 
 [color]
@@ -167,7 +167,7 @@
 [push]
 	default = simple
 [http]
-	sslVerify = true
+	sslVerify = false
 [credential]
 	helper = cache --timeout 604800
 [core]

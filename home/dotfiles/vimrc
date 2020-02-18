@@ -22,7 +22,6 @@ Plugin 'editorconfig/editorconfig-vim'
 Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'exu/pgsql.vim'
 Plugin 'fatih/vim-go'
-Plugin 'flazz/vim-colorschemes'
 Plugin 'gilsondev/searchtasks.vim'
 Plugin 'guns/xterm-color-table.vim'
 Plugin 'hashivim/vim-terraform'
@@ -37,7 +36,6 @@ Plugin 'mileszs/ack.vim'
 Plugin 'mkitt/tabline.vim'
 Plugin 'nvie/vim-flake8'
 Plugin 'pangloss/vim-javascript'
-Plugin 'powerline/powerline'
 Plugin 'scrooloose/nerdtree'
 Plugin 'syngan/vim-vimlint'
 Plugin 'thiderman/vim-supervisor'
@@ -72,9 +70,9 @@ filetype plugin indent on
 
 " Colors
 set t_Co=256
-set termguicolors
-colorscheme burnttoast256
 set background=dark
+colorscheme burnttoast256
+
 " Lightline
 let g:lightline = {'colorscheme': 'one',
 \   'separator': { 'left': '', 'right': '' },
@@ -103,7 +101,8 @@ let g:lightline = {'colorscheme': 'one',
 \   },
 \   'component_type': {
 \       'lightline_hunks': 'middle',
-\}}
+\   },
+\}
 function! MyObsession()
     if exists("*ObsessionStatus")
         return ObsessionStatus('𑁍', 'ଭ')
@@ -121,6 +120,7 @@ augroup LoadOnce
     " http://stackoverflow.com/q/15353988
     autocmd!
     autocmd bufwritepost .vimrc source $MYVIMRC
+    autocmd bufwritepost vimrc source $MYVIMRC
     " Trim trailing whitespace from the following filetypes.
     autocmd FileType c,cpp,graphql,h,java,md,python,ruby,sql,sh,vim,yaml,Dockerfile,Vagrantfile,Jenkinsfile
         \ autocmd BufWritePre <buffer> :%s/\s\+$//e
@@ -138,8 +138,9 @@ augroup LoadOnce
         autocmd TabEnter,BufEnter,BufReadPost,FileReadPost,BufNewFile,FocusGained * call system("tmux rename-window " . expand("%:t"))
         autocmd VimLeave,FocusLost * call system("tmux set-window-option automatic-rename")
         " lightline - https://github.com/mengelbrecht/lightline-bufferline/issues/5#issuecomment-293679716
-        autocmd VimEnter,TabEnter,BufReadPost,BufWritePost,BufHidden,FileReadPost,FileWritePost,BufNewFile,FocusGained * call lightline#update()
     endif
+
+    autocmd VimEnter,TabEnter,BufReadPost,BufWritePost,BufHidden,FileReadPost,FileWritePost,BufNewFile,FocusGained * call LightlineReload()
 augroup END
 
 set showtabline=2  " Make lightline work

@@ -13,3 +13,5 @@ sudo "apt-get install python3.7-psutil"
 
 # Fix timezone
 sudo timedatectl set-timezone America/New_York
+
+yum install epel-release
